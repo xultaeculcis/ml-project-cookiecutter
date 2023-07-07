@@ -1,0 +1,89 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-added-large-files
+        args: [ '--maxkb=1000' ]
+      - id: check-case-conflict
+        exclude: '{{ cookiecutter.repo_name }}'
+      - id: check-merge-conflict
+        exclude: '{{ cookiecutter.repo_name }}'
+      - id: check-symlinks
+        exclude: '{{ cookiecutter.repo_name }}'
+      - id: check-yaml
+        exclude: '{{ cookiecutter.repo_name }}'
+      - id: debug-statements
+        exclude: '{{ cookiecutter.repo_name }}'
+      - id: end-of-file-fixer
+        exclude: '{{ cookiecutter.repo_name }}'
+      - id: requirements-txt-fixer
+        exclude: '{{ cookiecutter.repo_name }}'
+      - id: trailing-whitespace
+        exclude: '{{ cookiecutter.repo_name }}'
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: isort (python)
+        exclude: '{{ cookiecutter.repo_name }}'
+      - id: isort
+        name: isort (cython)
+        types: [ cython ]
+        exclude: '{{ cookiecutter.repo_name }}'
+      - id: isort
+        name: isort (pyi)
+        types: [ pyi ]
+        exclude: '{{ cookiecutter.repo_name }}'
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        language_version: python3
+        exclude: '{{ cookiecutter.repo_name }}'
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        additional_dependencies: [ flake8-bugbear, flake8-print ]
+        exclude: '{{ cookiecutter.repo_name }}'
+
+  - repo: https://github.com/fsouza/autoflake8
+    rev: v0.4.0
+    hooks:
+      - id: autoflake8
+        language_version: python3
+        args: [
+          '--in-place',
+        ]
+        exclude: '{{ cookiecutter.repo_name }}'
+
+  - repo: https://github.com/mgedmin/check-manifest
+    rev: "0.49"
+    hooks:
+      - id: check-manifest
+        stages: [ manual ]
+        exclude: '{{ cookiecutter.repo_name }}'
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.4.1"
+    hooks:
+      - id: mypy
+        # Use pyproject.toml if possible instead of adding command line parameters here
+        args: []
+        additional_dependencies:
+          # Type stubs
+          - pytest
+          - types-all
+        exclude: '{{ cookiecutter.repo_name }}'
+
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: pytest-check
+        entry: pytest -v tests
+        language: system
+        pass_filenames: false
+        always_run: true

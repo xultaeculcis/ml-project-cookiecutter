@@ -1,0 +1,3 @@
+Proprietary License
+
+Copyright (c) {year} Some Dummy Author, All rights reserved.

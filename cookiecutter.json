@@ -1,0 +1,9 @@
+{
+    "project_name": "project_name",
+    "repo_name": "{{ cookiecutter.project_name.lower().strip().replace(' ', '-').replace('_', '-') }}",
+    "src_dir_name": "{{ cookiecutter.project_name.lower().strip().replace(' ', '_').replace('-', '_') }}",
+    "author_name": "Your name (or your organization/company/team)",
+    "repo_url": "https://github.com/{{cookiecutter.author_name.lower().strip().replace(' ', '-').replace('_', '-')}}/{{cookiecutter.repo_name}}",
+    "project_description": "A short description of the project",
+    "license": ["MIT", "Apache 2.0", "BSD-3-Clause", "Beerware", "Proprietary", "Empty license file"]
+}
