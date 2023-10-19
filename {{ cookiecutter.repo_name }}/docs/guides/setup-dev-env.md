@@ -16,14 +16,8 @@ conda install -c conda-forge conda-lock -n base
 Run:
 
 ```shell
-make setup-local-env-<platform>
+make setup-local-env
 ```
-
-The `<platform>` can be one of:
-
-* `win-64`
-* `linux-64`
-* `osx-arm64`
 
 It will also install `pre-commit` hooks and the project in an editable mode.
 Once done you can activate the environment by running:
@@ -36,7 +30,7 @@ conda activate {{cookiecutter.repo_name}}
 
 1. Run `conda-lock` command:
     ```shell
-    conda-lock install -n {{cookiecutter.repo_name}} conda-<platform>.lock
+    conda-lock install --mamba -n {{cookiecutter.repo_name}} conda-lock.yml
     ```
 
 2. Activate the env:

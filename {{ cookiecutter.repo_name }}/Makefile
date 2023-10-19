@@ -26,33 +26,13 @@ export PRINT_HELP_PYSCRIPT
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-.PHONY: conda-lock-win-64  ## Creates conda-lock file for win-64 platform
-conda-lock-win-64:
-	conda-lock --mamba -k explicit -f ./env.yaml -p win-64 --filename-template "conda-{platform}.lock"
+.PHONY: conda-lock  ## Creates conda-lock file
+conda-lock:
+	conda-lock --mamba -f ./env.yaml -p linux-64
 
-.PHONY: conda-lock-linux-64  ## Creates conda-lock file for linux-64 platform
-conda-lock-linux-64:
-	conda-lock --mamba -k explicit -f ./env.yaml -p linux-64 --filename-template "conda-{platform}.lock"
-
-.PHONY: conda-lock-osx-arm64  ## Creates conda-lock file for osx-arm64 platform
-conda-lock-osx-arm64:
-	conda-lock --mamba -k explicit -f ./env.yaml -p osx-arm64 --filename-template "conda-{platform}.lock"
-
-.PHONY: conda-lock-all-platforms  ## Creates conda-lock file for win-64, linux-64 and osx-arm64 platforms
-conda-lock-all-platforms:
-	conda-lock --mamba -k explicit -f ./env.yaml -p win-64 -p linux-64 -p osx-arm64 --filename-template "conda-{platform}.lock"
-
-.PHONY: conda-install-win-64  ## Creates env from conda-lock file for osx-arm64 platform
-conda-install-win-64:
-	conda-lock install -n {{cookiecutter.repo_name}} conda-win-64.lock
-
-.PHONY: conda-install-linux-64  ## Creates env from conda-lock file for linux-64 platform
-conda-install-linux-64:
-	conda-lock install -n {{cookiecutter.repo_name}} conda-linux-64.lock
-
-.PHONY: conda-install-osx-arm64  ## Creates env from conda-lock file for osx-arm64 platform
-conda-install-osx-arm64:
-	conda-lock install -n {{cookiecutter.repo_name}} conda-osx-arm64.lock
+.PHONY: conda-install  ## Creates env from conda-lock file
+conda-install:
+	conda-lock install --mamba -n {{cookiecutter.repo_name}} conda-lock.yml
 
 .PHONY: setup-pre-commit  ## Installs pre-commit hooks
 setup-pre-commit:
@@ -62,14 +42,8 @@ setup-pre-commit:
 setup-editable:
 	$(CONDA_ACTIVATE) {{cookiecutter.repo_name}} ; pip install -e .
 
-.PHONY: setup-local-env-win-64  ## Creates local environment and installs pre-commit hooks for win-64 platform
-setup-local-env-win-64: conda-install-win-64 setup-pre-commit setup-editable
-
-.PHONY: setup-local-env-linux-64  ## Creates local environment and installs pre-commit hooks for linux-64 platform
-setup-local-env-linux-64: conda-install-linux-64 setup-pre-commit setup-editable
-
-.PHONY: setup-local-env-osx-arm64  ## Creates local environment and installs pre-commit hooks for osx-arm64 platform
-setup-local-env-osx-arm64: conda-install-osx-arm64 setup-pre-commit setup-editable
+.PHONY: setup-local-env  ## Creates local environment and installs pre-commit hooks
+setup-local-env: conda-install setup-pre-commit setup-editable
 
 .PHONY: format  ## Runs code formatting (isort, black, flake8)
 format:
