@@ -18,48 +18,18 @@ make help
 
 ### Freezing project dependencies
 
-* **conda-lock-win-64** - Creates conda-lock file for `win-64` platform
+* **conda-lock** - Creates conda-lock file
 
     ```shell
-    make conda-lock-win-64
-    ```
-
-* **conda-lock-linux-64** - Creates conda-lock file for `linux-64` platform
-
-    ```shell
-    make conda-lock-linux-64
-    ```
-
-* **conda-lock-osx-arm64** - Creates conda-lock file for `osx-arm64` platform
-
-    ```shell
-    make conda-lock-osx-arm64
-    ```
-
-* **conda-lock-all-platforms** - Creates conda-lock file for `win-64`, `linux-64` and `osx-arm64` platforms
-
-    ```shell
-    make conda-lock-all-platforms
+    make conda-lock
     ```
 
 ### Creating environments
 
-* **conda-install-win-64** - Creates env from conda-lock file for `win-64` platform
+* **conda-install** - Creates env from conda-lock file
 
     ```shell
-    make conda-install-win-64
-    ```
-
-* **conda-install-linux-64** - Creates env from conda-lock file for `linux-64` platform
-
-    ```shell
-    make conda-install-linux-64
-    ```
-
-* **conda-install-osx-arm64** - Creates env from conda-lock file for `osx-arm64` platform
-
-    ```shell
-    make conda-install-osx-arm64
+    make conda-install
     ```
 
 * **setup-pre-commit** - Installs pre-commit hooks
@@ -74,22 +44,10 @@ make help
     make setup-editable
     ```
 
-* **setup-local-env-win-64** - Creates local environment and installs pre-commit hooks for `win-64` platform
+* **setup-local-env** - Creates local environment and installs pre-commit hooks
 
     ```shell
-    make setup-local-env-win-64
-    ```
-
-* **setup-local-env-linux-64** - Creates local environment and installs pre-commit hooks for `linux-64` platform
-
-    ```shell
-    make setup-local-env-linux-64
-    ```
-
-* **setup-local-env-osx-arm64** - Creates local environment and installs pre-commit hooks for `osx-arm64` platform
-
-    ```shell
-    make setup-local-env-osx-arm64
+    make setup-local-env
     ```
 
 ### Helper commands

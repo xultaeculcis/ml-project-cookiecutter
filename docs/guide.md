@@ -143,30 +143,19 @@ Note that most of the conda dependencies are not pinned in the `env.yaml`. This 
 that new projects can be created with the most up-to-date packages. Once you create the lock file, you can pin specific
 versions.
 
-If your team works on multiple platforms you can use following command to crate multiple lock files:
-```shell
-make conda-lock-all-platforms
-```
+By default, the `Makefile` ony supports the `linux-64` platform. If your team works on multiple platforms you can add
+those platforms to the `conda-lock` command yourself.
 
-> **NOTE**:
-> We currently support `win-64`, `linux-64` and o`osx-arm64` via `Makefile` as they are the most popular platforms.
-
-If your teammates all use the same OS you can create specific lock file by running one of:
+To lock the environment run:
 
 ```shell
-make conda-lock-linux-64
-# or make conda-lock-win-64
-# or make conda-lock-osx-arm64
+make conda-lock
 ```
-
-In other cases use `conda-lock` manually.
 
 After creating the lock file you can create the conda environment by running:
 
 ```shell
-make setup-local-env-linux-64
-# or make setup-local-env-win-64
-# or make setup-local-env-osx-arm64
+make setup-local-env
 ```
 
 This command will set up the environment for you. It will also install `pre-commit` hooks and the project in an editable mode.
@@ -184,8 +173,8 @@ For example for `linux-64` the full list of commands (using `Makefile`) would lo
 
 ```shell
 git init
-make conda-lock-linux-64
-make setup-local-env-linux-64
+make conda-lock
+make setup-local-env
 conda activate <env-name>
 ```
 
@@ -205,18 +194,18 @@ To set up your local env from scratch run:
 
 1. Create `conda-lock` file:
     ```shell
-    conda-lock --mamba -k explicit -f ./env.yaml -p <your-platform> --filename-template "conda-{platform}.lock"
+    conda-lock --mamba -f ./env.yaml -p <your-platform>
     ```
 
     You can also create a lock-file for multiple platforms:
 
     ```shell
-    conda-lock --mamba -k explicit -f ./env.yaml -p linux-64 -p osx-arm64 -p win-64 --filename-template "conda-{platform}.lock"
+    conda-lock --mamba -f ./env.yaml -p linux-64 -p osx-arm64 -p win-64
     ```
 
 2. Create environment using `conda-lock`:
     ```shell
-    conda-lock install -n <env-name> conda-<platform>.lock
+    conda-lock install --mamba -n <env-name> conda-lock.yml
     ```
 
 3. Activate the env:
