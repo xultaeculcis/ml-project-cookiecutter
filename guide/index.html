@@ -638,23 +638,13 @@ conda <code>env.yaml</code> has a minimal set of dependencies needed for the hel
 Note that most of the conda dependencies are not pinned in the <code>env.yaml</code>. This is done on purpose in order to ensure
 that new projects can be created with the most up-to-date packages. Once you create the lock file, you can pin specific
 versions.</p>
-<p>If your team works on multiple platforms you can use following command to crate multiple lock files:
-<div class="highlight"><pre><span></span><code>make<span class="w"> </span>conda-lock-all-platforms
-</code></pre></div></p>
-<blockquote>
-<p><strong>NOTE</strong>:
-We currently support <code>win-64</code>, <code>linux-64</code> and o<code>osx-arm64</code> via <code>Makefile</code> as they are the most popular platforms.</p>
-</blockquote>
-<p>If your teammates all use the same OS you can create specific lock file by running one of:</p>
-<div class="highlight"><pre><span></span><code>make<span class="w"> </span>conda-lock-linux-64
-<span class="c1"># or make conda-lock-win-64</span>
-<span class="c1"># or make conda-lock-osx-arm64</span>
+<p>By default, the <code>Makefile</code> ony supports the <code>linux-64</code> platform. If your team works on multiple platforms you can add
+those platforms to the <code>conda-lock</code> command yourself.</p>
+<p>To lock the environment run:</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>conda-lock
 </code></pre></div>
-<p>In other cases use <code>conda-lock</code> manually.</p>
 <p>After creating the lock file you can create the conda environment by running:</p>
-<div class="highlight"><pre><span></span><code>make<span class="w"> </span>setup-local-env-linux-64
-<span class="c1"># or make setup-local-env-win-64</span>
-<span class="c1"># or make setup-local-env-osx-arm64</span>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>setup-local-env
 </code></pre></div>
 <p>This command will set up the environment for you. It will also install <code>pre-commit</code> hooks and the project in an editable mode.
 Once done, you can activate the environment by running:</p>
@@ -667,8 +657,8 @@ If you are on Windows, the <code>make</code> command will be unavailable. We rec
 </blockquote>
 <p>For example for <code>linux-64</code> the full list of commands (using <code>Makefile</code>) would look like so:</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>init
-make<span class="w"> </span>conda-lock-linux-64
-make<span class="w"> </span>setup-local-env-linux-64
+make<span class="w"> </span>conda-lock
+make<span class="w"> </span>setup-local-env
 conda<span class="w"> </span>activate<span class="w"> </span>&lt;env-name&gt;
 </code></pre></div>
 <h4 id="manually">Manually</h4>
@@ -686,15 +676,15 @@ But before, that please determine your platform:</p>
 <ol>
 <li>
 <p>Create <code>conda-lock</code> file:
-    <div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>--mamba<span class="w"> </span>-k<span class="w"> </span>explicit<span class="w"> </span>-f<span class="w"> </span>./env.yaml<span class="w"> </span>-p<span class="w"> </span>&lt;your-platform&gt;<span class="w"> </span>--filename-template<span class="w"> </span><span class="s2">&quot;conda-{platform}.lock&quot;</span>
+    <div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>--mamba<span class="w"> </span>-f<span class="w"> </span>./env.yaml<span class="w"> </span>-p<span class="w"> </span>&lt;your-platform&gt;
 </code></pre></div></p>
 <p>You can also create a lock-file for multiple platforms:</p>
-<div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>--mamba<span class="w"> </span>-k<span class="w"> </span>explicit<span class="w"> </span>-f<span class="w"> </span>./env.yaml<span class="w"> </span>-p<span class="w"> </span>linux-64<span class="w"> </span>-p<span class="w"> </span>osx-arm64<span class="w"> </span>-p<span class="w"> </span>win-64<span class="w"> </span>--filename-template<span class="w"> </span><span class="s2">&quot;conda-{platform}.lock&quot;</span>
+<div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>--mamba<span class="w"> </span>-f<span class="w"> </span>./env.yaml<span class="w"> </span>-p<span class="w"> </span>linux-64<span class="w"> </span>-p<span class="w"> </span>osx-arm64<span class="w"> </span>-p<span class="w"> </span>win-64
 </code></pre></div>
 </li>
 <li>
 <p>Create environment using <code>conda-lock</code>:
-    <div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>install<span class="w"> </span>-n<span class="w"> </span>&lt;env-name&gt;<span class="w"> </span>conda-&lt;platform&gt;.lock
+    <div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>install<span class="w"> </span>--mamba<span class="w"> </span>-n<span class="w"> </span>&lt;env-name&gt;<span class="w"> </span>conda-lock.yml
 </code></pre></div></p>
 </li>
 <li>
