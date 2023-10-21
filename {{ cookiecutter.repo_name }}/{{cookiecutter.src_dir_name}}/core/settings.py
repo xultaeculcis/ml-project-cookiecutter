@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from {{cookiecutter.src_dir_name}} import consts
 
@@ -10,9 +10,12 @@ class Settings(BaseSettings):
 
     environment: str = "local"
 
-    class Config:
-        env_file = consts.directories.ROOT_DIR / ".env"
-        env_file_encoding = "utf-8"
+    model_config = SettingsConfigDict(
+        env_file=consts.directories.ROOT_DIR / ".env",
+        env_file_encoding="utf-8",
+        env_nested_delimiter="__",
+        extra="ignore",
+    )
 
 
 current_settings = Settings()
