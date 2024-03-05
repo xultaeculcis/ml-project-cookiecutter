@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: check-added-large-files
         args: [ '--maxkb=1000' ]
@@ -22,7 +22,7 @@ repos:
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
+    rev: 5.13.2
     hooks:
       - id: isort
         name: isort (python)
@@ -37,21 +37,21 @@ repos:
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 24.2.0
     hooks:
       - id: black
         language_version: python3
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
+    rev: 7.0.0
     hooks:
       - id: flake8
         additional_dependencies: [ flake8-bugbear, flake8-print ]
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/fsouza/autoflake8
-    rev: v0.4.0
+    rev: v0.4.1
     hooks:
       - id: autoflake8
         language_version: python3
@@ -68,7 +68,7 @@ repos:
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "v1.4.1"
+    rev: "v1.8.0"
     hooks:
       - id: mypy
         # Use pyproject.toml if possible instead of adding command line parameters here
