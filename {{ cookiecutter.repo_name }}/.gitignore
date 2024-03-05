@@ -161,16 +161,19 @@ fabric.properties
 
 # Project specific stuff
 /data/
+!/data/.gitkeep
 /docs-site/
 dask-worker-space/
 mlruns/
 default/
 /outputs/
+!/outputs/.gitkeep
 .git/
 *.zip
 *.ckpt
 *.pth
 *.env
-logs/
-notebooks/*
-!notebooks/*.ipynb
+/logs/
+/notebooks/*
+!/notebooks/*.ipynb
+!/notebooks/.gitkeep
