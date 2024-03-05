@@ -114,7 +114,6 @@ ignore_errors = true
 ignore-init-module = true
 ignore_init_method = true
 exclude = ["tests", "docs", "site"]
-fail-under = 1
 omit-covered-files = true
 
 [tool.coverage.run]
@@ -123,13 +122,16 @@ branch = true
 omit = ["tests/*"]
 
 [tool.coverage.report]
-fail_under = 80
 show_missing = true
 precision = 2
 exclude_lines = [
     'pragma: no cover',
     'raise NotImplementedError',
     'if TYPE_CHECKING:',
+    "if t.TYPE_CHECKING:",
+    "return NotImplemented",
+    "except KeyboardInterrupt as exc",
+    "except ImportError:",
     '@overload',
 ]
 

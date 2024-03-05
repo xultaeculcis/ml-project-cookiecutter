@@ -1,10 +1,14 @@
+from __future__ import annotations
+
 import shutil
 from pathlib import Path
-from typing import Callable, Generator
+from typing import TYPE_CHECKING, Callable, Generator
 
 import pytest
-from _pytest.tmpdir import TempPathFactory
 from cookiecutter.main import cookiecutter
+
+if TYPE_CHECKING:
+    from _pytest.tmpdir import TempPathFactory
 
 MLPCC_ROOT = Path(__file__).parents[1].resolve()
 DEFAULT_PROJECT_PARAMS = {
@@ -19,7 +23,7 @@ def dummy_project_dir(tmp_path_factory: TempPathFactory) -> Generator[Path, None
     temp_dir = tmp_path_factory.mktemp("dummy-ml-project")
     out_dir = Path(temp_dir).resolve()
     cookiecutter(str(MLPCC_ROOT), no_input=True, output_dir=temp_dir, extra_context=DEFAULT_PROJECT_PARAMS)
-    yield list(out_dir.iterdir())[0]
+    yield next(iter(out_dir.iterdir()))
     shutil.rmtree(out_dir)
 
 
@@ -38,6 +42,6 @@ def dummy_project_factory(tmp_path_factory: TempPathFactory) -> Callable[[str], 
                 "license": override_license,
             },
         )
-        return list(out_dir.iterdir())[0]
+        return next(iter(out_dir.iterdir()))
 
     return _create_project

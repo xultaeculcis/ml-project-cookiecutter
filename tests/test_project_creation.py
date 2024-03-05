@@ -6,7 +6,7 @@ from typing import Callable
 
 import pytest
 
-LICENSES = ["MIT", "Apache 2.0", "BSD-3-Clause", "Beerware", "Proprietary", "Empty license file"]
+LICENSES = ["MIT", "Apache 2.0", "BSD-3-Clause", "Beerware", "GLWTS", "Proprietary", "Empty license file"]
 
 
 def no_curlies(fp: Path) -> bool:

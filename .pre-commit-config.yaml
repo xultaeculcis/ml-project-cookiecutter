@@ -21,43 +21,15 @@ repos:
       - id: trailing-whitespace
         exclude: '{{ cookiecutter.repo_name }}'
 
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.0
     hooks:
-      - id: isort
-        name: isort (python)
+      - id: ruff
+        types_or: [ python, pyi, jupyter ]
+        args: [ --fix ]
         exclude: '{{ cookiecutter.repo_name }}'
-      - id: isort
-        name: isort (cython)
-        types: [ cython ]
-        exclude: '{{ cookiecutter.repo_name }}'
-      - id: isort
-        name: isort (pyi)
-        types: [ pyi ]
-        exclude: '{{ cookiecutter.repo_name }}'
-
-  - repo: https://github.com/psf/black
-    rev: 24.2.0
-    hooks:
-      - id: black
-        language_version: python3
-        exclude: '{{ cookiecutter.repo_name }}'
-
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.0.0
-    hooks:
-      - id: flake8
-        additional_dependencies: [ flake8-bugbear, flake8-print ]
-        exclude: '{{ cookiecutter.repo_name }}'
-
-  - repo: https://github.com/fsouza/autoflake8
-    rev: v0.4.1
-    hooks:
-      - id: autoflake8
-        language_version: python3
-        args: [
-          '--in-place',
-        ]
+      - id: ruff-format
+        types_or: [ python, pyi, jupyter ]
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/mgedmin/check-manifest
