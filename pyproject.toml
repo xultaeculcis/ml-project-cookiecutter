@@ -3,7 +3,7 @@ show-fixes = true
 target-version = "py38"
 line-length = 120
 extend-exclude = [
-    "/docs/*",
+    "docs",
 ]
 
 [tool.ruff.lint]
@@ -68,16 +68,16 @@ select = [
 ]
 ignore = ["E402", "B905", "N818", "S101"]
 
-[tool.ruff.lint.isort]
-required-imports = ["from __future__ import annotations"]
-combine-as-imports = true
-
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
 docstring-code-format = true
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
+combine-as-imports = true
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
