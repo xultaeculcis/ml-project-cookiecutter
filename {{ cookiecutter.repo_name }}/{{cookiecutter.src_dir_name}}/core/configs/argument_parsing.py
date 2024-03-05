@@ -23,7 +23,5 @@ def parse_args(parser: argparse.ArgumentParser, cfg_cls: Type[T]) -> T:
     known_args, unknown_args = parser.parse_known_args()
     _logger.info(f"Unknown args: {unknown_args}")
     cfg = cfg_cls(**vars(known_args))
-    if cfg.log_config:
-        _logger.info(f"Running with following config: {cfg}")
-
+    _logger.info(f"Running with following config: {cfg}")
     return cfg
