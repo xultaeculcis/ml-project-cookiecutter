@@ -1,3 +1,9 @@
+## GPU
+
+The GPU utilities.
+
+::: {{cookiecutter.src_dir_name}}.utils.gpu
+
 ## Logging
 
 The logging utilities.

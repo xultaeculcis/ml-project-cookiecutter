@@ -45,6 +45,8 @@ nav:
       - Running tests: "guides/tests.md"
       - Using Makefile commands: "guides/makefile-usage.md"
   - API reference:
-      - {{cookiecutter.src_dir_name}}.consts: "api_ref/{{cookiecutter.src_dir_name}}.consts.md"
-      - {{cookiecutter.src_dir_name}}.core: "api_ref/{{cookiecutter.src_dir_name}}.core.md"
-      - {{cookiecutter.src_dir_name}}.utils: "api_ref/{{cookiecutter.src_dir_name}}.utils.md"
+      - {{cookiecutter.src_dir_name}}.consts: "api_ref/consts.md"
+      - {{cookiecutter.src_dir_name}}.core:
+        - configs: "api_ref/core/configs.md"
+        - settings: "api_ref/core/settings.md"
+      - {{cookiecutter.src_dir_name}}.utils: "api_ref/utils.md"

@@ -16,7 +16,7 @@ conda install -c conda-forge conda-lock -n base
 Run:
 
 ```shell
-make setup-local-env
+make env
 ```
 
 It will also install `pre-commit` hooks and the project in an editable mode.

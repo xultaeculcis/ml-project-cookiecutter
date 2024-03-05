@@ -15,7 +15,7 @@ installation.
 
 ## Docs
 
-See project Confluence for more info. You can also run:
+To build project documentation run:
 
 ```shell
 make docs
@@ -26,8 +26,6 @@ and then:
 ```shell
 mkdocs serve
 ```
-
-To see the interactive documentation web page.
 
 ## Running tests
 

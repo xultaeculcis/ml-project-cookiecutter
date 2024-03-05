@@ -26,12 +26,16 @@ export PRINT_HELP_PYSCRIPT
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-.PHONY: conda-lock  ## Creates conda-lock file
-conda-lock:
+# Freezing dependedncies
+
+.PHONY: lock-file  ## Creates conda-lock file
+lock-file:
 	conda-lock --mamba -f ./env.yaml -p linux-64
 
-.PHONY: conda-install  ## Creates env from conda-lock file
-conda-install:
+# Environment creation
+
+.PHONY: conda-lock-install  ## Creates env from conda-lock file
+conda-lock-install:
 	conda-lock install --mamba -n {{cookiecutter.repo_name}} conda-lock.yml
 
 .PHONY: setup-pre-commit  ## Installs pre-commit hooks
@@ -42,8 +46,10 @@ setup-pre-commit:
 setup-editable:
 	$(CONDA_ACTIVATE) {{cookiecutter.repo_name}} ; pip install -e .
 
-.PHONY: setup-local-env  ## Creates local environment and installs pre-commit hooks
-setup-local-env: conda-install setup-pre-commit setup-editable
+.PHONY: env  ## Creates local environment and installs pre-commit hooks
+env: conda-lock-install setup-pre-commit setup-editable
+
+# Helpers
 
 .PHONY: format  ## Runs code formatting (isort, black, flake8)
 format:
@@ -62,7 +68,7 @@ test:
 .PHONY: testcov  ## Runs tests and generates coverage reports
 testcov:
 	@rm -rf htmlcov
-	pytest -v --cov-report html --cov-report xml --cov=zf-powerbi-mongo tests/
+	pytest -v --cov-report html --cov-report xml --cov={{cookiecutter.repo_name}} tests/
 
 .PHONY: mpc  ## Runs manual pre-commit stuff
 mpc: format type-check test
@@ -91,7 +97,7 @@ clean:
 	rm -f coverage.*
 	rm -rf build
 	rm -rf perf.data*
-	rm -rf zf-powerbi-mongo/*.so
+	rm -rf {{cookiecutter.repo_name}}/*.so
 	rm -rf .mypy_cache
 	rm -rf .benchmark
 	rm -rf .hypothesis
