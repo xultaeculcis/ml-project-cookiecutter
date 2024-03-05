@@ -5,5 +5,5 @@
     "author_name": "Your name (or your organization/company/team)",
     "repo_url": "https://github.com/{{cookiecutter.author_name.lower().strip().replace(' ', '-').replace('_', '-')}}/{{cookiecutter.repo_name}}",
     "project_description": "A short description of the project",
-    "license": ["MIT", "Apache 2.0", "BSD-3-Clause", "Beerware", "Proprietary", "Empty license file"]
+    "license": ["MIT", "Apache 2.0", "BSD-3-Clause", "Beerware", "GLWTS", "Proprietary", "Empty license file"]
 }
