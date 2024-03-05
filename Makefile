@@ -20,8 +20,8 @@ export PRINT_HELP_PYSCRIPT
 help:  ## Prints help message
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-.PHONY: setup-local
-setup-local:  ## Creates local environment and install pre-commit hooks
+.PHONY: env
+env:  ## Creates local environment and install pre-commit hooks
 	conda env create -f ./env.yaml
 	$(CONDA_ACTIVATE) ml-project-cookiecutter ; pre-commit install
 

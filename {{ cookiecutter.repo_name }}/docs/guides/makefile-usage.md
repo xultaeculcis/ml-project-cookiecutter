@@ -18,18 +18,18 @@ make help
 
 ### Freezing project dependencies
 
-* **conda-lock** - Creates conda-lock file
+* **lock-file** - Creates conda-lock file
 
     ```shell
-    make conda-lock
+    make lock-file
     ```
 
 ### Creating environments
 
-* **conda-install** - Creates env from conda-lock file
+* **conda-lock-install** - Creates env from conda-lock file
 
     ```shell
-    make conda-install
+    make conda-lock-install
     ```
 
 * **setup-pre-commit** - Installs pre-commit hooks
@@ -44,10 +44,10 @@ make help
     make setup-editable
     ```
 
-* **setup-local-env** - Creates local environment and installs pre-commit hooks
+* **env** - Creates local environment and installs pre-commit hooks
 
     ```shell
-    make setup-local-env
+    make env
     ```
 
 ### Helper commands
