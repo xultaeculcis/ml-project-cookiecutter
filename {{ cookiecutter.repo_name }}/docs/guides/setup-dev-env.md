@@ -2,8 +2,8 @@
 
 In order to set up local development environment make sure you have installed:
 
-* [conda](https://docs.conda.io/en/latest/miniconda.html)
-* [conda-lock](https://github.com/conda/conda-lock)
+- [conda](https://docs.conda.io/en/latest/miniconda.html)
+- [conda-lock](https://github.com/conda/conda-lock)
 
 You can install `conda-lock` on your `base` environment by running:
 
@@ -29,39 +29,44 @@ conda activate {{cookiecutter.repo_name}}
 ## Manually
 
 1. Run `conda-lock` command:
-    ```shell
-    conda-lock install --mamba -n {{cookiecutter.repo_name}} conda-lock.yml
-    ```
 
-2. Activate the env:
-    ```shell
-    conda activate {{cookiecutter.repo_name}}
-    ```
+   ```shell
+   conda-lock install --mamba -n {{cookiecutter.repo_name}} conda-lock.yml
+   ```
 
-3. Install `pre-commit` hooks:
-    ```shell
-    pre-commit install
-    ```
+1. Activate the env:
 
-4. Install the project in an editable mode:
-    ```shell
-    pip install -e .
-    ```
+   ```shell
+   conda activate {{cookiecutter.repo_name}}
+   ```
+
+1. Install `pre-commit` hooks:
+
+   ```shell
+   pre-commit install
+   ```
+
+1. Install the project in an editable mode:
+
+   ```shell
+   pip install -e .
+   ```
 
 ## Pre-commit hooks
+
 This project uses `pre-commit` package for managing and maintaining `pre-commit` hooks.
 
 To ensure code quality - please make sure that you have it configured.
 
-1. Install `pre-commit` and following packages: `isort`, `black`, `flake8`, `mypy`, `pytest`.
+1. Install `pre-commit` and following packages: `ruff`, `mypy`, `pytest`.
 
-2. Install `pre-commit` hooks by running: `pre-commit install`
+1. Install `pre-commit` hooks by running: `pre-commit install`
 
-3. The command above will automatically run formatters, code checks and other steps defined in the `.pre-commit-config.yaml`
+1. The command above will automatically run formatters, code checks and other steps defined in the `.pre-commit-config.yaml`
 
-4. All of those checks will also be run whenever a new commit is being created i.e. when you run `git commit -m "blah"`
+1. All of those checks will also be run whenever a new commit is being created i.e. when you run `git commit -m "blah"`
 
-5. You can also run it manually with this command: `pre-commit run --all-files`
+1. You can also run it manually with this command: `pre-commit run --all-files`
 
 You can manually disable `pre-commit` hooks by running: `pre-commit uninstall` Use this only in exceptional cases.
 

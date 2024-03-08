@@ -1,5 +1,7 @@
-"""Copies README.md to index.md. Also discovers all blocks and
-generates a list of them in the docs under the Blocks Catalog heading.
+"""Copies README.md to index.md.
+
+Also discovers all blocks and generates a list of them in the docs under
+the Blocks Catalog heading.
 """
 
 from __future__ import annotations

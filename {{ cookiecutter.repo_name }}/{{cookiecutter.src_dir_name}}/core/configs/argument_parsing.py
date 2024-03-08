@@ -9,8 +9,7 @@ T = TypeVar("T", bound=ConfigBase)
 
 
 def parse_args(parser: argparse.ArgumentParser, cfg_cls: Type[T]) -> T:
-    """
-    Parses Command Line arguments and returns the script config model.
+    """Parses Command Line arguments and returns the script config model.
 
     Args:
         parser: The instance of `argparse.ArgumentParser` to use.
@@ -18,7 +17,6 @@ def parse_args(parser: argparse.ArgumentParser, cfg_cls: Type[T]) -> T:
 
     Returns:
          A config instance of type given by `cfg_cls`.
-
     """
     known_args, unknown_args = parser.parse_known_args()
     _logger.info(f"Unknown args: {unknown_args}")

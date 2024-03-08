@@ -6,7 +6,7 @@ from {{cookiecutter.src_dir_name}} import consts
 
 
 class Settings(BaseSettings):
-    """Represents Application Settings with nested configuration sections"""
+    """Represents Application Settings with nested configuration sections."""
 
     environment: str = "local"
 

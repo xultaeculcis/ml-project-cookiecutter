@@ -15,7 +15,6 @@ class ConfigBase(BaseModel):
         return json.dumps(self.model_dump(), cls=JsonEncoder, indent=4)
 
     def log_self(self) -> None:
-        """
-        Logs a short info with INFO logging level about what parameters is the script being run with.
-        """
+        """Logs a short info with INFO logging level about what parameters is
+        the script being run with."""
         _logger.info(f"Running with following config: {self}")

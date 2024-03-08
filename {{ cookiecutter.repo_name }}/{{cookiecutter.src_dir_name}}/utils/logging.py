@@ -14,8 +14,7 @@ P = ParamSpec("P")
 
 
 def get_logger(name: str, log_level: int | str = logging.INFO) -> logging.Logger:
-    """
-    Builds a `Logger` instance with provided name and log level.
+    """Builds a `Logger` instance with provided name and log level.
 
     Args:
         name: The name for the logger.
@@ -23,7 +22,6 @@ def get_logger(name: str, log_level: int | str = logging.INFO) -> logging.Logger
 
     Returns:
         The logger.
-
     """
 
     logger = logging.getLogger(name=name)
@@ -41,15 +39,13 @@ _timed_logger = get_logger("timed", log_level=logging.INFO)
 
 
 def timed(func: Callable[P, T]) -> Callable[P, T]:
-    """
-    This decorator prints the execution time for the decorated function.
+    """This decorator prints the execution time for the decorated function.
 
     Args:
         func: The function to wrap.
 
     Returns:
         Wrapper around the function.
-
     """
 
     @wraps(func)

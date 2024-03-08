@@ -21,23 +21,54 @@ repos:
       - id: trailing-whitespace
         exclude: '{{ cookiecutter.repo_name }}'
 
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.1
+    hooks:
+      - id: pyupgrade
+        args: ["--py38-plus"]
+        name: Upgrade code
+        exclude: '{{ cookiecutter.repo_name }}'
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        additional_dependencies: [tomli]
+        #args: ["--write-changes"] # uncomment if you want to get automatic fixing
+        exclude: '{{ cookiecutter.repo_name }}'
+
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.7.5
+    hooks:
+      - id: docformatter
+        additional_dependencies: [tomli]
+        args: ["--in-place"]
+        exclude: '{{ cookiecutter.repo_name }}'
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.0
+    rev: v0.3.1
     hooks:
       - id: ruff
         types_or: [ python, pyi, jupyter ]
-        args: [ --fix ]
+        args: [ "--fix", "--preview" ]
         exclude: '{{ cookiecutter.repo_name }}'
       - id: ruff-format
         types_or: [ python, pyi, jupyter ]
+        args: [ "--preview" ]
         exclude: '{{ cookiecutter.repo_name }}'
 
-  - repo: https://github.com/mgedmin/check-manifest
-    rev: "0.49"
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.17
     hooks:
-      - id: check-manifest
-        stages: [ manual ]
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-admon
+          - mdformat-footnote
+          - mdformat_frontmatter
+          - mdformat-mkdocs
+          - mdformat-toc
         exclude: '{{ cookiecutter.repo_name }}'
+        args: [ "--number" ]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: "v1.8.0"

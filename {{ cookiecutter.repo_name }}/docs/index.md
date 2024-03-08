@@ -8,7 +8,7 @@ Run `make --help` for available options.
 
 ## Local env creation
 
-See: [Set up pyton env](./guides/setup-dev-env.md) for details.
+See: [Set up python env](./guides/setup-dev-env.md) for details.
 
 You should be able to create local dev env using your [conda](https://docs.conda.io/en/latest/miniconda.html)
 installation.

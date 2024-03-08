@@ -11,9 +11,8 @@ _logger = get_logger(__name__)
 
 
 class JsonEncoder(JSONEncoder):
-    """
-    Custom JSON encoder that handles datatypes that are not out-of-the-box supported by the `json` package.
-    """
+    """Custom JSON encoder that handles datatypes that are not out-of-the-box
+    supported by the `json` package."""
 
     def default(self, o: Any) -> str:
         if isinstance(o, datetime) or isinstance(o, date):
