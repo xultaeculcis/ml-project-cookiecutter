@@ -1,8 +1,6 @@
 .DEFAULT_GOAL := help
-isort = isort .
-black = black .
-flake8 = flake8 .
-autoflake8 = autoflake8 .
+ruff-lint = ruff check --fix --preview.
+ruff-format = ruff format --preview .
 mypy = mypy .
 pre-commit = pre-commit run --all-files
 
@@ -63,11 +61,10 @@ init-project: git-init lock-file env
 
 # Helpers
 
-.PHONY: format  ## Runs code formatting (isort, black, flake8)
+.PHONY: format  ## Runs code formatting (ruff)
 format:
-	$(isort)
-	$(black)
-	$(flake8)
+	$(ruff-lint)
+	$(ruff-format)
 
 .PHONY: type-check  ## Runs type checking with mypy
 type-check:
