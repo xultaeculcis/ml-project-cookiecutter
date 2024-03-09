@@ -37,13 +37,12 @@ This project was greatly inspired by
 ## Features
 
 - Integrated `pre-commit` hooks:
-    - `isort`
-    - `back`
-    - `flake8`
-    - `autoflake8`
+    - `pyupgrade`
+    - `codespell`
+    - `docformatter`
+    - `ruff`
     - `mypy`
     - `pytest`
-    - `nbQA`
     - And a few more...
 - Project documentation creation using [MkDocs](https://www.mkdocs.org/) with
     [Material](https://squidfunk.github.io/mkdocs-material/) theme.
