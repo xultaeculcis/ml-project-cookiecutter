@@ -11,6 +11,10 @@ You can install `conda-lock` on your `base` environment by running:
 conda install -c conda-forge conda-lock -n base
 ```
 
+You can use [miniforge](https://github.com/conda-forge/miniforge) which also includes
+[mamba](https://mamba.readthedocs.io/en/latest/index.html). Using `mamba` should
+speed up dependency resolution significantly.
+
 ## Using Makefile
 
 Run:

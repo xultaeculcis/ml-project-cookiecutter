@@ -26,7 +26,7 @@ export PRINT_HELP_PYSCRIPT
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-# Git init
+# Git repo initialization
 
 .PHONY: git-init  ## Initializes Git repository
 git-init:
@@ -58,7 +58,7 @@ env: conda-lock-install setup-pre-commit setup-editable
 
 # Project initialization
 
-.PHONY: init-project  ## Runs git init, lock-file creation and env setup - to be used after cookicutter initialization
+.PHONY: init-project  ## Runs Git init, lock-file creation and env setup - to be used after cookicutter initialization
 init-project: git-init lock-file env
 
 # Helpers
