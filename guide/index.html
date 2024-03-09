@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
     
     
       
@@ -362,9 +362,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#environmental-variables" class="md-nav__link">
+  <a href="#environment-variables" class="md-nav__link">
     <span class="md-ellipsis">
-      Environmental variables
+      Environment variables
     </span>
   </a>
   
@@ -547,9 +547,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#environmental-variables" class="md-nav__link">
+  <a href="#environment-variables" class="md-nav__link">
     <span class="md-ellipsis">
-      Environmental variables
+      Environment variables
     </span>
   </a>
   
@@ -603,7 +603,7 @@
 <li>Python 3.8+</li>
 <li><a href="https://conda.io/en/latest/miniconda.html">Conda</a></li>
 <li><a href="http://cookiecutter.readthedocs.org/en/latest/installation.html">Cookiecutter Python package</a> &gt;= 2.1.1:
-This can be installed with pip by or conda depending on how you manage your Python packages:</li>
+    This can be installed with <code>pip</code> by or <code>conda</code> depending on how you manage your Python packages:</li>
 </ul>
 <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>cookiecutter
 </code></pre></div>
@@ -628,9 +628,10 @@ Select license:
 2 - Apache 2.0
 3 - BSD-3-Clause
 4 - Beerware
-5 - Proprietary
-6 - Empty license file
-Choose from 1, 2, 3, 4, 5, 6 [1]: 1
+5 - GLWTS
+6 - Proprietary
+7 - Empty license file
+Choose from 1, 2, 3, 4, 5, 6, 7 [1]: 1
 </code></pre></div>
 <p>The <code>repo_name</code>, <code>src_dir_name</code> and <code>repo_url</code> will be automatically standardized and provided for you.
 You can change them to your liking though.</p>
@@ -645,9 +646,11 @@ You can change them to your liking though.</p>
 │   └── raw                               &lt;- The original, immutable data dump.
 ├── docs                                  &lt;- The mkdocs documentation sources.
 │   ├── api_ref                           &lt;- Source package docs.
-│   │   ├── my_ml_project.consts.md
-│   │   ├── my_ml_project.core.md
-│   │   └── my_ml_project.utils.md
+│   │   ├── consts.md
+│   │   ├── core
+│   │   │   ├── configs.md
+│   │   │   └── settings.md
+│   │   └── utils.md
 │   ├── guides                            &lt;- How-to guides.
 │   │   ├── contributing.md
 │   │   ├── makefile-usage.md
@@ -709,6 +712,9 @@ You can change them to your liking though.</p>
 <a href="http://drivendata.github.io/cookiecutter-data-science/">Cookiecutter Data Science Docs</a>.</p>
 <h3 id="environment-setup">Environment setup</h3>
 <p>You'll need to inti a git repo in your newly created project:</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>git-init
+</code></pre></div>
+<p>Or:</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>init
 git<span class="w"> </span>add<span class="w"> </span>.
 </code></pre></div>
@@ -718,29 +724,38 @@ conda <code>env.yaml</code> has a minimal set of dependencies needed for the hel
 Note that most of the conda dependencies are not pinned in the <code>env.yaml</code>. This is done on purpose in order to ensure
 that new projects can be created with the most up-to-date packages. Once you create the lock file, you can pin specific
 versions.</p>
-<p>By default, the <code>Makefile</code> ony supports the <code>linux-64</code> platform. If your team works on multiple platforms you can add
+<p>By default, the <code>Makefile</code> only supports the <code>linux-64</code> platform. If your team works on multiple platforms you can add
 those platforms to the <code>conda-lock</code> command yourself.</p>
 <p>To lock the environment run:</p>
-<div class="highlight"><pre><span></span><code>make<span class="w"> </span>conda-lock
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>lock-file
 </code></pre></div>
 <p>After creating the lock file you can create the conda environment by running:</p>
-<div class="highlight"><pre><span></span><code>make<span class="w"> </span>setup-local-env
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>env
 </code></pre></div>
-<p>This command will set up the environment for you. It will also install <code>pre-commit</code> hooks and the project in an editable mode.
+<p>This command will set up the environment for you. It will also install <code>pre-commit</code> hooks and the project in an editable
+mode.
 Once done, you can activate the environment by running:</p>
-<p><div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>&lt;env-name&gt;
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>&lt;env-name&gt;
 </code></pre></div>
-By default, the <code>&lt;env-name&gt;</code> created using the <code>Makefile</code> will be equal to <code>cookiecutter.repo_name</code> variable.</p>
-<blockquote>
-<p><strong>NOTE</strong>
-If you are on Windows, the <code>make</code> command will be unavailable. We recommend working with <a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL</a> in that case.</p>
-</blockquote>
+<p>By default, the <code>&lt;env-name&gt;</code> created using the <code>Makefile</code> will be equal to <code>cookiecutter.repo_name</code> variable.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>If you are on Windows, the <code>make</code> command will be unavailable. We recommend working
+with <a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL</a> in that case.</p>
+</details>
 <p>For example for <code>linux-64</code> the full list of commands (using <code>Makefile</code>) would look like so:</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>init
-make<span class="w"> </span>conda-lock
-make<span class="w"> </span>setup-local-env
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>git-init
+make<span class="w"> </span>lock-file
+make<span class="w"> </span>env
 conda<span class="w"> </span>activate<span class="w"> </span>&lt;env-name&gt;
 </code></pre></div>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>If you want to initialize Git repository, create lock-file and development environment in one go you can run:</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>init-project
+conda<span class="w"> </span>activate<span class="w"> </span>&lt;env-name&gt;
+</code></pre></div>
+</details>
 <h4 id="manually">Manually</h4>
 <p>If you are not on Linux the setup via <code>Makefile</code> might not work. In that case run the following commands manually.
 But before, that please determine your platform:</p>
@@ -755,41 +770,41 @@ But before, that please determine your platform:</p>
 <p>To set up your local env from scratch run:</p>
 <ol>
 <li>
-<p>Create <code>conda-lock</code> file:
-    <div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>--mamba<span class="w"> </span>-f<span class="w"> </span>./env.yaml<span class="w"> </span>-p<span class="w"> </span>&lt;your-platform&gt;
-</code></pre></div></p>
+<p>Create <code>conda-lock</code> file:</p>
+<div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>--mamba<span class="w"> </span>-f<span class="w"> </span>./env.yaml<span class="w"> </span>-p<span class="w"> </span>&lt;your-platform&gt;
+</code></pre></div>
 <p>You can also create a lock-file for multiple platforms:</p>
 <div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>--mamba<span class="w"> </span>-f<span class="w"> </span>./env.yaml<span class="w"> </span>-p<span class="w"> </span>linux-64<span class="w"> </span>-p<span class="w"> </span>osx-arm64<span class="w"> </span>-p<span class="w"> </span>win-64
 </code></pre></div>
 </li>
 <li>
-<p>Create environment using <code>conda-lock</code>:
-    <div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>install<span class="w"> </span>--mamba<span class="w"> </span>-n<span class="w"> </span>&lt;env-name&gt;<span class="w"> </span>conda-lock.yml
-</code></pre></div></p>
+<p>Create environment using <code>conda-lock</code>:</p>
+<div class="highlight"><pre><span></span><code>conda-lock<span class="w"> </span>install<span class="w"> </span>--mamba<span class="w"> </span>-n<span class="w"> </span>&lt;env-name&gt;<span class="w"> </span>conda-lock.yml
+</code></pre></div>
 </li>
 <li>
-<p>Activate the env:
-    <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>&lt;env-name&gt;
-</code></pre></div></p>
+<p>Activate the env:</p>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>&lt;env-name&gt;
+</code></pre></div>
 </li>
 <li>
-<p>Install <code>pre-commit</code> hooks:
-    <div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>install
-</code></pre></div></p>
+<p>Install <code>pre-commit</code> hooks:</p>
+<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>install
+</code></pre></div>
 </li>
 <li>
-<p>Install the project in an editable mode:
-    <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</code></pre></div></p>
+<p>Install the project in an editable mode:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</code></pre></div>
 </li>
 </ol>
 <p>It will use your <code>conda-lock</code> installation to create a lock-file and create a brand new <code>conda</code> environment named after
 your repository.</p>
-<blockquote>
-<p><strong>NOTE</strong>
-Once you've initialized git repo, created the lock file(s) and pinned the package versions, you should commit the
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Once you've initialized git repo, created the lock file(s) and pinned the package versions, you should commit the
 changes and push them to a remote repository as an <code>Initial commit</code>.</p>
-</blockquote>
+</details>
 <h3 id="pre-commit-hooks">Pre-commit hooks</h3>
 <p>This project uses <code>pre-commit</code> package for managing and maintaining <code>pre-commit</code> hooks.</p>
 <p>To ensure code quality - please make sure that you have it configured.</p>
@@ -802,7 +817,7 @@ changes and push them to a remote repository as an <code>Initial commit</code>.<
 </li>
 <li>
 <p>The command above will automatically run formatters, code checks and other steps defined
-in the<code>.pre-commit-config.yaml</code></p>
+    in the<code>.pre-commit-config.yaml</code></p>
 </li>
 <li>
 <p>All of those checks will also be run whenever a new commit is being created i.e. when you run <code>git commit -m "blah"</code></p>
@@ -812,7 +827,7 @@ in the<code>.pre-commit-config.yaml</code></p>
 </li>
 </ol>
 <p>You can manually disable <code>pre-commit</code> hooks by running: pre-commit uninstall Use this only in exceptional cases.</p>
-<h3 id="environmental-variables">Environmental variables</h3>
+<h3 id="environment-variables">Environment variables</h3>
 <p>Ask your colleagues for <code>.env</code> files which aren't included in this repository and put them inside the repo's
 root directory. Please, never put secrets in the source control. Always align with your IT department security
 practices.</p>
@@ -831,9 +846,10 @@ commit that targets the <code>main</code> branch.</p>
 </code></pre></div>
 <p>A page like the one below should be available to you under: <a href="http://127.0.0.1:8000">http://127.0.0.1:8000/</a></p>
 <p><img alt="assets/docs-site.png" src="../assets/docs-site.png" /></p>
-<blockquote>
-<p><strong>NOTE</strong>: Please note that <strong>google</strong> style docstrings are used throughout the repo.</p>
-</blockquote>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Please note that <strong>google</strong> style docstrings are used throughout the repo.</p>
+</details>
 
 
 

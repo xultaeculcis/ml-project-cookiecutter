@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
     
     
       
@@ -444,32 +444,31 @@ ensure that the code and models are production ready faster.</p>
 <p>Won't that slow down Data Scientists? Yes. At first at least. They'll have to learn working with a set of standard
 python tools that are known in the industry for years. Spending a few hours on this is way better than spending
 a few weeks on productionizing the code later. Your ML/MLOps Engineers will thank you for this.</p>
-<blockquote>
-<p><strong>NOTE</strong>
-Now, standardized code style, type hints and good documentation are just a small step to success. All of this doesn't
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Now, standardized code style, type hints and good documentation are just a small step to success. All of this doesn't
 mean much without code understanding and following good coding practices. In my opinion every great Data Scientist
 or ML Engineer should also be a great programmer. Learn how to write clean, testable code. Learn data structures,
 algorithms and design patterns. Have a CI in place. Verify changes via PRs and automated tests. Automate as much
 as you can. Integrate with other services that will allow you to ensure reproducibility, scaling, experiment tracing,
 artifact versioning and easier deployment.</p>
-</blockquote>
+</details>
 <p>This project was greatly inspired by
 <a href="https://github.com/drivendata/cookiecutter-data-science/">Cookiecutter Data Science</a> project.</p>
 <h2 id="features">Features</h2>
 <ul>
 <li>Integrated <code>pre-commit</code> hooks:<ul>
-<li><code>isort</code></li>
-<li><code>back</code></li>
-<li><code>flake8</code></li>
-<li><code>autoflake8</code></li>
+<li><code>pyupgrade</code></li>
+<li><code>codespell</code></li>
+<li><code>docformatter</code></li>
+<li><code>ruff</code></li>
 <li><code>mypy</code></li>
 <li><code>pytest</code></li>
-<li><code>nbQA</code></li>
 <li>And a few more...</li>
 </ul>
 </li>
 <li>Project documentation creation using <a href="https://www.mkdocs.org/">MkDocs</a> with
-<a href="https://squidfunk.github.io/mkdocs-material/">Material</a> theme.</li>
+    <a href="https://squidfunk.github.io/mkdocs-material/">Material</a> theme.</li>
 <li>CI pipelines (Azure DevOps)</li>
 <li>Some useful utility classes and functions I found myself re-implementing again and again</li>
 <li>Folder structure inspired by <a href="https://github.com/drivendata/cookiecutter-data-science/">Cookiecutter Data Science</a></li>
