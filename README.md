@@ -23,13 +23,13 @@ Won't that slow down Data Scientists? Yes. At first at least. They'll have to le
 python tools that are known in the industry for years. Spending a few hours on this is way better than spending
 a few weeks on productionizing the code later. Your ML/MLOps Engineers will thank you for this.
 
-???+ note
-    Now, standardized code style, type hints and good documentation are just a small step to success. All of this doesn't
-    mean much without code understanding and following good coding practices. In my opinion every great Data Scientist
-    or ML Engineer should also be a great programmer. Learn how to write clean, testable code. Learn data structures,
-    algorithms and design patterns. Have a CI in place. Verify changes via PRs and automated tests. Automate as much
-    as you can. Integrate with other services that will allow you to ensure reproducibility, scaling, experiment tracing,
-    artifact versioning and easier deployment.
+> **NOTE**
+> Now, standardized code style, type hints and good documentation are just a small step to success. All of this doesn't
+> mean much without code understanding and following good coding practices. In my opinion every great Data Scientist
+> or ML Engineer should also be a great programmer. Learn how to write clean, testable code. Learn data structures,
+> algorithms and design patterns. Have a CI in place. Verify changes via PRs and automated tests. Automate as much
+> as you can. Integrate with other services that will allow you to ensure reproducibility, scaling, experiment tracing,
+> artifact versioning and easier deployment.
 
 This project was greatly inspired by
 [Cookiecutter Data Science](https://github.com/drivendata/cookiecutter-data-science/) project.
@@ -53,6 +53,14 @@ This project was greatly inspired by
 - Makefile with a bunch of pre-defined commands
 - Secrets support using `.env` files and [pydantic-settings](https://docs.pydantic.dev/latest/usage/pydantic_settings/)
 - `pyproject.toml` with project tool configs
+
+## Getting started
+
+To get started, please check out [this](https://xultaeculcis.github.io/ml-project-cookiecutter/guide/) guide.
+
+## Contributing
+
+Please refer to [this](https://xultaeculcis.github.io/ml-project-cookiecutter/contributing/) guide.
 
 ## Running tests
 
