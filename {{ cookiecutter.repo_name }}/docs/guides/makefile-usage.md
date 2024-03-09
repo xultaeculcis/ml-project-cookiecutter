@@ -68,7 +68,7 @@ make help
 
 ### Helper commands
 
-- **format** - Runs code formatting (`isort`, `black`, `flake8`)
+- **format** - Runs code formatting (`ruff`)
 
     ```shell
     make format
