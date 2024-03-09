@@ -5,20 +5,15 @@ from json import JSONEncoder
 from pathlib import Path
 from typing import Any
 
-from {{cookiecutter.src_dir_name}}.utils.logging import get_logger
-
-_logger = get_logger(__name__)
-
 
 class JsonEncoder(JSONEncoder):
-    """Custom JSON encoder that handles datatypes that are not out-of-the-box
-    supported by the `json` package."""
+    """Custom JSON encoder that handles datatypes that are not out-of-the-box supported by the `json` package."""
 
     def default(self, o: Any) -> str:
-        if isinstance(o, datetime) or isinstance(o, date):
+        if isinstance(o, (date, datetime)):
             return o.isoformat()
 
         if isinstance(o, Path):
             return o.as_posix()
 
-        return super().default(o)  # type: ignore
+        return super().default(o)  # type: ignore[no-any-return]

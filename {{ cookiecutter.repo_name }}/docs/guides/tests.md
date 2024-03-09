@@ -27,5 +27,4 @@ pytest
 ```
 
 ???+ note
-
     Pre-commit hooks will only run those tests marked as `unit`.

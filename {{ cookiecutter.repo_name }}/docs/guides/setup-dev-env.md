@@ -30,27 +30,27 @@ conda activate {{cookiecutter.repo_name}}
 
 1. Run `conda-lock` command:
 
-   ```shell
-   conda-lock install --mamba -n {{cookiecutter.repo_name}} conda-lock.yml
-   ```
+    ```shell
+    conda-lock install --mamba -n {{cookiecutter.repo_name}} conda-lock.yml
+    ```
 
-1. Activate the env:
+2. Activate the env:
 
-   ```shell
-   conda activate {{cookiecutter.repo_name}}
-   ```
+    ```shell
+    conda activate {{cookiecutter.repo_name}}
+    ```
 
-1. Install `pre-commit` hooks:
+3. Install `pre-commit` hooks:
 
-   ```shell
-   pre-commit install
-   ```
+    ```shell
+    pre-commit install
+    ```
 
-1. Install the project in an editable mode:
+4. Install the project in an editable mode:
 
-   ```shell
-   pip install -e .
-   ```
+    ```shell
+    pip install -e .
+    ```
 
 ## Pre-commit hooks
 
@@ -60,13 +60,13 @@ To ensure code quality - please make sure that you have it configured.
 
 1. Install `pre-commit` and following packages: `ruff`, `mypy`, `pytest`.
 
-1. Install `pre-commit` hooks by running: `pre-commit install`
+2. Install `pre-commit` hooks by running: `pre-commit install`
 
-1. The command above will automatically run formatters, code checks and other steps defined in the `.pre-commit-config.yaml`
+3. The command above will automatically run formatters, code checks and other steps defined in the `.pre-commit-config.yaml`
 
-1. All of those checks will also be run whenever a new commit is being created i.e. when you run `git commit -m "blah"`
+4. All of those checks will also be run whenever a new commit is being created i.e. when you run `git commit -m "blah"`
 
-1. You can also run it manually with this command: `pre-commit run --all-files`
+5. You can also run it manually with this command: `pre-commit run --all-files`
 
 You can manually disable `pre-commit` hooks by running: `pre-commit uninstall` Use this only in exceptional cases.
 

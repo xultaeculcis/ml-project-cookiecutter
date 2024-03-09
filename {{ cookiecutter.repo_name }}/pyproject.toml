@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = '{{cookiecutter.repo_name}}'
 description = '{{cookiecutter.project_description}}'
 version = '0.0.1'
-requires-python = '>=3.10.0'
+requires-python = '>=3.8.0'
 authors = [
     { name = '{{cookiecutter.author_name}}' }
 ]
@@ -37,19 +37,98 @@ Homepage = '{{cookiecutter.repo_url}}'
 [tool.setuptools.dynamic]
 readme = {file = ["README.md"]}
 
-[tool.black]
-color = true
+[tool.ruff]
+show-fixes = true
+target-version = "py38"
 line-length = 120
-target-version = ['py38', 'py39', 'py310', 'py311']
-include = '\.pyi?$'
+extend-exclude = [
+    "docs/*",
+    "[{][{] cookiecutter.repo_name [}][}]/*",
+]
 
-[tool.isort]
-line_length = 120
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-combine_as_imports = true
-color_output = true
+[tool.ruff.lint]
+select = [
+    "D", # see: https://pypi.org/project/pydocstyle
+    "F", # see: https://pypi.org/project/Pyflakes
+    "E", "W", # see: https://pypi.org/project/pycodestyle
+    "C90", # see: https://pypi.org/project/mccabe
+    "I", # see: https://pypi.org/project/isort
+    "N", # see: https://pypi.org/project/pep8-naming
+    "UP", # see: https://pypi.org/project/pyupgrade
+    "YTT", # see: https://pypi.org/project/flake8-2020
+    "ANN", # see: https://pypi.org/project/flake8-annotations
+    "ASYNC", # see: https://pypi.org/project/flake8-async
+    "TRIO", # see: https://pypi.org/project/flake8-trio
+    "S", # see: https://pypi.org/project/flake8-bandit
+    "BLE", # see: https://pypi.org/project/flake8-blind-except
+    "FBT", # see: https://pypi.org/project/flake8-boolean-trap
+    "B", # see: https://pypi.org/project/flake8-bugbear
+    "A", # see: https://pypi.org/project/flake8-builtins
+    "C4", # see: https://pypi.org/project/flake8-comprehensions
+    "DTZ", # see: https://pypi.org/project/flake8-datetimez
+    "T10", # see: https://pypi.org/project/flake8-debugger
+    "EM", # see: https://pypi.org/project/flake8-errmsg
+    "EXE", # see: https://pypi.org/project/flake8-executable
+    "FA", # see: https://pypi.org/project/flake8-future-annotations
+    "ICN", # see: https://pypi.org/project/flake8-import-conventions
+    "G", # see: https://pypi.org/project/flake8-logging-format
+    "INP", # see: https://pypi.org/project/flake8-no-pep420
+    "PIE", # see: https://pypi.org/project/flake8-pie
+    "T20", # see: https://pypi.org/project/flake8-print
+    "PYI", # see: https://pypi.org/project/flake8-pyi
+    "PT", # see: https://pypi.org/project/flake8-pytest-style
+    "Q", # see: https://pypi.org/project/flake8-quotes
+    "RSE", # see: https://pypi.org/project/flake8-raise
+    "RET", # see: https://pypi.org/project/flake8-return
+    "SLF", # see: https://pypi.org/project/flake8-self
+    "SLOT", # see: https://pypi.org/project/flake8-slots
+    "SIM", # see: https://pypi.org/project/flake8-simplify
+    "TID", # see: https://pypi.org/project/flake8-tidy-imports
+    "TCH", # see: https://pypi.org/project/flake8-type-checking
+    "INT", # see: https://pypi.org/project/flake8-gettext
+    "ARG", # see: https://pypi.org/project/flake8-unused-arguments
+    "PTH", # see: https://pypi.org/project/flake8-use-pathlib
+    "ERA", # see: https://pypi.org/project/eradicate
+    "PD", # see: https://pypi.org/project/pandas-vet
+    "PGH", # see: https://pypi.org/project/pygrep-hooks
+    "PL", # see: https://pypi.org/project/Pylint
+    "TRY", # see: https://pypi.org/project/tryceratops
+    "FLY", # see: https://pypi.org/project/flynt
+    "NPY", # see: https://pypi.org/project/NumPy-specific rules
+    "AIR", # see: https://pypi.org/project/Airflow
+    "PERF", # see: https://pypi.org/project/Perflint
+    "FURB", # see: https://pypi.org/project/refurb
+    "LOG", # see: https://pypi.org/project/flake8-logging
+    "RUF", # Ruff-specific rules
+]
+ignore = [
+    "ANN401",  # see: https://pypi.org/project/flake8-annotations - Dynamically typed expressions (typing.Any) are disallowed
+    "D1",  # see: https://pypi.org/project/pydocstyle - D1 - undocumented public member - too restrictive
+    "COM", # see: https://pypi.org/project/flake8-commas - conflicts with formatter
+    "ISC", # see: https://pypi.org/project/flake8-implicit-str-concat - conflicts with formatter
+    "CPY", # see: https://pypi.org/project/flake8-copyright - not used
+    "DJ", # see: https://pypi.org/project/flake8-django - not used
+    "TD", # see: https://pypi.org/project/flake8-todos - too restrictive
+    "FIX", # see: https://pypi.org/project/flake8-fixme - too restrictive
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
+combine-as-imports = true
+
+[tool.ruff.lint.per-file-ignores]
+"**/{tests}/*" = ["S101"]  # Allow "use of assert detected" in tests
+"{{cookiecutter.src_dir_name}}/utils/gpu.py" = ["S605"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.pytest.ini_options]
 addopts = "--ignore data --ignore notebooks --ignore build_tools --ignore examples --ignore docs"
@@ -135,6 +214,8 @@ exclude_lines = [
     '@overload',
 ]
 
-[tool.pydocstyle]
-convention = "google"
-add-ignore = "D100,D101,D102,D103,D104,D105,D106,D107"
+[tool.docformatter]
+recursive = true
+wrap-summaries = 120
+wrap-descriptions = 120
+blank = true

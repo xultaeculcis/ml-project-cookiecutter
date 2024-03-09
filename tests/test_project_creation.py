@@ -70,7 +70,6 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
         "tests/unit/__init__.py",
         "tests/unit/test_dummy.py",
         ".env-sample",
-        ".flake8",
         ".gitignore",
         ".pre-commit-config.yaml",
         "env.yaml",

@@ -54,8 +54,6 @@ select = [
     "INT", # see: https://pypi.org/project/flake8-gettext
     "ARG", # see: https://pypi.org/project/flake8-unused-arguments
     "PTH", # see: https://pypi.org/project/flake8-use-pathlib
-    "TD", # see: https://pypi.org/project/flake8-todos
-    "FIX", # see: https://pypi.org/project/flake8-fixme
     "ERA", # see: https://pypi.org/project/eradicate
     "PD", # see: https://pypi.org/project/pandas-vet
     "PGH", # see: https://pypi.org/project/pygrep-hooks
@@ -75,6 +73,8 @@ ignore = [
     "ISC", # see: https://pypi.org/project/flake8-implicit-str-concat - conflicts with formatter
     "CPY", # see: https://pypi.org/project/flake8-copyright - not used
     "DJ", # see: https://pypi.org/project/flake8-django - not used
+    "TD", # see: https://pypi.org/project/flake8-todos - too restrictive
+    "FIX", # see: https://pypi.org/project/flake8-fixme - too restrictive
 ]
 
 [tool.ruff.format]
@@ -99,19 +99,6 @@ addopts = "--ignore docs"
 asyncio_mode = "auto"
 filterwarnings = [
     "ignore::UserWarning",
-]
-
-[tool.check-manifest]
-ignore = [
-    ".all-contributorsrc",
-    "build_tools/**",
-    "__check_build/**",
-    "docs/**",
-    "Makefile",
-    "CODEOWNERS",
-    "CONTRIBUTING.md",
-    "*.yaml",
-    "*.yml"
 ]
 
 [tool.mypy]
@@ -146,6 +133,11 @@ ignore_errors = true
 [tool.interrogate]
 ignore-init-module = true
 ignore_init_method = true
-exclude = ["tests", "docs", "site"]
-fail-under = 1
+exclude = ["tests", "docs", "docs-site"]
 omit-covered-files = true
+
+[tool.docformatter]
+recursive = true
+wrap-summaries = 120
+wrap-descriptions = 120
+blank = true

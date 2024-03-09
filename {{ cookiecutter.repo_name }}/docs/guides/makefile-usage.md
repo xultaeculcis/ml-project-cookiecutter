@@ -20,82 +20,82 @@ make help
 
 - **lock-file** - Creates conda-lock file
 
-  ```shell
-  make lock-file
-  ```
+    ```shell
+    make lock-file
+    ```
 
 ### Creating environments
 
 - **conda-lock-install** - Creates env from conda-lock file
 
-  ```shell
-  make conda-lock-install
-  ```
+    ```shell
+    make conda-lock-install
+    ```
 
 - **setup-pre-commit** - Installs pre-commit hooks
 
-  ```shell
-  make setup-pre-commit
-  ```
+    ```shell
+    make setup-pre-commit
+    ```
 
 - **setup-editable** - Installs the project in an editable mode
 
-  ```shell
-  make setup-editable
-  ```
+    ```shell
+    make setup-editable
+    ```
 
 - **env** - Creates local environment and installs pre-commit hooks
 
-  ```shell
-  make env
-  ```
+    ```shell
+    make env
+    ```
 
 ### Helper commands
 
 - **format** - Runs code formatting (`isort`, `black`, `flake8`)
 
-  ```shell
-  make format
-  ```
+    ```shell
+    make format
+    ```
 
 - **type-check** - Runs type checking with `mypy`
 
-  ```shell
-  make type-check
-  ```
+    ```shell
+    make type-check
+    ```
 
 - **test** - Runs pytest
 
-  ```shell
-  make test
-  ```
+    ```shell
+    make test
+    ```
 
 - **testcov** - Runs tests and generates coverage reports
 
-  ```shell
-  make testcov
-  ```
+    ```shell
+    make testcov
+    ```
 
 - **mpc** - Runs manual `pre-commit` stuff
 
-  ```shell
-  make mpc
-  ```
+    ```shell
+    make mpc
+    ```
 
 - **docs** - Builds the documentation
 
-  ```shell
-  make docs
-  ```
+    ```shell
+    make docs
+    ```
 
 - **pc** - Runs `pre-commit` hooks
 
-  ```shell
-  make pc
-  ```
+    ```shell
+    make pc
+    ```
 
 - **clean** - Cleans artifacts
 
-  ```shell
-  make clean
-  ```
+    ```shell
+    make clean
+    ```

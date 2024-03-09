@@ -22,8 +22,8 @@ def get_logger(name: str, log_level: int | str = logging.INFO) -> logging.Logger
 
     Returns:
         The logger.
-    """
 
+    """
     logger = logging.getLogger(name=name)
     logger.setLevel(log_level)
 
@@ -46,15 +46,22 @@ def timed(func: Callable[P, T]) -> Callable[P, T]:
 
     Returns:
         Wrapper around the function.
+
     """
 
     @wraps(func)
     def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
-        _timed_logger.info(f"{func.__qualname__} is running...")
+        _timed_logger.info("%(func_name) is running...", extra={"func_name": func.__qualname__})
         start = time.time()
         result = func(*args, **kwargs)
         end = time.time()
-        _timed_logger.info(f"{func.__qualname__} ran in {(end - start):.4f}s")
+        _timed_logger.info(
+            "%(func_name) ran in %(execution_time)s",
+            extra={
+                "func_name": func.__qualname__,
+                "execution_time": f"{(end - start):.4f}",
+            },
+        )
         return result
 
     return wrapper
