@@ -74,7 +74,7 @@ my-ml-project/
 │   │   ├── makefile-usage.md
 │   │   ├── setup-dev-env.md
 │   │   └── tests.md
-│   ├── index.md
+│   ├── index.md                          <- Docs homepage.
 │   └── __init__.py
 ├── env.yaml                              <- Conda environment definition.
 ├── LICENSE                               <- The license file.
