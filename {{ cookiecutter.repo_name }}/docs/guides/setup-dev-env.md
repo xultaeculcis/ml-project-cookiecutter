@@ -2,14 +2,18 @@
 
 In order to set up local development environment make sure you have installed:
 
-* [conda](https://docs.conda.io/en/latest/miniconda.html)
-* [conda-lock](https://github.com/conda/conda-lock)
+- [conda](https://docs.conda.io/en/latest/miniconda.html)
+- [conda-lock](https://github.com/conda/conda-lock)
 
 You can install `conda-lock` on your `base` environment by running:
 
 ```shell
 conda install -c conda-forge conda-lock -n base
 ```
+
+You can use [miniforge](https://github.com/conda-forge/miniforge) which also includes
+[mamba](https://mamba.readthedocs.io/en/latest/index.html). Using `mamba` should
+speed up dependency resolution significantly.
 
 ## Using Makefile
 
@@ -29,31 +33,36 @@ conda activate {{cookiecutter.repo_name}}
 ## Manually
 
 1. Run `conda-lock` command:
+
     ```shell
     conda-lock install --mamba -n {{cookiecutter.repo_name}} conda-lock.yml
     ```
 
 2. Activate the env:
+
     ```shell
     conda activate {{cookiecutter.repo_name}}
     ```
 
 3. Install `pre-commit` hooks:
+
     ```shell
     pre-commit install
     ```
 
 4. Install the project in an editable mode:
+
     ```shell
     pip install -e .
     ```
 
 ## Pre-commit hooks
+
 This project uses `pre-commit` package for managing and maintaining `pre-commit` hooks.
 
 To ensure code quality - please make sure that you have it configured.
 
-1. Install `pre-commit` and following packages: `isort`, `black`, `flake8`, `mypy`, `pytest`.
+1. Install `pre-commit` and following packages: `ruff`, `mypy`, `pytest`.
 
 2. Install `pre-commit` hooks by running: `pre-commit install`
 

@@ -26,4 +26,5 @@ To run all tests:
 pytest
 ```
 
-> NOTE: Pre-commit hooks will only run those tests marked as `unit`.
+???+ note
+    Pre-commit hooks will only run those tests marked as `unit`.

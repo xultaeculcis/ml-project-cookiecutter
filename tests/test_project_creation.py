@@ -6,7 +6,7 @@ from typing import Callable
 
 import pytest
 
-LICENSES = ["MIT", "Apache 2.0", "BSD-3-Clause", "Beerware", "Proprietary", "Empty license file"]
+LICENSES = ["MIT", "Apache 2.0", "BSD-3-Clause", "Beerware", "GLWTS", "Proprietary", "Empty license file"]
 
 
 def no_curlies(fp: Path) -> bool:
@@ -70,7 +70,6 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
         "tests/unit/__init__.py",
         "tests/unit/test_dummy.py",
         ".env-sample",
-        ".flake8",
         ".gitignore",
         ".pre-commit-config.yaml",
         "env.yaml",
@@ -87,7 +86,7 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
 def test_readme(dummy_project_dir: Path) -> None:
     readme_txt = (dummy_project_dir / "README.md").read_text()
     assert no_curlies(dummy_project_dir / "README.md")
-    assert readme_txt == "dummy project\n======\n\nA short description of the project\n"
+    assert readme_txt == "# dummy project\n\nA short description of the project\n"
 
 
 def test_makefile(dummy_project_dir: Path) -> None:
@@ -109,7 +108,7 @@ def test_documentation_files(dummy_project_dir: Path) -> None:
 def test_license(dummy_project_factory: Callable[[str], Path], license_type: str) -> None:
     project_dir = dummy_project_factory(license_type)
     expected_content = (Path(__file__).parent / "licenses" / f"{license_type}.txt").read_text()
-    expected_content = expected_content.format(year=datetime.utcnow().year)
+    expected_content = expected_content.format(year=datetime.utcnow().year)  # noqa: DTZ003
     if license_type != "No license file":
         assert expected_content in (project_dir / "LICENSE").read_text()
     else:

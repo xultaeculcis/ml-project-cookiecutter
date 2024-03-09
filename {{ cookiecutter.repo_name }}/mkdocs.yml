@@ -12,6 +12,7 @@ markdown_extensions:
   - codehilite
   - md_in_html
   - meta
+  - pymdownx.details
   - pymdownx.highlight:
       use_pygments: true
   - pymdownx.superfences
@@ -47,6 +48,6 @@ nav:
   - API reference:
       - {{cookiecutter.src_dir_name}}.consts: "api_ref/consts.md"
       - {{cookiecutter.src_dir_name}}.core:
-        - configs: "api_ref/core/configs.md"
-        - settings: "api_ref/core/settings.md"
+          - configs: "api_ref/core/configs.md"
+          - settings: "api_ref/core/settings.md"
       - {{cookiecutter.src_dir_name}}.utils: "api_ref/utils.md"
