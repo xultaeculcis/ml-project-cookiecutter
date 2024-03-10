@@ -165,7 +165,7 @@ fabric.properties
 /docs-site/
 dask-worker-space/
 mlruns/
-default/
+/default/
 /outputs/
 !/outputs/.gitkeep
 .git/
