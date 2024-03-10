@@ -67,7 +67,8 @@ repos:
           - mdformat_frontmatter
           - mdformat-mkdocs
           - mdformat-toc
-        exclude: '{{ cookiecutter.repo_name }}'
+        # Ignore readme as well, for flexibility
+        exclude: '^({{ cookiecutter.repo_name }}/|README.md$)'
         args: [ "--number" ]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
