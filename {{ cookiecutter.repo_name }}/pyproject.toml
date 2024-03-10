@@ -43,7 +43,10 @@ target-version = "py38"
 line-length = 120
 extend-exclude = [
     "docs/*",
-    "[{][{] cookiecutter.repo_name [}][}]/*",
+    "data/*",
+    "logs/*",
+    "mlruns/*",
+    "outputs/*",
 ]
 
 [tool.ruff.lint]
