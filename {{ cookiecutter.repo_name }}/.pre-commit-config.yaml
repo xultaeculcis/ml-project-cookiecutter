@@ -66,6 +66,7 @@ repos:
           # Type stubs
           - pytest
           - types-all
+          - types-tqdm
 
   - repo: local
     hooks:
