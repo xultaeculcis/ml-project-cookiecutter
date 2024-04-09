@@ -24,6 +24,7 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
     expected_items = [
         "data",
         "data/auxiliary",
+        "data/inference",
         "data/interim",
         "data/processed",
         "data/raw",
@@ -54,9 +55,7 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
         "dummy_project/utils/__init__.py",
         "dummy_project/utils/logging.py",
         "dummy_project/utils/serialization.py",
-        "logs",
         "notebooks",
-        "outputs",
         "tests",
         "tests/__init__.py",
         "tests/conftest.py",
@@ -80,7 +79,8 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
         "README.md",
     ]
     fps = [fp.relative_to(dummy_project_dir).as_posix() for fp in dummy_project_dir.rglob("*")]
-    assert all((expected_dir in fps) for expected_dir in expected_items)
+    diff = set(expected_items).difference(fps)
+    assert diff == set()
 
 
 def test_readme(dummy_project_dir: Path) -> None:
