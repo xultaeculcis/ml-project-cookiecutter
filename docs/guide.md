@@ -102,7 +102,9 @@ my-ml-project/
 │   ├── py.typed
 │   └── utils                             <- Utility functions and classes.
 │       ├── __init__.py
+│       ├── gpu.py
 │       ├── logging.py
+│       ├── mlflow.py
 │       └── serialization.py
 ├── notebooks                             <- Jupyter notebooks. Naming convention is a
 │                                            number (for ordering), the creator's initials,
