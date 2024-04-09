@@ -37,6 +37,7 @@ git-init:
 lock-file:
 	rm -rf conda-lock.yml
 	conda-lock --mamba -f ./env.yaml -p linux-64
+	git add conda-lock.yml
 
 # Environment creation
 
