@@ -58,7 +58,9 @@ The resulting project structure will look like this:
 ```text
 my-ml-project/
 ├── data
+│   ├── analysis                          <- EDA artifacts.
 │   ├── auxiliary                         <- The auxiliary, third party data.
+│   ├── inference                         <- Inference results from your models.
 │   ├── interim                           <- Intermediate data that has been transformed.
 │   ├── processed                         <- The final, canonical data sets for modeling.
 │   └── raw                               <- The original, immutable data dump.
@@ -78,9 +80,6 @@ my-ml-project/
 │   └── __init__.py
 ├── env.yaml                              <- Conda environment definition.
 ├── LICENSE                               <- The license file.
-├── logs                                  <- The model training or workflow/script execution
-│                                            logs and artifacts e.g., pytorch-lightning logs
-│                                            and model checkpoints.
 ├── Makefile                              <- Makefile with commands like `make docs` or
 │                                            `make pc`.
 ├── mkdocs.yml
@@ -89,7 +88,8 @@ my-ml-project/
 │   ├── consts                            <- Constants to be used across the project.
 │   │   ├── __init__.py
 │   │   ├── directories.py
-│   │   └── logging.py
+│   │   ├── logging.py
+│   │   └── reproducibility.py
 │   ├── core                              <- Core project stuff. E.g., the base classes
 │   │   │                                    for step entrypoint configs.
 │   │   ├── configs
@@ -108,7 +108,6 @@ my-ml-project/
 │                                            number (for ordering), the creator's initials,
 │                                            and a short `-` delimited description, e.g.
 │                                            `1.0-jqp-initial-data-exploration`.
-├── outputs                               <- Inference and EDA artifacts e.g., predictions.
 ├── pyproject.toml                        <- Contains build system requirements
 │                                            and information, which are used by pip to build
 │                                            the package and project tooling configs.

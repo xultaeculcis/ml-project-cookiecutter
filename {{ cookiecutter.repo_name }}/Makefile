@@ -35,6 +35,7 @@ git-init:
 
 .PHONY: lock-file  ## Creates conda-lock file
 lock-file:
+	rm -rf conda-lock.yml
 	conda-lock --mamba -f ./env.yaml -p linux-64
 
 # Environment creation
@@ -56,7 +57,7 @@ env: conda-lock-install setup-pre-commit setup-editable
 
 # Project initialization
 
-.PHONY: init-project  ## Runs Git init, lock-file creation and env setup - to be used after cookicutter initialization
+.PHONY: init-project  ## Runs Git init, lock-file creation and env setup - to be used after cookiecutter initialization
 init-project: git-init lock-file env
 
 # Helpers
