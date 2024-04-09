@@ -62,7 +62,7 @@ Run:
 cookiecutter https://github.com/xultaeculcis/ml-project-cookiecutter
 ```
 
-and then:
+`cd` into your new project directory and then run:
 
 ```shell
 make init-project
