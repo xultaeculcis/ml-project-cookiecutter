@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.bcfcd587.min.css">
       
       
 
@@ -649,7 +649,9 @@ You can change them to your liking though.</p>
 <p>The resulting project structure will look like this:</p>
 <div class="highlight"><pre><span></span><code>my-ml-project/
 ├── data
+│   ├── analysis                          &lt;- EDA artifacts.
 │   ├── auxiliary                         &lt;- The auxiliary, third party data.
+│   ├── inference                         &lt;- Inference results from your models.
 │   ├── interim                           &lt;- Intermediate data that has been transformed.
 │   ├── processed                         &lt;- The final, canonical data sets for modeling.
 │   └── raw                               &lt;- The original, immutable data dump.
@@ -669,9 +671,6 @@ You can change them to your liking though.</p>
 │   └── __init__.py
 ├── env.yaml                              &lt;- Conda environment definition.
 ├── LICENSE                               &lt;- The license file.
-├── logs                                  &lt;- The model training or workflow/script execution
-│                                            logs and artifacts e.g., pytorch-lightning logs
-│                                            and model checkpoints.
 ├── Makefile                              &lt;- Makefile with commands like `make docs` or
 │                                            `make pc`.
 ├── mkdocs.yml
@@ -680,7 +679,8 @@ You can change them to your liking though.</p>
 │   ├── consts                            &lt;- Constants to be used across the project.
 │   │   ├── __init__.py
 │   │   ├── directories.py
-│   │   └── logging.py
+│   │   ├── logging.py
+│   │   └── reproducibility.py
 │   ├── core                              &lt;- Core project stuff. E.g., the base classes
 │   │   │                                    for step entrypoint configs.
 │   │   ├── configs
@@ -693,13 +693,14 @@ You can change them to your liking though.</p>
 │   ├── py.typed
 │   └── utils                             &lt;- Utility functions and classes.
 │       ├── __init__.py
+│       ├── gpu.py
 │       ├── logging.py
+│       ├── mlflow.py
 │       └── serialization.py
 ├── notebooks                             &lt;- Jupyter notebooks. Naming convention is a
 │                                            number (for ordering), the creator&#39;s initials,
 │                                            and a short `-` delimited description, e.g.
 │                                            `1.0-jqp-initial-data-exploration`.
-├── outputs                               &lt;- Inference and EDA artifacts e.g., predictions.
 ├── pyproject.toml                        &lt;- Contains build system requirements
 │                                            and information, which are used by pip to build
 │                                            the package and project tooling configs.
@@ -912,7 +913,7 @@ commit that targets the <code>main</code> branch.</p>
     <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      <script src="../assets/javascripts/bundle.1e8ae164.min.js"></script>
       
     
   <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
