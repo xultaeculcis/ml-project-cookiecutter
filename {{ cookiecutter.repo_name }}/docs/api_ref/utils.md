@@ -10,6 +10,12 @@ The logging utilities.
 
 ::: {{cookiecutter.src_dir_name}}.utils.logging
 
+## MLFlow
+
+The MLFlow utilities.
+
+::: {{cookiecutter.src_dir_name}}.utils.mlflow
+
 ## Serialization
 
 The serialization utils.

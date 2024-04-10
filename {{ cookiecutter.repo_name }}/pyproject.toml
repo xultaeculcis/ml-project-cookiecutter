@@ -46,7 +46,6 @@ extend-exclude = [
     "data/*",
     "logs/*",
     "mlruns/*",
-    "outputs/*",
 ]
 
 [tool.ruff.lint]

@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-ruff-lint = ruff check --fix --preview.
+ruff-lint = ruff check --fix --preview .
 ruff-format = ruff format --preview .
 mypy = mypy .
 pre-commit = pre-commit run --all-files
@@ -35,7 +35,9 @@ git-init:
 
 .PHONY: lock-file  ## Creates conda-lock file
 lock-file:
+	rm -rf conda-lock.yml
 	conda-lock --mamba -f ./env.yaml -p linux-64
+	git add conda-lock.yml
 
 # Environment creation
 
@@ -56,7 +58,7 @@ env: conda-lock-install setup-pre-commit setup-editable
 
 # Project initialization
 
-.PHONY: init-project  ## Runs Git init, lock-file creation and env setup - to be used after cookicutter initialization
+.PHONY: init-project  ## Runs Git init, lock-file creation and env setup - to be used after cookiecutter initialization
 init-project: git-init lock-file env
 
 # Helpers

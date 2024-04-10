@@ -56,7 +56,21 @@ This project was greatly inspired by
 
 ## Getting started
 
-To get started, please check out [this](https://xultaeculcis.github.io/ml-project-cookiecutter/guide/) guide.
+Run:
+
+```shell
+cookiecutter https://github.com/xultaeculcis/ml-project-cookiecutter
+```
+
+`cd` into your new project directory and then run:
+
+```shell
+make init-project
+```
+
+to get started.
+
+For full guide, please check out [this](https://xultaeculcis.github.io/ml-project-cookiecutter/guide/) page.
 
 ## Contributing
 
