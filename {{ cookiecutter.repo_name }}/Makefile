@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-ruff-lint = ruff check --fix --preview.
+ruff-lint = ruff check --fix --preview .
 ruff-format = ruff format --preview .
 mypy = mypy .
 pre-commit = pre-commit run --all-files
