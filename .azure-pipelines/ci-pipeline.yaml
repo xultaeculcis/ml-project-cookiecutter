@@ -6,10 +6,51 @@ pr:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  project_name: project_name  # default project name
+
 stages:
-  - stage: "pre_commit_hooks"
-    displayName: "Run pre-commit hooks"
+#  - stage: "pre_commit_hooks"
+#    displayName: "Run pre-commit hooks"
+#    jobs:
+#      - job: "pre_commit_hooks"
+#        displayName: "Run pre-commit hooks"
+#        steps:
+#          - task: UsePythonVersion@0
+#            inputs:
+#              versionSpec: "3.11"
+#              addToPath: true
+#
+#          - script: |
+#              python -m pip install --upgrade pip
+#              pip install pre-commit pytest cookiecutter
+#              pre-commit install
+#            displayName: "Install dependencies"
+#
+#          - script: |
+#              pre-commit run --all-files
+#            displayName: "Run pre-commit hooks"
+
+  - stage: "project_creation_checks"
+    displayName: "Run post-cookiecutter template creation checks"
     jobs:
+      - job: "create_project_from_template"
+        displayName: "Create cookiecutter project from template"
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '3.11'
+              addToPath: true
+
+          - script: |
+              python -m pip install --upgrade pip
+              pip install cookiecutter
+            displayName: 'Install Cookiecutter'
+
+          - script: |
+              cookiecutter . --no-input
+            displayName: 'Generate project from Cookiecutter'
+
       - job: "pre_commit_hooks"
         displayName: "Run pre-commit hooks"
         steps:
@@ -28,13 +69,12 @@ stages:
               pre-commit run --all-files
             displayName: "Run pre-commit hooks"
 
-  - stage: "project_creation_checks"
-    displayName: "Run post-cookiecutter template creation checks"
-    jobs:
-      - job: "pre_commit_hooks"
-        displayName: "Run pre-commit hooks"
+      - job: "env_creation"
+        displayName: "conda-lock env creation"
         steps:
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: "3.11"
-              addToPath: true
+          - script: |
+              conda install -n base conda-lock
+              make lock-file
+              make env
+              conda activate $(project_name)
+            displayName: 'Create and activate Conda environment'
