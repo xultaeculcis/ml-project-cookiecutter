@@ -6,18 +6,35 @@ pr:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: "3.11"
-      addToPath: true
-
-  - script: |
-      python -m pip install --upgrade pip
-      pip install pre-commit pytest cookiecutter
-      pre-commit install
-    displayName: "Install dependencies"
-
-  - script: |
-      pre-commit run --all-files
+stages:
+  - stage: "pre-commit-hooks"
     displayName: "Run pre-commit hooks"
+    jobs:
+      - job: "pre-commit-hooks"
+        displayName: "Run pre-commit hooks"
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.11"
+              addToPath: true
+
+          - script: |
+              python -m pip install --upgrade pip
+              pip install pre-commit pytest cookiecutter
+              pre-commit install
+            displayName: "Install dependencies"
+
+          - script: |
+              pre-commit run --all-files
+            displayName: "Run pre-commit hooks"
+
+  - stage: "project-creation-checks"
+    displayName: "Run post-cookiecutter template creation checks"
+    jobs:
+      - job: "pre-commit-hooks"
+        displayName: "Run pre-commit hooks"
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.11"
+              addToPath: true
