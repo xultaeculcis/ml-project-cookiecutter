@@ -8,6 +8,7 @@ pool:
 
 variables:
   template_dir: project-name  # default repo name
+  project_name: project_name  # default project package name
 
 stages:
   #  - stage: "pre_commit_hooks"
@@ -74,6 +75,6 @@ stages:
 
           - script: |
               source activate $(template_dir)
-              pytest -v --cov=$(template_dir)
+              pytest -v --cov=$(project_name)
             workingDirectory: $(template_dir)
             displayName: "Run unit tests with coverage"
