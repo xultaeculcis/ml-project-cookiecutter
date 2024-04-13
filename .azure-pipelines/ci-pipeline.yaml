@@ -51,15 +51,23 @@ stages:
               cookiecutter . --no-input
             displayName: 'Generate project from Cookiecutter'
 
-      - job: "pre_commit_hooks"
-        displayName: "Run pre-commit hooks"
+      - job: "env_creation"
+        displayName: "Environment creation with conda-lock"
         dependsOn: "create_project_from_template"
         steps:
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: "3.11"
-              addToPath: true
+          - bash: echo "##vso[task.prependpath]$CONDA/bin"
+            displayName: Add conda to PATH
 
+          - script: |
+              cd $(repo_name)
+              conda install -n base conda-lock -c conda-forge -y
+              make init-project
+            displayName: 'Create Conda environment'
+
+      - job: "pre_commit_hooks"
+        displayName: "Run pre-commit hooks"
+        dependsOn: "env_creation"
+        steps:
           - script: |
               cd $(repo_name)
               python -m pip install --upgrade pip
@@ -70,15 +78,3 @@ stages:
           - script: |
               pre-commit run --all-files
             displayName: "Run pre-commit hooks"
-
-      - job: "env_creation"
-        displayName: "Environment creation with conda-lock"
-        dependsOn: "create_project_from_template"
-        steps:
-          - script: |
-              cd $(repo_name)
-              conda install -n base conda-lock
-              make lock-file
-              make env
-              conda activate $(project_name)
-            displayName: 'Create and activate Conda environment'
