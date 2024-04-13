@@ -7,18 +7,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  - bash: echo "##vso[task.prependpath]$CONDA/bin"
-    displayName: Add conda to PATH
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "3.11"
+      addToPath: true
 
-  - bash: |
-      set -e
-      cd $(Build.SourcesDirectory)
-      conda env create -f ./.azure-pipelines/ci-env.yaml
-    displayName: Create Anaconda environment
-
-  - bash: |
-      set -e
-      source activate ci-env
+  - script: |
+      python -m pip install --upgrade pip
+      pip install pre-commit
       pre-commit install
+    displayName: "Install dependencies"
+
+  - script: |
       SKIP=pytest-check pre-commit run --all-files
-    displayName: Run simplified pre-commit hooks
+    displayName: "Run simplified pre-commit hooks"

@@ -1,0 +1,94 @@
+trigger:
+  branches:
+    include:
+    - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  template_dir: project-name  # default repo name
+  project_name: project_name  # default project package name
+
+stages:
+  - stage: "pre_commit_hooks"
+    displayName: "Run pre-commit hooks"
+    jobs:
+      - job: "pre_commit_hooks"
+        displayName: "Run pre-commit hooks"
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.11"
+              addToPath: true
+
+          - script: |
+              python -m pip install --upgrade pip
+              pip install pre-commit pytest cookiecutter
+              pre-commit install
+            displayName: "Install dependencies"
+
+          - script: |
+              pre-commit run --all-files
+            displayName: "Run pre-commit hooks"
+
+  - stage: "project_creation_checks"
+    displayName: "Run post project creation checks"
+    jobs:
+      - job: "template_checks"
+        displayName: "Template checks"
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.11"
+              addToPath: true
+
+          - script: |
+              python -m pip install --upgrade pip
+              pip install cookiecutter
+            displayName: "Install Cookiecutter"
+
+          - script: |
+              cookiecutter . --no-input
+            displayName: "Generate project from Cookiecutter"
+
+          - bash: echo "##vso[task.prependpath]$CONDA/bin"
+            displayName: Add conda to PATH
+
+          - script: |
+              conda install -n base conda-lock -c conda-forge -y
+              make init-project
+            workingDirectory: $(template_dir)
+            displayName: "Create Conda environment"
+
+          - script: |
+              source activate $(template_dir)
+              make pc
+            workingDirectory: $(template_dir)
+            displayName: "Run pre-commit hooks"
+
+          - script: |
+              source activate $(template_dir)
+              make docs
+            workingDirectory: $(template_dir)
+            displayName: "Build docs"
+
+          - script: |
+              source activate $(template_dir)
+              pytest -v --cov=$(project_name) --cov-report=xml --junitxml=junit/test-results.xml
+            workingDirectory: $(template_dir)
+            displayName: "Run unit tests with coverage"
+
+          - task: PublishTestResults@2
+            condition: succeededOrFailed()
+            inputs:
+              testResultsFiles: '**/test-*.xml'
+              searchFolder: $(template_dir)
+              testRunTitle: 'PyTest Results'
+            displayName: 'Publish Test Results'
+
+          - task: PublishCodeCoverageResults@2
+            inputs:
+              failIfCoverageEmpty: true
+              summaryFileLocation: '**/coverage.xml'
+            displayName: 'Publish Code Coverage Results'
