@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 import json
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import pytest
@@ -14,8 +16,8 @@ def test_date_serialization() -> None:
 
 
 def test_datetime_serialization() -> None:
-    test_datetime = datetime(2023, 4, 10, 15, 30, 45)
-    expected = '"2023-04-10T15:30:45"'
+    test_datetime = datetime(2023, 4, 10, 15, 30, 45, tzinfo=timezone.utc)
+    expected = '"2023-04-10T15:30:45+00:00"'
     assert json.dumps(test_datetime, cls=JsonEncoder) == expected
 
 

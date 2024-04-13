@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+
 import pytest
 
 from {{cookiecutter.src_dir_name}} import consts
@@ -13,6 +16,7 @@ _NAME_TO_LEVEL = {
     "DEBUG": logging.DEBUG,
 }
 _LOGGER_NAME = "test_logger"
+
 
 def test_should_make_logger_with_specified_name() -> None:
     logger = get_logger(_LOGGER_NAME, "INFO")
@@ -50,4 +54,4 @@ def test_formatter_configuration() -> None:
     logger = get_logger(_LOGGER_NAME)
     formatter = logger.handlers[0].formatter
     expected_format = consts.logging.FORMAT
-    assert formatter._fmt == expected_format
+    assert formatter._fmt == expected_format  # type: ignore[union-attr] # noqa: SLF001
