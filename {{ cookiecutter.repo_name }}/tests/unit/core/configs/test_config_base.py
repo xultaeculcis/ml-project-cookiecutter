@@ -12,7 +12,7 @@ class DummyConfig(ConfigBase):
 
 
 def test_config_base_str() -> None:
-    cfg = DummyConfig(x=1, y=2., z="3")
+    cfg = DummyConfig(x=1, y=2.0, z="3")
     assert str(cfg) == '{\n    "x": 1,\n    "y": 2.0,\n    "z": "3"\n}'
 
 
