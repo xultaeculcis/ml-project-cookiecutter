@@ -10,26 +10,26 @@ variables:
   repo_name: project-name  # default repo name
 
 stages:
-#  - stage: "pre_commit_hooks"
-#    displayName: "Run pre-commit hooks"
-#    jobs:
-#      - job: "pre_commit_hooks"
-#        displayName: "Run pre-commit hooks"
-#        steps:
-#          - task: UsePythonVersion@0
-#            inputs:
-#              versionSpec: "3.11"
-#              addToPath: true
-#
-#          - script: |
-#              python -m pip install --upgrade pip
-#              pip install pre-commit pytest cookiecutter
-#              pre-commit install
-#            displayName: "Install dependencies"
-#
-#          - script: |
-#              pre-commit run --all-files
-#            displayName: "Run pre-commit hooks"
+  #  - stage: "pre_commit_hooks"
+  #    displayName: "Run pre-commit hooks"
+  #    jobs:
+  #      - job: "pre_commit_hooks"
+  #        displayName: "Run pre-commit hooks"
+  #        steps:
+  #          - task: UsePythonVersion@0
+  #            inputs:
+  #              versionSpec: "3.11"
+  #              addToPath: true
+  #
+  #          - script: |
+  #              python -m pip install --upgrade pip
+  #              pip install pre-commit pytest cookiecutter
+  #              pre-commit install
+  #            displayName: "Install dependencies"
+  #
+  #          - script: |
+  #              pre-commit run --all-files
+  #            displayName: "Run pre-commit hooks"
 
   - stage: "project_creation_checks"
     displayName: "Run post-cookiecutter template creation checks"
@@ -39,17 +39,17 @@ stages:
         steps:
           - task: UsePythonVersion@0
             inputs:
-              versionSpec: '3.11'
+              versionSpec: "3.11"
               addToPath: true
 
           - script: |
               python -m pip install --upgrade pip
               pip install cookiecutter
-            displayName: 'Install Cookiecutter'
+            displayName: "Install Cookiecutter"
 
           - script: |
               cookiecutter . --no-input
-            displayName: 'Generate project from Cookiecutter'
+            displayName: "Generate project from Cookiecutter"
 
           - bash: echo "##vso[task.prependpath]$CONDA/bin"
             displayName: Add conda to PATH
@@ -58,9 +58,23 @@ stages:
               cd $(repo_name)
               conda install -n base conda-lock -c conda-forge -y
               make init-project
-            displayName: 'Create Conda environment'
+            displayName: "Create Conda environment"
 
           - script: |
+              cd $(repo_name)
               source activate $(repo_name)
               make pc
             displayName: "Run pre-commit hooks"
+
+          - script: |
+              cd $(repo_name)
+              source activate $(repo_name)
+              make docs
+            displayName: "Build docs"
+
+          - script: |
+              cd $(repo_name)
+              source activate $(repo_name)
+              pytest -v --cov=$(repo_name)
+            workingDirectory: $(templateDir)
+            displayName: "Run unit tests with coverage"
