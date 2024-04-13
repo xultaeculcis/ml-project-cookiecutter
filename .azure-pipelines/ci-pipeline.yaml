@@ -7,7 +7,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  repo_name: project-name  # default repo name
+  template_dir: project-name  # default repo name
 
 stages:
   #  - stage: "pre_commit_hooks"
@@ -55,26 +55,25 @@ stages:
             displayName: Add conda to PATH
 
           - script: |
-              cd $(repo_name)
               conda install -n base conda-lock -c conda-forge -y
               make init-project
+            workingDirectory: $(template_dir)
             displayName: "Create Conda environment"
 
           - script: |
-              cd $(repo_name)
-              source activate $(repo_name)
+              source activate $(template_dir)
               make pc
+            workingDirectory: $(template_dir)
             displayName: "Run pre-commit hooks"
 
           - script: |
-              cd $(repo_name)
-              source activate $(repo_name)
+              source activate $(template_dir)
               make docs
+            workingDirectory: $(template_dir)
             displayName: "Build docs"
 
           - script: |
-              cd $(repo_name)
-              source activate $(repo_name)
-              pytest -v --cov=$(repo_name)
-            workingDirectory: $(templateDir)
+              source activate $(template_dir)
+              pytest -v --cov=$(template_dir)
+            workingDirectory: $(template_dir)
             displayName: "Run unit tests with coverage"
