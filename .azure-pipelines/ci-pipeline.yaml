@@ -1,7 +1,7 @@
-trigger: none
-
-pr:
-  - main
+trigger:
+  branches:
+    include:
+    - main
 
 pool:
   vmImage: ubuntu-latest
@@ -11,29 +11,29 @@ variables:
   project_name: project_name  # default project package name
 
 stages:
-  #  - stage: "pre_commit_hooks"
-  #    displayName: "Run pre-commit hooks"
-  #    jobs:
-  #      - job: "pre_commit_hooks"
-  #        displayName: "Run pre-commit hooks"
-  #        steps:
-  #          - task: UsePythonVersion@0
-  #            inputs:
-  #              versionSpec: "3.11"
-  #              addToPath: true
-  #
-  #          - script: |
-  #              python -m pip install --upgrade pip
-  #              pip install pre-commit pytest cookiecutter
-  #              pre-commit install
-  #            displayName: "Install dependencies"
-  #
-  #          - script: |
-  #              pre-commit run --all-files
-  #            displayName: "Run pre-commit hooks"
+  - stage: "pre_commit_hooks"
+    displayName: "Run pre-commit hooks"
+    jobs:
+      - job: "pre_commit_hooks"
+        displayName: "Run pre-commit hooks"
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.11"
+              addToPath: true
+
+          - script: |
+              python -m pip install --upgrade pip
+              pip install pre-commit pytest cookiecutter
+              pre-commit install
+            displayName: "Install dependencies"
+
+          - script: |
+              pre-commit run --all-files
+            displayName: "Run pre-commit hooks"
 
   - stage: "project_creation_checks"
-    displayName: "Run post-cookiecutter template creation checks"
+    displayName: "Run post project creation checks"
     jobs:
       - job: "template_checks"
         displayName: "Template checks"
