@@ -14,7 +14,7 @@ def test_default_behavior_present_gpu() -> None:
             set_gpu_power_limit_if_needed()
             calls = [
                 mock.call("/usr/bin/sudo /usr/bin/nvidia-smi -pm 1"),
-                mock.call("/usr/bin/sudo /usr/bin/nvidia-smi -pl 250")
+                mock.call("/usr/bin/sudo /usr/bin/nvidia-smi -pl 250"),
             ]
             mock_system.assert_has_calls(calls, any_order=True)
 
@@ -26,7 +26,7 @@ def test_non_default_gpu_and_power() -> None:
             set_gpu_power_limit_if_needed(gpu_name="NVIDIA GeForce RTX 3080", pw=300)
             calls = [
                 mock.call("/usr/bin/sudo /usr/bin/nvidia-smi -pm 1"),
-                mock.call("/usr/bin/sudo /usr/bin/nvidia-smi -pl 300")
+                mock.call("/usr/bin/sudo /usr/bin/nvidia-smi -pl 300"),
             ]
             mock_system.assert_has_calls(calls, any_order=True)
 

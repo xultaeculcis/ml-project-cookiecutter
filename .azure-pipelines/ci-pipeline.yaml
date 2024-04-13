@@ -35,8 +35,8 @@ stages:
   - stage: "project_creation_checks"
     displayName: "Run post-cookiecutter template creation checks"
     jobs:
-      - job: "create_project_from_template"
-        displayName: "Create cookiecutter project from template"
+      - job: "template_checks"
+        displayName: "Template checks"
         steps:
           - task: UsePythonVersion@0
             inputs:
@@ -75,6 +75,21 @@ stages:
 
           - script: |
               source activate $(template_dir)
-              pytest -v --cov=$(project_name)
+              pytest -v --cov=$(project_name) --cov-report=xml --doctest-modules --junitxml=junit/test-results.xml
             workingDirectory: $(template_dir)
             displayName: "Run unit tests with coverage"
+
+          - task: PublishTestResults@2
+            condition: succeededOrFailed()
+            inputs:
+              testResultsFiles: '**/test-*.xml'
+              searchFolder: $(template_dir)
+              testRunTitle: 'PyTest Results'
+            displayName: 'Publish Test Results'
+
+          - task: PublishCodeCoverageResults@1
+            inputs:
+              codeCoverageTool: 'Cobertura'
+              summaryFileLocation: '**/coverage.xml'
+              reportDirectory: $(template_dir)
+            displayName: 'Publish Code Coverage Results'
