@@ -75,7 +75,7 @@ stages:
 
           - script: |
               source activate $(template_dir)
-              pytest -v --cov=$(project_name) --cov-report=xml --doctest-modules --junitxml=junit/test-results.xml
+              pytest -v --cov=$(project_name) --cov-report=xml --junitxml=junit/test-results.xml
             workingDirectory: $(template_dir)
             displayName: "Run unit tests with coverage"
 
