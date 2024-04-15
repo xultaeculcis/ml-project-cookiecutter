@@ -32,7 +32,7 @@ def test_parse_args_correct_parsing(mock_logger: MagicMock, parser: argparse.Arg
     assert isinstance(config, TestConfig)
     assert config.a == 123  # noqa: PLR2004
     assert config.b == "test"
-    mock_logger.info.assert_called_with("Running with following config: %(cfg)", extra={"cfg": config})
+    mock_logger.info.assert_called_with("Running with following config: %(cfg)s", {"cfg": config})
 
 
 @patch("{{cookiecutter.src_dir_name}}.core.configs.argument_parsing._logger")
@@ -43,4 +43,4 @@ def test_parse_args_unknown_arguments(mock_logger: MagicMock, parser: argparse.A
         _ = parse_args(parser, TestConfig)
         unknown_args = ["--unknown", "value"]
 
-    mock_logger.info.assert_any_call("Unknown args: %(unknown_args)", extra={"unknown_args": unknown_args})
+    mock_logger.info.assert_any_call("Unknown args: %(unknown_args)s", {"unknown_args": unknown_args})

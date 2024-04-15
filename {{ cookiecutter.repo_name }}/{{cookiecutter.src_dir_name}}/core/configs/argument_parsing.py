@@ -26,7 +26,7 @@ def parse_args(parser: argparse.ArgumentParser, cfg_cls: type[T]) -> T:
 
     """
     known_args, unknown_args = parser.parse_known_args()
-    _logger.info("Unknown args: %(unknown_args)", extra={"unknown_args": unknown_args})
+    _logger.info("Unknown args: %(unknown_args)s", {"unknown_args": unknown_args})
     cfg = cfg_cls(**vars(known_args))
-    _logger.info("Running with following config: %(cfg)", extra={"cfg": cfg})
+    _logger.info("Running with following config: %(cfg)s", {"cfg": cfg})
     return cfg
