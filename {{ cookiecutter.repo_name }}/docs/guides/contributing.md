@@ -10,7 +10,7 @@ There are a couple of rules that you should follow:
 4. Use notebooks only for quick experimentation, they should not be the source of our production code.
 5. Set a guide in your IDE to 120 characters. We use 120 instead of suggested 79 from the **PEP8** Guidelines.
 6. We use `mypy` to guard the type annotations.
-7. We use `isort`, `black` and `flake8` to maintain **PEP8** compliant code.
+7. We use `ruff` to maintain **PEP8** compliant code.
 8. We use _google_ style for the docstrings.
 9. Code review should be done for every PR.
 10. We do not merge directly to **main** branch.
