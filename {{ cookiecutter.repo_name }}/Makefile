@@ -33,7 +33,7 @@ help:
 
 .PHONY: git-init  ## Initializes Git repository
 git-init:
-	git init
+	git init -b main
 	git add .
 
 # Freezing dependedncies
