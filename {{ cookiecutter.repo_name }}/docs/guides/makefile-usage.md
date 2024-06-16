@@ -64,9 +64,21 @@ make help
     make env
     ```
 
+- **remove-env** - Removes current conda environment
+
+    ```shell
+    make remove-env
+    ```
+
+- **recreate-env** - Recreates conda environment by making new one from fresh lockfile
+
+    ```shell
+    make recreate-env
+    ```
+
 ### Project initialization
 
-- **init-project** - Runs git init, lock-file creation and env setup - to be used after cookicutter initialization
+- **init-project** - Runs git init, lock-file creation and env setup - to be used after cookiecutter initialization
 
     ```shell
     make init-project

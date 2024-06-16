@@ -67,6 +67,13 @@ setup-editable:
 .PHONY: env  ## Creates local environment and installs pre-commit hooks
 env: conda-lock-install setup-pre-commit setup-editable
 
+.PHONY: remove-env  ## Removes current conda environment
+remove-env:
+	source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate base ; conda env remove -n $(CONDA_ENV_NAME)
+
+.PHONY: recreate-env  ## Recreates conda environment by making new one from fresh lockfile
+recreate-env: remove-env lock-file env
+
 # Project initialization
 
 .PHONY: init-project  ## Runs Git init, lock-file creation and env setup - to be used after cookiecutter initialization
