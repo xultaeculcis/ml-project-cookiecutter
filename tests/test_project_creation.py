@@ -116,6 +116,11 @@ def test_documentation_files(dummy_project_dir: Path) -> None:
     assert no_curlies(dummy_project_dir / "mkdocs.yml")
 
 
+def test_dot_env_sample_has_placeholders(dummy_project_dir: Path) -> None:
+    content = (dummy_project_dir / ".env-sample").read_text()
+    assert content == "ENVIRONMENT={{ENVIRONMENT}}\n"
+
+
 @pytest.mark.parametrize("license_type", LICENSES, ids=LICENSES)
 def test_license(dummy_project_factory: Callable[[str], Path], license_type: str) -> None:
     project_dir = dummy_project_factory(license_type)
