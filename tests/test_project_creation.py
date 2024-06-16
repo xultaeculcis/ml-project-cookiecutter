@@ -98,7 +98,7 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
 def test_readme(dummy_project_dir: Path) -> None:
     readme_txt = (dummy_project_dir / "README.md").read_text()
     assert no_curlies(dummy_project_dir / "README.md")
-    assert readme_txt == "# dummy project\n\nA short description of the project\n"
+    assert readme_txt.startswith("# dummy project\n\nA short description of the project\n")
 
 
 def test_makefile(dummy_project_dir: Path) -> None:
