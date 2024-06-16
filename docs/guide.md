@@ -64,6 +64,7 @@ my-ml-project/
 │   ├── interim                           <- Intermediate data that has been transformed.
 │   ├── processed                         <- The final, canonical data sets for modeling.
 │   └── raw                               <- The original, immutable data dump.
+├── Dockerfile                            <- Dockerfile definition.
 ├── docs                                  <- The mkdocs documentation sources.
 │   ├── api_ref                           <- Source package docs.
 │   │   ├── consts.md
@@ -78,7 +79,8 @@ my-ml-project/
 │   │   └── tests.md
 │   ├── index.md                          <- Docs homepage.
 │   └── __init__.py
-├── env.yaml                              <- Conda environment definition.
+├── env-dev.yaml                          <- Conda environment definition with development dependencies.
+├── env.yaml                              <- Main Conda environment definition with only the necessary packages.
 ├── LICENSE                               <- The license file.
 ├── Makefile                              <- Makefile with commands like `make docs` or
 │                                            `make pc`.
@@ -114,18 +116,13 @@ my-ml-project/
 │                                            and information, which are used by pip to build
 │                                            the package and project tooling configs.
 ├── README.md
+├── setup.py
 └── tests                                 <- The tests directory.
     ├── conftest.py                       <- Contains test fixtures and utility functions.
     ├── e2e                               <- Contains end-to-end tests.
-    │   ├── __init__.py
-    │   └── test_dummy.py
     ├── __init__.py
     ├── integration                       <- Contains integration tests.
-    │   ├── __init__.py
-    │   └── test_dummy.py
     └── unit                              <- Contains unit tests.
-        ├── __init__.py
-        └── test_dummy.py
 ```
 
 Most of those folders were described in detail in the
