@@ -655,6 +655,7 @@ You can change them to your liking though.</p>
 │   ├── interim                           &lt;- Intermediate data that has been transformed.
 │   ├── processed                         &lt;- The final, canonical data sets for modeling.
 │   └── raw                               &lt;- The original, immutable data dump.
+├── Dockerfile                            &lt;- Dockerfile definition.
 ├── docs                                  &lt;- The mkdocs documentation sources.
 │   ├── api_ref                           &lt;- Source package docs.
 │   │   ├── consts.md
@@ -669,7 +670,8 @@ You can change them to your liking though.</p>
 │   │   └── tests.md
 │   ├── index.md                          &lt;- Docs homepage.
 │   └── __init__.py
-├── env.yaml                              &lt;- Conda environment definition.
+├── env-dev.yaml                          &lt;- Conda environment definition with development dependencies.
+├── env.yaml                              &lt;- Main Conda environment definition with only the necessary packages.
 ├── LICENSE                               &lt;- The license file.
 ├── Makefile                              &lt;- Makefile with commands like `make docs` or
 │                                            `make pc`.
@@ -705,18 +707,13 @@ You can change them to your liking though.</p>
 │                                            and information, which are used by pip to build
 │                                            the package and project tooling configs.
 ├── README.md
+├── setup.py
 └── tests                                 &lt;- The tests directory.
     ├── conftest.py                       &lt;- Contains test fixtures and utility functions.
     ├── e2e                               &lt;- Contains end-to-end tests.
-    │   ├── __init__.py
-    │   └── test_dummy.py
     ├── __init__.py
     ├── integration                       &lt;- Contains integration tests.
-    │   ├── __init__.py
-    │   └── test_dummy.py
     └── unit                              &lt;- Contains unit tests.
-        ├── __init__.py
-        └── test_dummy.py
 </code></pre></div>
 <p>Most of those folders were described in detail in the
 <a href="http://drivendata.github.io/cookiecutter-data-science/">Cookiecutter Data Science Docs</a>.</p>
