@@ -121,3 +121,53 @@ make help
     ```shell
     make clean
     ```
+
+### Docker commands
+
+- **docker-all** - Docker default target - builds image and runs Docker container
+
+    ```shell
+    make docker-all
+    ```
+
+- **docker-build** - Build Docker image
+
+    ```shell
+    make docker-build
+    ```
+
+- **docker-run** - Run Docker container
+
+    ```shell
+    make docker-run
+    ```
+
+- **docker-stop** - Stop Docker container
+
+    ```shell
+    make docker-stop
+    ```
+
+- **docker-rm** - Remove Docker container
+
+    ```shell
+    make docker-rm
+    ```
+
+- **docker-rmi** - Remove Docker image
+
+    ```shell
+    make docker-rmi
+    ```
+
+- **docker-clean** - Clean up everything (container and image)
+
+    ```shell
+    make docker-clean
+    ```
+
+- **docker-rebuild** - Rebuild and rerun Docker container
+
+    ```shell
+    make docker-rebuild
+    ```
