@@ -32,6 +32,12 @@ make help
     make lock-file
     ```
 
+- **release-lock-file** - Creates conda-lock file without dev dependencies - to be used for deployment
+
+    ```shell
+    make release-lock-file
+    ```
+
 ### Creating environments
 
 - **conda-lock-install** - Creates env from conda-lock file

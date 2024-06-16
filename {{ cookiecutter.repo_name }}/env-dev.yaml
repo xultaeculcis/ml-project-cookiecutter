@@ -1,0 +1,30 @@
+name: {{cookiecutter.repo_name}}
+category: dev
+platforms:
+  - linux-64
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - jupyter
+  - jupyterlab
+  - notebook
+  - pip:
+      - coverage
+      - interrogate
+      - mkdocs
+      - mkdocs-material
+      - mkdocs-gen-files
+      - mkdocs-glightbox
+      - mkdocstrings[python]
+      - mock
+      - mypy
+      - pre-commit
+      - pytest
+      - pytest-asyncio
+      - pytest-cov
+      - pytest-mock
+      - pytest-pretty
+      - ruff
+      - types-all
+      - types-tqdm

@@ -83,6 +83,7 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
         ".gitignore",
         ".pre-commit-config.yaml",
         "env.yaml",
+        "env-dev.yaml",
         "LICENSE",
         "Makefile",
         "mkdocs.yml",

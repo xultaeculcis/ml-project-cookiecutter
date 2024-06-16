@@ -39,6 +39,7 @@ stages:
           - script: |
               conda install -n base conda-lock -c conda-forge -y
               make init-project
+              make release-lock-file
             workingDirectory: $(template_dir)
             displayName: "Create Conda environment"
 
