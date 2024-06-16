@@ -6,8 +6,9 @@ pre-commit = pre-commit run --all-files
 
 DATA_DIR=data
 SHELL=/bin/bash
+CONDA_ENV_NAME={{cookiecutter.repo_name}}
 # Note that the extra activate is needed to ensure that the activate floats env to the front of PATH
-CONDA_ACTIVATE=source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate
+CONDA_ACTIVATE=source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate $(CONDA_ENV_NAME)
 
 define PRINT_HELP_PYSCRIPT
 import re, sys
@@ -35,23 +36,29 @@ git-init:
 
 .PHONY: lock-file  ## Creates conda-lock file
 lock-file:
+	rm -rf conda-lock-dev.yml
+	conda-lock --mamba -f env.yaml -f env-dev.yaml --lockfile conda-lock-dev.yml
+	git add conda-lock-dev.yml
+
+.PHONY: release-lock-file  ## Creates conda-lock file without dev dependencies - to be used for deployment
+release-lock-file:
 	rm -rf conda-lock.yml
-	conda-lock --mamba -f ./env.yaml -p linux-64
+	conda-lock --mamba -f env.yaml --lockfile conda-lock.yml
 	git add conda-lock.yml
 
 # Environment creation
 
 .PHONY: conda-lock-install  ## Creates env from conda-lock file
 conda-lock-install:
-	conda-lock install --mamba -n {{cookiecutter.repo_name}} conda-lock.yml
+	conda-lock install --mamba -n $(CONDA_ENV_NAME) conda-lock-dev.yml
 
 .PHONY: setup-pre-commit  ## Installs pre-commit hooks
 setup-pre-commit:
-	$(CONDA_ACTIVATE) {{cookiecutter.repo_name}} ; pre-commit install
+	$(CONDA_ACTIVATE) ; pre-commit install
 
 .PHONY: setup-editable  ## Installs the project in an editable mode
 setup-editable:
-	$(CONDA_ACTIVATE) {{cookiecutter.repo_name}} ; pip install -e .
+	$(CONDA_ACTIVATE) ; pip install -e .
 
 .PHONY: env  ## Creates local environment and installs pre-commit hooks
 env: conda-lock-install setup-pre-commit setup-editable
@@ -79,7 +86,7 @@ test:
 .PHONY: testcov  ## Runs tests and generates coverage reports
 testcov:
 	@rm -rf htmlcov
-	pytest -v --cov-report html --cov-report xml --cov={{cookiecutter.repo_name}} tests/
+	pytest -v --cov-report html --cov-report xml --cov=$(CONDA_ENV_NAME) tests/
 
 .PHONY: mpc  ## Runs manual pre-commit stuff
 mpc: format type-check test
