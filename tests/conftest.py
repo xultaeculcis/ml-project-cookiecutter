@@ -15,6 +15,7 @@ DEFAULT_PROJECT_PARAMS = {
     "project_name": "dummy project",
     "author_name": "Some Dummy Author",
     "license": "MIT",
+    "python_version": "3.12",
 }
 
 

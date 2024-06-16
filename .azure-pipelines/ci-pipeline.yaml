@@ -21,7 +21,7 @@ stages:
         steps:
           - task: UsePythonVersion@0
             inputs:
-              versionSpec: "3.11"
+              versionSpec: "{{cookiecutter.python_version}}"
               addToPath: true
 
           - script: |
