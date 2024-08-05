@@ -8,6 +8,7 @@ DATA_DIR=data
 SHELL=/bin/bash
 CONDA_ENV_NAME={{cookiecutter.repo_name}}
 # Note that the extra activate is needed to ensure that the activate floats env to the front of PATH
+CONDA_ACTIVATE_BASE=source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate base
 CONDA_ACTIVATE=source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate $(CONDA_ENV_NAME)
 
 IMAGE_NAME={{cookiecutter.repo_name}}
@@ -41,20 +42,20 @@ git-init:
 .PHONY: lock-file  ## Creates conda-lock file
 lock-file:
 	rm -rf conda-lock-dev.yml
-	conda-lock --mamba -f env.yaml -f env-dev.yaml --lockfile conda-lock-dev.yml
+	$(CONDA_ACTIVATE_BASE) ; conda-lock --mamba -f env.yaml -f env-dev.yaml --lockfile conda-lock-dev.yml
 	git add conda-lock-dev.yml
 
 .PHONY: release-lock-file  ## Creates conda-lock file without dev dependencies - to be used for deployment
 release-lock-file:
 	rm -rf conda-lock.yml
-	conda-lock --mamba -f env.yaml --lockfile conda-lock.yml
+	$(CONDA_ACTIVATE_BASE) ; conda-lock --mamba -f env.yaml --lockfile conda-lock.yml
 	git add conda-lock.yml
 
 # Environment creation
 
 .PHONY: conda-lock-install  ## Creates env from conda-lock file
 conda-lock-install:
-	conda-lock install --mamba -n $(CONDA_ENV_NAME) conda-lock-dev.yml
+	$(CONDA_ACTIVATE_BASE) ; conda-lock install --mamba -n $(CONDA_ENV_NAME) conda-lock-dev.yml
 
 .PHONY: setup-pre-commit  ## Installs pre-commit hooks
 setup-pre-commit:
@@ -69,7 +70,7 @@ env: conda-lock-install setup-pre-commit setup-editable
 
 .PHONY: remove-env  ## Removes current conda environment
 remove-env:
-	source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate base ; conda env remove -n $(CONDA_ENV_NAME)
+	$(CONDA_ACTIVATE_BASE) ; conda env remove -n $(CONDA_ENV_NAME) -y
 
 .PHONY: recreate-env  ## Recreates conda environment by making new one from fresh lockfile
 recreate-env: remove-env lock-file env
