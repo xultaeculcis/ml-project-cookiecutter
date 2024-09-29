@@ -1,0 +1,13 @@
+jobs:
+  - job: tests
+    displayName: Run tests
+    steps:
+      - template: ../steps/conda-env-create.yaml
+        parameters:
+          conda_env_name: $<< parameters.conda_env_name >>
+          lock_file_location: $<< parameters.lock_file_location >>
+
+      - template: ../steps/test-suite.yaml
+        parameters:
+          env: $<< parameters.env >>
+          conda_env_name: $<< parameters.conda_env_name >>
