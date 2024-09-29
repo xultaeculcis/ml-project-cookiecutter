@@ -183,10 +183,10 @@ plugins = "numpy.typing.mypy_plugin"
 
 [[tool.mypy.overrides]]
 module = [
+    "mkdocs_gen_files.*",
+    "pandas.*",
     "pydantic.*",
     "pydantic_settings.*",
-    "pandas.*",
-    "mkdocs_gen_files.*",
 ]
 ignore_missing_imports = true
 ignore_errors = true
