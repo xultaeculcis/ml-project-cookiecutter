@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
 
@@ -121,11 +121,28 @@ def test_dot_env_sample_has_placeholders(dummy_project_dir: Path) -> None:
     assert content == "ENVIRONMENT={{ENVIRONMENT}}\n"
 
 
+@pytest.mark.parametrize(
+    "fp",
+    [
+        ".azure-pipelines/pr-pipeline.yaml",
+        ".azure-pipelines/jobs/test-suite.yaml",
+        ".azure-pipelines/steps/conda-env-create.yaml",
+        ".azure-pipelines/steps/test-suite.yaml",
+    ],
+)
+def test_ci_pipelines_have_proper_placeholders(dummy_project_dir: Path, fp: str) -> None:
+    content = (dummy_project_dir / fp).read_text()
+    assert "$<<" not in content
+    assert ">>" not in content
+    assert "${{" in content
+    assert "}}" in content
+
+
 @pytest.mark.parametrize("license_type", LICENSES, ids=LICENSES)
 def test_license(dummy_project_factory: Callable[[str], Path], license_type: str) -> None:
     project_dir = dummy_project_factory(license_type)
     expected_content = (Path(__file__).parent / "licenses" / f"{license_type}.txt").read_text()
-    expected_content = expected_content.format(year=datetime.utcnow().year)  # noqa: DTZ003
+    expected_content = expected_content.format(year=datetime.now(tz=timezone.utc).year)
     if license_type != "No license file":
         assert expected_content in (project_dir / "LICENSE").read_text()
     else:

@@ -1,0 +1,9 @@
+steps:
+  - bash: echo "##vso[task.prependpath]$CONDA/bin"
+    displayName: Add conda to PATH
+
+  - bash: |
+      cd $(Build.SourcesDirectory)
+      conda install -c conda-forge conda-lock mamba -y
+      conda-lock install --mamba -n $<< parameters.conda_env_name >> $<< parameters.lock_file_location >>
+    displayName: Create Anaconda environment

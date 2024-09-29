@@ -6,18 +6,32 @@ pr:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: "{{cookiecutter.python_version}}"
-      addToPath: true
+parameters:
+  - name: env
+    type: string
+    default: dev
+    values:
+      - dev
+      - staging
+      - prod
 
-  - script: |
-      python -m pip install --upgrade pip
-      pip install pre-commit
-      pre-commit install
-    displayName: "Install dependencies"
+variables:
+  - name: lock_file_location
+    value: conda-lock-dev.yml
+  - name: conda_env_name
+    value: ci-env
 
-  - script: |
-      SKIP=pytest-check pre-commit run --all-files
-    displayName: "Run simplified pre-commit hooks"
+stages:
+  - stage: pre_commit
+    displayName: Run pre-commit hooks
+    jobs:
+      - template: ./jobs/code-qa.yaml
+
+  - stage: tests
+    displayName: Run tests
+    jobs:
+      - template: ./jobs/test-suite.yaml
+        parameters:
+          env: $<< parameters.env >>
+          lock_file_location: $<< variables.lock_file_location >>
+          conda_env_name: $<< variables.conda_env_name >>
