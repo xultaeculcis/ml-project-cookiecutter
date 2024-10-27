@@ -11,7 +11,7 @@ A cookiecutter template for my private ML projects.
 During my career I worked in a lot of different ML projects - computer vision, NLP, classical ML, time series
 forecasting and others. The projects ranged from pure R&D, through PoCs and production ready stuff. Whenever I would
 start a new project I found myself copying things from a bunch of different sources and my old projects again and
-again - recreating and duplicating the work I did a dozen times before. Cookiecutter project templates to the resque!
+again - recreating and duplicating the work I did a dozen times before. Cookiecutter project templates to the rescue!
 
 The usage of technologies and certain patterns in the template is highly opinionated and is dictated by years
 of experience of working with Data Scientists and R&D Engineers. As ML Engineer I would often find myself working
