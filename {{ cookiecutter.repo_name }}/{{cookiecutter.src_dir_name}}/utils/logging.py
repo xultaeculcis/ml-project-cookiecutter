@@ -3,11 +3,14 @@ from __future__ import annotations
 import logging
 import time
 from functools import wraps
-from typing import Callable, TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
 from typing_extensions import ParamSpec
 
 from {{cookiecutter.src_dir_name}} import consts
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 T = TypeVar("T")
 P = ParamSpec("P")

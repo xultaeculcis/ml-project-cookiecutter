@@ -1,14 +1,11 @@
 {
   "project_name": "project-name",
   "repo_name": "{{ cookiecutter.project_name.lower().strip().replace(' ', '-').replace('_', '-') }}",
-  "src_dir_name": "{{ cookiecutter.project_name.lower().strip().replace(' ', '_').replace('-', '_') }}",
+  "src_dir_name": "src",
   "author_name": "xultaeculcis",
   "repo_url": "https://github.com/{{cookiecutter.author_name.lower().strip().replace(' ', '-').replace('_', '-')}}/{{cookiecutter.repo_name}}",
   "project_description": "A short description of the project",
   "python_version": [
-    "3.8",
-    "3.9",
-    "3.10",
     "3.11",
     "3.12",
     "3.13"
