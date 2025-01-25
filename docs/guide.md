@@ -3,7 +3,7 @@
 ## Requirements
 
 - Read: [Cookiecutter Data Science Docs](http://drivendata.github.io/cookiecutter-data-science/) for a general overview
-- Python 3.8+
+- Python 3.11+
 - [Conda](https://conda.io/en/latest/miniconda.html)
 - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 2.1.1:
     This can be installed with `pip` by or `conda` depending on how you manage your Python packages:
@@ -29,12 +29,17 @@ cookiecutter https://github.com/xultaeculcis/ml-project-cookiecutter
 You will be prompted to provide project info one argument at a time:
 
 ```
-project_name [project_name]: My ML project
-repo_name [my-ml-project]:
-src_dir_name [my_ml_project]:
-author_name [Your name (or your organization/company/team)]: xultaeculcsis
-repo_url [https://github.com/xultaeculcsis/my-ml-project]:
-project_description [A short description of the project]: Just an ML project :)
+project_name (project_name): My ML project
+repo_name (my-ml-project):
+src_dir_name (src):
+author_name (Your name (or your organization/company/team)): xultaeculcsis
+repo_url (https://github.com/xultaeculcsis/my-ml-project):
+project_description (A short description of the project): Just an ML project :)
+Select python_version
+1 - 3.11
+2 - 3.12
+3 - 3.13
+Choose from [1/2/3] (1): 1
 Select license:
 1 - MIT
 2 - Apache 2.0
@@ -43,7 +48,7 @@ Select license:
 5 - GLWTS
 6 - Proprietary
 7 - Empty license file
-Choose from 1, 2, 3, 4, 5, 6, 7 [1]: 1
+Choose from [1/2/3/4/5/6/7] (1): 1
 ```
 
 The `repo_name`, `src_dir_name` and `repo_url` will be automatically standardized and provided for you.
@@ -260,7 +265,7 @@ This project uses `pre-commit` package for managing and maintaining `pre-commit`
 
 To ensure code quality - please make sure that you have it configured.
 
-1. Install `pre-commit` and following packages: `isort`, `black`, `flake8`, `mypy`, `pytest`.
+1. Install `pre-commit` and following packages: `ruff`, `mypy`, `pytest`.
 
 2. Install `pre-commit` hooks by running: `pre-commit install`
 
