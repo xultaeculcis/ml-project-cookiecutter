@@ -1,0 +1,51 @@
+name: lock-files-update
+
+on:
+  schedule:
+    # Run every 1st day of month at 00:00
+    - cron: "0 0 1 * *"
+  # Allow to run manually from GitHub UI as well
+  workflow_dispatch:
+
+jobs:
+  update-lock-file:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: "true"
+          environment-file: ".github/ci-env.yaml"
+          activate-environment: "ci-env"
+          miniforge-version: "latest"
+
+      - name: Generate new conda-lock files - release
+        run: |
+          rm -rf conda-lock.yml
+          conda-lock --mamba -f env.yaml --lockfile conda-lock.yml
+
+      - name: Generate new conda-lock files - dev
+        run: |
+          rm -rf conda-lock-dev.yml
+          conda-lock --mamba -f env.yaml -f env-dev.yaml --lockfile conda-lock-dev.yml
+
+      - name: Create a pull request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: $<< secrets.GITHUB_TOKEN >>
+          branch: feat/conda-lock-update
+          title: "chore: Update lock-files"
+          body: "Monthly automatic update of lock-files"
+          base: main
+          commit-message: "chore: update lock-files"
+          author: github-actions <actions@github.com>
+          reviewers: {{cookiecutter.author_name}}
+          assignees: {{cookiecutter.author_name}}
+          labels: enhancement

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import shutil
 from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Generator
@@ -17,6 +18,8 @@ DEFAULT_PROJECT_PARAMS = {
     "license": "MIT",
     "python_version": "3.12",
 }
+COOKIECUTTER_CONFIG_FP = MLPCC_ROOT / "cookiecutter.json"
+COOKIECUTTER_CONFIG = json.loads(COOKIECUTTER_CONFIG_FP.read_text(encoding="utf-8"))
 
 
 @pytest.fixture(scope="module")
