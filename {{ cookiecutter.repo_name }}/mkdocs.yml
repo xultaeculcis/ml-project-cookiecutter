@@ -60,6 +60,8 @@ nav:
       - Contributing: "guides/contributing.md"
       - Running tests: "guides/tests.md"
       - Using Makefile commands: "guides/makefile-usage.md"
+  - DEV-LOG:
+      - Intro: "dev-logs/log.md"
   - API reference:
       - {{cookiecutter.src_dir_name}}.consts: "api_ref/consts.md"
       - {{cookiecutter.src_dir_name}}.core:
