@@ -132,6 +132,17 @@ combine-as-imports = true
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
+[tool.ruff.lint.pylint]
+max-statements = 75
+
+[tool.ruff.lint.flake8-import-conventions.aliases]
+geopandas = "gpd"
+rasterio = "rio"
+xarray = "xr"
+"kornia.augmentations" = "K"
+"torch.nn.functional" = "F"
+"torchvision.transforms" = "T"
+
 [tool.pytest.ini_options]
 addopts = "--ignore data --ignore notebooks --ignore build_tools --ignore examples --ignore docs"
 asyncio_mode = "auto"
@@ -183,10 +194,34 @@ plugins = "numpy.typing.mypy_plugin"
 
 [[tool.mypy.overrides]]
 module = [
+    "dask.*",
+    "distributed.*",
+    "geoalchemy2.*",
+    "geopandas.*",
+    "joblib.*",
+    "kornia.*",
+    "lightning.*",
+    "matplotlib.*",
     "mkdocs_gen_files.*",
+    "mlflow.*",
     "pandas.*",
     "pydantic.*",
+    "pydantic_core.*",
     "pydantic_settings.*",
+    "pytorch_lightning.*",
+    "rasterio.*",
+    "rioxarray.*",
+    "scipy.*",
+    "seaborn.*",
+    "shapely.*",
+    "sklearn.*",
+    "sklearnex.*",
+    "sqlalchemy.*",
+    "timm.*",
+    "torch.*",
+    "torchmetrics.*",
+    "torchvision.*",
+    "xarray.*",
 ]
 ignore_missing_imports = true
 ignore_errors = true
