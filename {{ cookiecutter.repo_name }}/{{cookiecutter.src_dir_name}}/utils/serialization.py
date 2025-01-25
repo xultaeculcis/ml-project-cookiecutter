@@ -10,7 +10,7 @@ class JsonEncoder(JSONEncoder):
     """Custom JSON encoder that handles datatypes that are not out-of-the-box supported by the `json` package."""
 
     def default(self, o: Any) -> str:
-        if isinstance(o, (date, datetime)):
+        if isinstance(o, date | datetime):
             return o.isoformat()
 
         if isinstance(o, Path):

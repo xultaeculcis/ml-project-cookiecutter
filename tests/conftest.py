@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 MLPCC_ROOT = Path(__file__).parents[1].resolve()
 DEFAULT_PROJECT_PARAMS = {
     "project_name": "dummy project",
+    "src_dir_name": "dummy_project",
     "author_name": "Some Dummy Author",
     "license": "MIT",
     "python_version": "3.12",
