@@ -1,0 +1,7 @@
+name: ci-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - conda-lock
+  - python=3.11

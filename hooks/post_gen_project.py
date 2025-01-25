@@ -22,6 +22,7 @@ def main() -> None:
     replace_placeholders(Path.cwd() / ".azure-pipelines/jobs/test-suite.yaml")
     replace_placeholders(Path.cwd() / ".azure-pipelines/steps/conda-env-create.yaml")
     replace_placeholders(Path.cwd() / ".azure-pipelines/steps/test-suite.yaml")
+    replace_placeholders(Path.cwd() / ".github/workflows/lock-files-update.yaml")
 
 
 if __name__ == "__main__":
