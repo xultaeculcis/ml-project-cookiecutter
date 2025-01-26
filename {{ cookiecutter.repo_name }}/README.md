@@ -16,6 +16,10 @@ Run `pre-commit` hooks:
 make pc
 ```
 
+## Dev LOG
+
+See the [log](docs/dev-logs) of changes and experiment results. Best to view it via `mkdocs serve` command.
+
 ## Guides
 
 Read more here:
