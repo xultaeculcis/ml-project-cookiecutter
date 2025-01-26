@@ -38,6 +38,7 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
         ".github",
         ".github/workflows",
         ".github/workflows/lock-files-update.yaml",
+        ".github/workflows/zizmor-security-check.yaml",
         ".github/ci-env.yaml",
         "data",
         "data/auxiliary",
@@ -146,6 +147,7 @@ def test_dot_env_sample_has_placeholders(dummy_project_dir: Path) -> None:
         ".azure-pipelines/steps/conda-env-create.yaml",
         ".azure-pipelines/steps/test-suite.yaml",
         ".github/workflows/lock-files-update.yaml",
+        ".github/workflows/zizmor-security-check.yaml",
     ],
 )
 def test_ci_pipelines_have_proper_placeholders(dummy_project_dir: Path, fp: str) -> None:

@@ -39,6 +39,7 @@ def main() -> None:
     replace_placeholders(Path.cwd() / ".azure-pipelines/steps/conda-env-create.yaml")
     replace_placeholders(Path.cwd() / ".azure-pipelines/steps/test-suite.yaml")
     replace_placeholders(Path.cwd() / ".github/workflows/lock-files-update.yaml")
+    replace_placeholders(Path.cwd() / ".github/workflows/zizmor-security-check.yaml")
     init_git_repo()
     configure_remote()
 
