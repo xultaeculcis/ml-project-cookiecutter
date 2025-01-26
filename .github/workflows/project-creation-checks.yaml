@@ -1,0 +1,73 @@
+name: project-creation-checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  project_creation_checks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Miniconda (Python 3.11)
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: "3.11"
+          auto-update-conda: true
+
+      - name: Install Cookiecutter
+        run: |
+          python -m pip install --upgrade pip
+          pip install cookiecutter
+
+      - name: Generate project from Cookiecutter
+        run: |
+          cookiecutter . --no-input
+
+      - name: Create Conda environment and release lock file
+        run: |
+          conda install -n base conda-lock -c conda-forge -y
+          cd project-name
+          make init-project
+          make release-lock-file
+
+      - name: Run pre-commit hooks
+        run: |
+          conda activate project-name
+          make pc
+        working-directory: project-name
+
+      - name: Build docs
+        run: |
+          conda activate project-name
+          make docs
+        working-directory: project-name
+
+      - name: Run tests with coverage
+        run: |
+          conda activate project-name
+          pytest -vv --cov=src --cov-report=xml --junitxml=test-results.xml
+        working-directory: project-name
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: xultaeculcis/ml-project-cookiecutter
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: xultaeculcis/ml-project-cookiecutter
