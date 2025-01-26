@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
         args: [ '--maxkb=1000' ]
@@ -22,15 +22,15 @@ repos:
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.1
+    rev: v3.19.1
     hooks:
       - id: pyupgrade
-        args: ["--py38-plus"]
+        args: ["--py311-plus"]
         name: Upgrade code
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.6
+    rev: v2.4.0
     hooks:
       - id: codespell
         additional_dependencies: [tomli]
@@ -46,7 +46,7 @@ repos:
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.2
+    rev: v0.9.3
     hooks:
       - id: ruff
         types_or: [ python, pyi, jupyter ]
@@ -58,7 +58,7 @@ repos:
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.17
+    rev: 0.7.21
     hooks:
       - id: mdformat
         additional_dependencies:
@@ -72,7 +72,7 @@ repos:
         args: [ "--number" ]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "v1.9.0"
+    rev: v1.14.1
     hooks:
       - id: mypy
         # Use pyproject.toml if possible instead of adding command line parameters here

@@ -127,7 +127,9 @@ combine-as-imports = true
 
 [tool.ruff.lint.per-file-ignores]
 "**/{tests}/*" = ["S101"]  # Allow "use of assert detected" in tests
+"{{cookiecutter.src_dir_name}}/consts/logging.py" = ["A005"]
 "{{cookiecutter.src_dir_name}}/utils/gpu.py" = ["S605"]
+"{{cookiecutter.src_dir_name}}/utils/logging.py" = ["A005"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

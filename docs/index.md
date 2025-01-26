@@ -24,6 +24,7 @@ python tools that are known in the industry for years. Spending a few hours on t
 a few weeks on productionizing the code later. Your ML/MLOps Engineers will thank you for this.
 
 ???+ note
+
     Now, standardized code style, type hints and good documentation are just a small step to success. All of this doesn't
     mean much without code understanding and following good coding practices. In my opinion every great Data Scientist
     or ML Engineer should also be a great programmer. Learn how to write clean, testable code. Learn data structures,

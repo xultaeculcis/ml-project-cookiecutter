@@ -24,7 +24,7 @@ COOKIECUTTER_CONFIG = json.loads(COOKIECUTTER_CONFIG_FP.read_text(encoding="utf-
 
 
 @pytest.fixture(scope="module")
-def dummy_project_dir(tmp_path_factory: TempPathFactory) -> Generator[Path, None, None]:
+def dummy_project_dir(tmp_path_factory: TempPathFactory) -> Generator[Path]:
     temp_dir = tmp_path_factory.mktemp("dummy-ml-project")
     out_dir = Path(temp_dir).resolve()
     cookiecutter(str(MLPCC_ROOT), no_input=True, output_dir=temp_dir, extra_context=DEFAULT_PROJECT_PARAMS)
@@ -32,7 +32,7 @@ def dummy_project_dir(tmp_path_factory: TempPathFactory) -> Generator[Path, None
     shutil.rmtree(out_dir)
 
 
-@pytest.fixture()
+@pytest.fixture
 def dummy_project_factory(tmp_path_factory: TempPathFactory) -> Callable[[str], Path]:
     def _create_project(override_license: str) -> Path:
         temp_dir = tmp_path_factory.mktemp("dummy-ml-project")
