@@ -23,7 +23,8 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: "3.11"
-          auto-update-conda: true
+          miniforge-version: latest
+          use-mamba: true
 
       - name: Install Cookiecutter
         run: |
