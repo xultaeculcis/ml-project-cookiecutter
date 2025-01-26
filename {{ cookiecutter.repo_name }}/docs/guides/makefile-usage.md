@@ -16,14 +16,6 @@ make help
 
 ## Development work commands
 
-### Git repo initialization
-
-- **git-init** - Initializes Git repository
-
-    ```shell
-    make git-init
-    ```
-
 ### Freezing project dependencies
 
 - **lock-file** - Creates conda-lock file
@@ -78,7 +70,7 @@ make help
 
 ### Project initialization
 
-- **init-project** - Runs git init, lock-file creation and env setup - to be used after cookiecutter initialization
+- **init-project** - Runs lock-file creation and env setup - to be used after cookiecutter initialization
 
     ```shell
     make init-project

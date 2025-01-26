@@ -30,13 +30,6 @@ export PRINT_HELP_PYSCRIPT
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-# Git repo initialization
-
-.PHONY: git-init  ## Initializes Git repository
-git-init:
-	git init -b main
-	git add .
-
 # Freezing dependedncies
 
 .PHONY: lock-file  ## Creates conda-lock file
@@ -77,8 +70,8 @@ recreate-env: remove-env lock-file env
 
 # Project initialization
 
-.PHONY: init-project  ## Runs Git init, lock-file creation and env setup - to be used after cookiecutter initialization
-init-project: git-init lock-file env
+.PHONY: init-project  ## Runs lock-file creation and env setup - to be used after cookiecutter initialization
+init-project: lock-file env
 
 # Helpers
 
@@ -98,7 +91,7 @@ test:
 .PHONY: testcov  ## Runs tests and generates coverage reports
 testcov:
 	@rm -rf htmlcov
-	pytest -v --cov-report html --cov-report xml --cov=$(CONDA_ENV_NAME) tests/
+	pytest -v --cov-report html --cov-report xml --cov={{cookiecutter.src_dir_name}} tests/
 
 .PHONY: mpc  ## Runs manual pre-commit stuff
 mpc: format type-check test
