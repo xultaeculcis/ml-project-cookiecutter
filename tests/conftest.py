@@ -3,12 +3,14 @@ from __future__ import annotations
 import json
 import shutil
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Generator
+from typing import TYPE_CHECKING
 
 import pytest
 from cookiecutter.main import cookiecutter
 
 if TYPE_CHECKING:
+    from collections.abc import Callable, Generator
+
     from _pytest.tmpdir import TempPathFactory
 
 MLPCC_ROOT = Path(__file__).parents[1].resolve()
