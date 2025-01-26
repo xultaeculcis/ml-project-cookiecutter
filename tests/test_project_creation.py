@@ -2,11 +2,14 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Callable
+from typing import TYPE_CHECKING
 
 import pytest
 
 from tests.conftest import COOKIECUTTER_CONFIG
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 
 def no_curlies(fp: Path) -> bool:
