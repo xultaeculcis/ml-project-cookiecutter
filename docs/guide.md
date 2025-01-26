@@ -182,6 +182,7 @@ conda activate <env-name>
 By default, the `<env-name>` created using the `Makefile` will be equal to `cookiecutter.repo_name` variable.
 
 ???+ note
+
     If you are on Windows, the `make` command will be unavailable. We recommend working
     with [WSL](https://learn.microsoft.com/en-us/windows/wsl/) in that case.
 
@@ -195,6 +196,7 @@ conda activate <env-name>
 ```
 
 ???+ note
+
     If you want to initialize Git repository, create lock-file and development environment in one go you can run:
 
     ```shell
@@ -256,6 +258,7 @@ It will use your `conda-lock` installation to create a lock-file and create a br
 your repository.
 
 ???+ note
+
     Once you've initialized git repo, created the lock file(s) and pinned the package versions, you should commit the
     changes and push them to a remote repository as an `Initial commit`.
 
@@ -314,4 +317,5 @@ A page like the one below should be available to you under: [http://127.0.0.1:80
 ![assets/docs-site.png](assets/docs-site.png)
 
 ???+ note
+
     Please note that **google** style docstrings are used throughout the repo.
