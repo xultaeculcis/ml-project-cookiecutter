@@ -1,8 +1,7 @@
 # ml-project-cookiecutter
 
 ![GitHub License](https://img.shields.io/github/license/xultaeculcis/ml-project-cookiecutter)
-[![Build Status](https://dev.azure.com/laniakea-ai/ml-project-cookiecutter/_apis/build/status%2Fci-pipeline?branchName=main)](https://dev.azure.com/laniakea-ai/ml-project-cookiecutter/_build/latest?definitionId=4&branchName=main)
-
+[![codecov](https://codecov.io/gh/xultaeculcis/ml-project-cookiecutter/graph/badge.svg?token=2CBERR0ACO)](https://codecov.io/gh/xultaeculcis/ml-project-cookiecutter)
 
 A cookiecutter template for my private ML projects.
 
