@@ -7,6 +7,8 @@ on:
   # Allow to run manually from GitHub UI as well
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   update-lock-file:
     runs-on: ubuntu-latest
@@ -17,6 +19,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v2
