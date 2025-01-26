@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import subprocess  # noqa: S404, RUF100
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -173,3 +174,21 @@ def test_license(dummy_project_factory: Callable[[str], Path], license_type: str
         assert expected_content in (project_dir / "LICENSE").read_text()
     else:
         assert (project_dir / "LICENSE").read_text() == expected_content
+
+
+def test_git_initialized(dummy_project_dir: Path) -> None:
+    git_dir = dummy_project_dir / ".git"
+    assert git_dir.is_dir(), "No .git directory found; repository not initialized."
+
+
+def test_git_tracking_main_branch(dummy_project_dir: Path) -> None:
+    proc = subprocess.run(  # noqa: S603
+        ["git", "branch", "--show-current"],  # noqa: S607
+        cwd=dummy_project_dir.as_posix(),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert proc.returncode == 0, f"Failed to determine current Git branch: {proc.stderr}"
+    assert proc.stdout.strip() == "main", f"Expected 'main' branch but got '{proc.stdout.strip()}'"

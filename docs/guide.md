@@ -135,18 +135,9 @@ Most of those folders were described in detail in the
 
 ### Environment setup
 
-You'll need to inti a git repo in your newly created project:
-
-```shell
-make git-init
-```
-
-Or:
-
-```shell
-git init
-git add .
-```
+The post-generation hook will initialize `git` repo for you. It will also set up `main` to track the remote branch.
+Initial commit will be created with all repo files added to it. You can modify them and amend the commit at your
+convenience.
 
 #### Via Makefile
 
@@ -189,7 +180,6 @@ By default, the `<env-name>` created using the `Makefile` will be equal to `cook
 For example for `linux-64` the full list of commands (using `Makefile`) would look like so:
 
 ```shell
-make git-init
 make lock-file
 make env
 conda activate <env-name>
@@ -197,7 +187,7 @@ conda activate <env-name>
 
 ???+ note
 
-    If you want to initialize Git repository, create lock-file and development environment in one go you can run:
+    If you want to create lock-file and development environment in one go you can run:
 
     ```shell
     make init-project
