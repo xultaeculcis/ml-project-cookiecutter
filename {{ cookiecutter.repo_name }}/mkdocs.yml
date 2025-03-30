@@ -6,6 +6,8 @@ edit_uri: edit/main/docs
 copyright: Copyright {% now 'utc', '%Y' %} {{ cookiecutter.author_name }}
 theme:
   name: material
+  features:
+    - navigation.path
 markdown_extensions:
   - admonition
   - attr_list
@@ -39,18 +41,19 @@ plugins:
       handlers:
         python:
           options:
-            show_root_toc_entry: False
-            show_root_full_path: True
-            show_root_members_full_path: True
-            show_object_full_path: True
-            show_root_heading: False
-            show_source: True
-            show_category_heading: False
-            show_bases: True
-            show_signature: False
-            filters:
-              - "!^_"  # exclude all members starting with _
+            docstring_style: google
+            show_root_toc_entry: false
+            show_root_full_path: false
+            members_order: source
+            show_labels: true
             heading_level: 3
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            filters:
+              - "!^_[^_]"  # exclude all members starting with _
+            extensions:
+              - griffe_pydantic:
+                schema: true
 watch:
   - {{cookiecutter.src_dir_name}}/
 nav:

@@ -123,6 +123,7 @@ repos:
           - types-pathlib2
           - types-polib
           - types-protobuf
+          - types-psutil
           - types-pyRFC3339
           - types-pyaudio
           - types-pycurl
