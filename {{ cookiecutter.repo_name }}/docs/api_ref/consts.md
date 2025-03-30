@@ -1,5 +1,19 @@
-The constants to be used across the project.
+## Compute
 
-::: {{cookiecutter.src_dir_name}}.consts.directories
+::: src.consts.compute
 
-::: {{cookiecutter.src_dir_name}}.consts.logging
+## Directories
+
+::: src.consts.directories
+
+## Logging
+
+::: src.consts.logging
+
+## Reproducibility
+
+::: src.consts.reproducibility
+
+## Training
+
+::: src.consts.training
