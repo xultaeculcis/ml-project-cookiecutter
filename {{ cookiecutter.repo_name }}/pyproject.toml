@@ -105,7 +105,6 @@ ignore = [
     "ANN101",  # see: https://pypi.org/project/flake8-annotations - Missing type annotation for self in method
     "ANN102",  # see: https://pypi.org/project/flake8-annotations - Missing type annotation for cls in method
     "ANN401",  # see: https://pypi.org/project/flake8-annotations - Dynamically typed expressions (typing.Any) are disallowed
-    "D1",  # see: https://pypi.org/project/pydocstyle - D1 - undocumented public member - too restrictive
     "COM", # see: https://pypi.org/project/flake8-commas - conflicts with formatter
     "ISC", # see: https://pypi.org/project/flake8-implicit-str-concat - conflicts with formatter
     "CPY", # see: https://pypi.org/project/flake8-copyright - not used
@@ -126,7 +125,10 @@ required-imports = ["from __future__ import annotations"]
 combine-as-imports = true
 
 [tool.ruff.lint.per-file-ignores]
-"**/{tests}/*" = ["S101"]  # Allow "use of assert detected" in tests
+"**/{tests}/*" = [
+    "S101",  # Allow "use of assert detected" in tests
+    "D1",  # Ignore undocumented public members in tests
+]
 "{{cookiecutter.src_dir_name}}/consts/logging.py" = ["A005"]
 "{{cookiecutter.src_dir_name}}/utils/gpu.py" = ["S605"]
 "{{cookiecutter.src_dir_name}}/utils/logging.py" = ["A005"]

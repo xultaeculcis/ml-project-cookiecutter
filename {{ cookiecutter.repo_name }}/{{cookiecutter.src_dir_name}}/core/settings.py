@@ -1,3 +1,18 @@
+"""Application settings.
+
+Examples:
+    ```python
+    import logging
+
+    from src.core.settings import current_settings
+
+
+    # log current environment
+    logging.info(current_settings.env)  # INFO:dev
+    ```
+
+"""
+
 from __future__ import annotations
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -18,4 +33,11 @@ class Settings(BaseSettings):
     )
 
 
-current_settings = Settings()
+def current_settings() -> Settings:
+    """Instantiate current application settings.
+
+    Returns:
+        Current application settings.
+
+    """
+    return Settings()
