@@ -11,6 +11,7 @@ dependencies:
   - notebook
   - pip:
       - coverage
+      - griffe-pydantic
       - interrogate
       - mkdocs
       - mkdocs-material
@@ -84,6 +85,7 @@ dependencies:
       - types-pathlib2
       - types-polib
       - types-protobuf
+      - types-psutil
       - types-pyRFC3339
       - types-pyaudio
       - types-pycurl
