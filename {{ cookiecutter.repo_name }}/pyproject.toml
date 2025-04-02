@@ -150,6 +150,7 @@ xarray = "xr"
 [tool.pytest.ini_options]
 addopts = "--ignore data --ignore notebooks --ignore build_tools --ignore examples --ignore docs"
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 markers = [
     "unit: mark a test as a unit test.",
     "integration: mark test as an integration test.",
