@@ -38,11 +38,11 @@ repos:
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/PyCQA/docformatter
-    rev: v1.7.8-rc1
+    rev: v1.7.7
     hooks:
       - id: docformatter
         additional_dependencies: [tomli]
-        args: ["--in-place"]
+        args: ["--in-place", "--recursive"]
         exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
@@ -50,7 +50,7 @@ repos:
     hooks:
       - id: ruff
         types_or: [ python, pyi, jupyter ]
-        args: [ "--fix", "--preview" ]
+        args: [ "--fix", "--unsafe-fixes", "--preview" ]
         exclude: '{{ cookiecutter.repo_name }}'
       - id: ruff-format
         types_or: [ python, pyi, jupyter ]
