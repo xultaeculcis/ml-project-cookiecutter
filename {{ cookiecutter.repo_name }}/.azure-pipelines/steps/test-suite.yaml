@@ -1,6 +1,6 @@
 steps:
   - script: |
-      uvx pytest -vv --junitxml=junit/unit-test.xml --cov=src --cov-report=xml
+      uv run pytest -vv --junitxml=junit/unit-test.xml --cov=src --cov-report=xml
     displayName: Run PyTest
     env:
       ENVIRONMENT: $<< parameters.env >>

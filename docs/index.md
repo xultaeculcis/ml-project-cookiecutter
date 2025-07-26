@@ -50,7 +50,7 @@ This project was greatly inspired by
 - CI pipelines (Azure DevOps)
 - Some useful utility classes and functions I found myself re-implementing again and again
 - Folder structure inspired by [Cookiecutter Data Science](https://github.com/drivendata/cookiecutter-data-science/)
-- Conda `env.yaml` file for reproducibility
+- `uv.lock` file for reproducibility
 - Makefile with a bunch of pre-defined commands
 - Secrets support using `.env` files and [pydantic-settings](https://docs.pydantic.dev/latest/usage/pydantic_settings/)
 - `pyproject.toml` with project tool configs
@@ -68,5 +68,5 @@ Please refer to [this](contributing.md) guide.
 To run the unit tests execute:
 
 ```shell
-pytest tests
+make test
 ```

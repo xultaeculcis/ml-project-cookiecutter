@@ -33,4 +33,4 @@ jobs:
         run: uv sync --locked --all-extras --all-groups
 
       - name: Run pre-commit hooks
-        run: uvx pre-commit run --all-files
+        run: uv run pre-commit run --all-files

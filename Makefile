@@ -10,24 +10,29 @@ for line in sys.stdin:
 	match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
 	if match:
 		target, help = match.groups()
-		print("%-45s - %s" % (target, help))
+		print("%-10s - %s" % (target, help))
 endef
 export PRINT_HELP_PYSCRIPT
 
 help:  ## Prints help message
-	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+	@python3 -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+
+.PHONY: env  # Setup uv env and packages
+env:
+	uv sync --all-groups
+	uv run pre-commit install
 
 .PHONY: test
 test:  ## Runs pytest
-	uvx pytest -v tests/
+	uv run pytest -v tests/
 
 .PHONY: docs
 docs:  ## Build the documentation
-	uvx run mkdocs build
+	uv run mkdocs build
 
 .PHONY: pc
 pc:  ## Runs pre-commit hooks
-	uvx pre-commit run --all-files
+	uv run pre_commit run --all-files
 
 .PHONY: clean
 clean:  ## Cleans artifacts

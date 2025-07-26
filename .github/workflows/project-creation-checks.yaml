@@ -38,9 +38,9 @@ jobs:
 
       - name: Generate project from Cookiecutter
         run: |
-          uvx cookiecutter . --no-input
+          uv run cookiecutter . --no-input
 
-      - name: Create Conda environment and release lock file
+      - name: Create uv environment and lock file
         run: |
           cd project-name
           uv sync
@@ -57,7 +57,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          uvx pytest -vv --cov=src --cov-report=xml --junitxml=test-results.xml
+          uv run pytest -vv --cov=src --cov-report=xml --junitxml=test-results.xml
         working-directory: project-name
 
       - name: Upload coverage reports to Codecov

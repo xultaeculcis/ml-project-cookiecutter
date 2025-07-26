@@ -175,7 +175,6 @@ max-args = 10
 [tool.pytest.ini_options]
 addopts = "--ignore build_tools --ignore examples --ignore docs"
 asyncio_mode = "auto"
-asyncio_default_fixture_loop_scope = "function"
 filterwarnings = [
     "ignore::UserWarning",
 ]
