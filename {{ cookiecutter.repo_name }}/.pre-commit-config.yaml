@@ -17,7 +17,7 @@ repos:
     rev: v3.20.0
     hooks:
       - id: pyupgrade
-        args: [ "--py311-plus" ]
+        args: [ "--py{{cookiecutter.python_version_sanitized}}-plus" ]
         name: Upgrade code
 
   - repo: https://github.com/codespell-project/codespell
@@ -28,18 +28,18 @@ repos:
         #args: ["--write-changes"] # uncomment if you want to get automatic fixing
 
   - repo: https://github.com/PyCQA/docformatter
-    rev: v1.7.8-rc1
+    rev: v1.7.7
     hooks:
       - id: docformatter
         additional_dependencies: [ tomli ]
-        args: [ "--in-place" ]
+        args: [ "--in-place", "--recursive" ]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.12.5
     hooks:
-      - id: ruff
+      - id: ruff-check
         types_or: [ python, pyi, jupyter ]
-        args: [ "--fix", "--preview" ]
+        args: [ "--fix", "--unsafe-fixes", "--preview" ]
       - id: ruff-format
         types_or: [ python, pyi, jupyter ]
         args: [ "--preview" ]
