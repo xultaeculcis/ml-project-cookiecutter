@@ -11,6 +11,6 @@ updates:
       interval: "weekly"
 
   - package-ecosystem: "docker"
-    directory: "/"
+    directory: "/{{ cookiecutter.repo_name }}"
     schedule:
       interval: "weekly"
