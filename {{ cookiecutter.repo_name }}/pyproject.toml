@@ -95,7 +95,7 @@ build-backend = "hatchling.build"
 
 [tool.ruff]
 show-fixes = true
-target-version = "{{cookiecutter.python_version_sanitized}}"
+target-version = "py{{cookiecutter.python_version_sanitized}}"
 line-length = 120
 extend-exclude = [
     "docs/*",
