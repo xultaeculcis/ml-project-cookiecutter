@@ -1,19 +1,19 @@
 ## Compute
 
-::: src.consts.compute
+::: {{cookiecutter.package_name}}.consts.compute
 
 ## Directories
 
-::: src.consts.directories
+::: {{cookiecutter.package_name}}.consts.directories
 
 ## Logging
 
-::: src.consts.logging
+::: {{cookiecutter.package_name}}.consts.logging
 
 ## Reproducibility
 
-::: src.consts.reproducibility
+::: {{cookiecutter.package_name}}.consts.reproducibility
 
 ## Training
 
-::: src.consts.training
+::: {{cookiecutter.package_name}}.consts.training

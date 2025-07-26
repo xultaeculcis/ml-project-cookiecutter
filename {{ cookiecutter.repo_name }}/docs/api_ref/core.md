@@ -1,3 +1,3 @@
 ## Settings management
 
-::: src.core.settings
+::: {{cookiecutter.package_name}}.core.settings
