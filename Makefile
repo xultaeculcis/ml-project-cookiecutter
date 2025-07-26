@@ -54,3 +54,7 @@ clean:  ## Cleans artifacts
 	rm -rf .benchmark
 	rm -rf .hypothesis
 	rm -rf docs-site
+
+.PHONY: gha-update
+gha-update:
+	uv run gha-update
