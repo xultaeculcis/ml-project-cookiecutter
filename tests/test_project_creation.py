@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import subprocess  # noqa: S404, RUF100
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 def no_curlies(fp: Path) -> bool:
-    data = fp.read_text()
+    data = fp.read_text(encoding="utf-8")
     template_strings = ["{{", "}}", "{%", "%}"]
     template_strings_in_file = [s in data for s in template_strings]
     return not any(template_strings_in_file)
@@ -32,14 +32,13 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
         ".azure-pipelines/jobs/test-suite.yaml",
         ".azure-pipelines/steps",
         ".azure-pipelines/steps/code-qa.yaml",
-        ".azure-pipelines/steps/conda-env-create.yaml",
+        ".azure-pipelines/steps/uv-env-create.yaml",
         ".azure-pipelines/steps/test-suite.yaml",
         ".azure-pipelines/pr-pipeline.yaml",
         ".github",
         ".github/workflows",
         ".github/workflows/lock-files-update.yaml",
         ".github/workflows/zizmor-security-check.yaml",
-        ".github/ci-env.yaml",
         "data",
         "data/auxiliary",
         "data/inference",
@@ -56,22 +55,23 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
         "docs/guides/setup-dev-env.md",
         "docs/guides/tests.md",
         "docs/index.md",
-        "dummy_project",
-        "dummy_project/__init__.py",
-        "dummy_project/py.typed",
-        "dummy_project/consts",
-        "dummy_project/consts/__init__.py",
-        "dummy_project/consts/directories.py",
-        "dummy_project/consts/logging.py",
-        "dummy_project/core",
-        "dummy_project/core/__init__.py",
-        "dummy_project/core/settings.py",
-        "dummy_project/utils/__init__.py",
-        "dummy_project/utils/gpu.py",
-        "dummy_project/utils/logging.py",
-        "dummy_project/utils/mlflow.py",
-        "dummy_project/utils/serialization.py",
         "notebooks",
+        "src",
+        "src/dummy_project",
+        "src/dummy_project/__init__.py",
+        "src/dummy_project/py.typed",
+        "src/dummy_project/consts",
+        "src/dummy_project/consts/__init__.py",
+        "src/dummy_project/consts/directories.py",
+        "src/dummy_project/consts/logging.py",
+        "src/dummy_project/core",
+        "src/dummy_project/core/__init__.py",
+        "src/dummy_project/core/settings.py",
+        "src/dummy_project/utils/__init__.py",
+        "src/dummy_project/utils/gpu.py",
+        "src/dummy_project/utils/logging.py",
+        "src/dummy_project/utils/mlflow.py",
+        "src/dummy_project/utils/serialization.py",
         "tests",
         "tests/__init__.py",
         "tests/conftest.py",
@@ -92,8 +92,6 @@ def test_expected_project_dir_structure(dummy_project_dir: Path) -> None:
         ".env-sample",
         ".gitignore",
         ".pre-commit-config.yaml",
-        "env.yaml",
-        "env-dev.yaml",
         "LICENSE",
         "Makefile",
         "mkdocs.yml",
@@ -135,8 +133,6 @@ def test_dot_env_sample_has_placeholders(dummy_project_dir: Path) -> None:
     "fp",
     [
         ".azure-pipelines/pr-pipeline.yaml",
-        ".azure-pipelines/jobs/test-suite.yaml",
-        ".azure-pipelines/steps/conda-env-create.yaml",
         ".azure-pipelines/steps/test-suite.yaml",
         ".github/workflows/lock-files-update.yaml",
         ".github/workflows/zizmor-security-check.yaml",
@@ -163,7 +159,7 @@ def test_env_files_have_proper_placeholders(dummy_project_dir: Path, fp: str) ->
 def test_license(dummy_project_factory: Callable[[str], Path], license_type: str) -> None:
     project_dir = dummy_project_factory(license_type)
     expected_content = (Path(__file__).parent / "licenses" / f"{license_type}.txt").read_text()
-    expected_content = expected_content.format(year=datetime.now(tz=timezone.utc).year)
+    expected_content = expected_content.format(year=datetime.now(tz=UTC).year)
     if license_type != "No license file":
         assert expected_content in (project_dir / "LICENSE").read_text()
     else:
@@ -176,7 +172,7 @@ def test_git_initialized(dummy_project_dir: Path) -> None:
 
 
 def test_git_tracking_main_branch(dummy_project_dir: Path) -> None:
-    proc = subprocess.run(  # noqa: S603
+    proc = subprocess.run(
         ["git", "branch", "--show-current"],  # noqa: S607
         cwd=dummy_project_dir.as_posix(),
         capture_output=True,

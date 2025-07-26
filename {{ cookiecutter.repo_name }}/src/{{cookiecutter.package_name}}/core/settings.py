@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from {{cookiecutter.src_dir_name}} import consts
+from {{cookiecutter.package_name}} import consts
 
 
 class Settings(BaseSettings):

@@ -27,7 +27,7 @@ It will also install `pre-commit` hooks and the project in an editable mode.
 Once done you can activate the environment by running:
 
 ```shell
-conda activate {{cookiecutter.repo_name}}
+conda activate {{cookiecutter.package_name}}
 ```
 
 ## Manually
@@ -35,13 +35,13 @@ conda activate {{cookiecutter.repo_name}}
 1. Run `conda-lock` command:
 
     ```shell
-    conda-lock install --mamba -n {{cookiecutter.repo_name}} conda-lock.yml
+    conda-lock install --mamba -n {{cookiecutter.package_name}} conda-lock.yml
     ```
 
 2. Activate the env:
 
     ```shell
-    conda activate {{cookiecutter.repo_name}}
+    conda activate {{cookiecutter.package_name}}
     ```
 
 3. Install `pre-commit` hooks:

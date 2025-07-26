@@ -1,11 +1,7 @@
 .DEFAULT_GOAL := help
-pre-commit = pre-commit run --all-files
 
 DATA_DIR=data
 SHELL=/bin/bash
-# Note that the extra activate is needed to ensure that the activate floats env to the front of PATH
-CONDA_ACTIVATE_BASE=source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate base
-CONDA_ACTIVATE=source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate ml-project-cookiecutter
 
 define PRINT_HELP_PYSCRIPT
 import re, sys
@@ -21,22 +17,17 @@ export PRINT_HELP_PYSCRIPT
 help:  ## Prints help message
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-.PHONY: env
-env:  ## Creates local environment and install pre-commit hooks
-	$(CONDA_ACTIVATE_BASE) ; conda env create -f ./env.yaml
-	$(CONDA_ACTIVATE) ; pre-commit install
-
 .PHONY: test
 test:  ## Runs pytest
-	pytest -v tests/
+	uvx pytest -v tests/
 
 .PHONY: docs
 docs:  ## Build the documentation
-	mkdocs build
+	uvx run mkdocs build
 
 .PHONY: pc
 pc:  ## Runs pre-commit hooks
-	$(pre-commit)
+	uvx pre-commit run --all-files
 
 .PHONY: clean
 clean:  ## Cleans artifacts

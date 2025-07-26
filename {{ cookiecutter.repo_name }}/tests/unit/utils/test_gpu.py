@@ -3,7 +3,7 @@ from __future__ import annotations
 from unittest import mock
 from unittest.mock import patch
 
-from {{cookiecutter.src_dir_name}}.utils.gpu import set_gpu_power_limit_if_needed
+from {{cookiecutter.package_name}}.utils.gpu import set_gpu_power_limit_if_needed
 
 
 def test_default_behavior_present_gpu() -> None:

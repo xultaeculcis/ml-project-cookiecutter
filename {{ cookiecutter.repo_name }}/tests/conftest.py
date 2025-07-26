@@ -5,7 +5,7 @@ import typing
 
 import pytest
 
-from {{cookiecutter.src_dir_name}} import consts
+from {{cookiecutter.package_name}} import consts
 
 if typing.TYPE_CHECKING:
     from _pytest.config import Config

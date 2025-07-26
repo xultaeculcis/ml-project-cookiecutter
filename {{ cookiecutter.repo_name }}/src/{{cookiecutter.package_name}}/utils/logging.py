@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, TypeVar
 
 from typing_extensions import ParamSpec
 
-from {{cookiecutter.src_dir_name}} import consts
+from {{cookiecutter.package_name}} import consts
 
 if TYPE_CHECKING:
     from collections.abc import Callable

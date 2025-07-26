@@ -1,0 +1,10 @@
+steps:
+  - bash: |
+      cd $(Build.SourcesDirectory)
+      curl -LsSf https://astral.sh/uv/install.sh | sh
+    displayName: Setup uv
+
+  - bash: |
+      cd $(Build.SourcesDirectory)
+      uv sync --frozen --no-cache --all-extras --all-groups
+    displayName: Install dependencies

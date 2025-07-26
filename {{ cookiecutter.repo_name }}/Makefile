@@ -91,7 +91,7 @@ test:
 .PHONY: testcov  ## Runs tests and generates coverage reports
 testcov:
 	@rm -rf htmlcov
-	pytest -v --cov-report html --cov-report xml --cov={{cookiecutter.src_dir_name}} tests/
+	pytest -v --cov-report html --cov-report xml --cov=src/{{cookiecutter.package_name}} tests/
 
 .PHONY: mpc  ## Runs manual pre-commit stuff
 mpc: format type-check test
@@ -120,7 +120,7 @@ clean:
 	rm -f coverage.*
 	rm -rf build
 	rm -rf perf.data*
-	rm -rf {{cookiecutter.repo_name}}/*.so
+	rm -rf {{cookiecutter.package_name}}/*.so
 	rm -rf .mypy_cache
 	rm -rf .benchmark
 	rm -rf .hypothesis

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from {{cookiecutter.src_dir_name}}.consts import compute, directories, logging, reproducibility, training
+from {{cookiecutter.package_name}}.consts import compute, directories, logging, reproducibility, training
 
 __all__ = [
     "compute",

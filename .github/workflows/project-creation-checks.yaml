@@ -23,18 +23,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up Miniconda (Python 3.11)
-        uses: conda-incubator/setup-miniconda@v3
-        with:
-          python-version: "3.11"
-          miniforge-version: latest
-          use-mamba: true
-
-      - name: Install Cookiecutter
-        run: |
-          python -m pip install --upgrade pip
-          pip install cookiecutter
-
       - name: Configure Git Credentials
         run: |
           git config --global user.name github-actions[bot]
@@ -42,31 +30,26 @@ jobs:
 
       - name: Generate project from Cookiecutter
         run: |
-          cookiecutter . --no-input
+          uv run cookiecutter . --no-input
 
       - name: Create Conda environment and release lock file
         run: |
-          conda install -n base conda-lock -c conda-forge -y
           cd project-name
-          make init-project
-          make release-lock-file
+          uv sync
 
       - name: Run pre-commit hooks
         run: |
-          conda activate project-name
           make pc
         working-directory: project-name
 
       - name: Build docs
         run: |
-          conda activate project-name
           make docs
         working-directory: project-name
 
       - name: Run tests with coverage
         run: |
-          conda activate project-name
-          pytest -vv --cov=src --cov-report=xml --junitxml=test-results.xml
+          uv run pytest -vv --cov=src --cov-report=xml --junitxml=test-results.xml
         working-directory: project-name
 
       - name: Upload coverage reports to Codecov
