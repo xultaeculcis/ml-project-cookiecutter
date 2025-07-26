@@ -22,29 +22,19 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up Miniconda
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          environment-file: ".github/ci-env.yaml"
-          activate-environment: "ci-env"
-          miniforge-version: "latest"
-          use-mamba: true
-
-      - name: Generate new conda-lock files - release
+      - name: Check if the lockfile is up-to-date
         run: |
-          rm -rf conda-lock.yml
-          conda-lock --mamba -f env.yaml --lockfile conda-lock.yml
+          uv lock --check
 
-      - name: Generate new conda-lock files - dev
+      - name: Update dependencies
         run: |
-          rm -rf conda-lock-dev.yml
-          conda-lock --mamba -f env.yaml -f env-dev.yaml --lockfile conda-lock-dev.yml
+          uv lock --upgrade
 
       - name: Create a pull request
         uses: peter-evans/create-pull-request@v4
         with:
           token: $<< secrets.GITHUB_TOKEN >>
-          branch: feat/conda-lock-update
+          branch: feat/uv-lock-update
           title: "chore: Update lock-files"
           body: "Monthly automatic update of lock-files"
           base: main

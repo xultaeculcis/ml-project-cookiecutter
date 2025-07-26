@@ -1,15 +1,15 @@
 ## GPU
 
-::: {{cookiecutter.src_dir_name}}.utils.gpu
+::: {{cookiecutter.package_name}}.utils.gpu
 
 ## Logging
 
-::: {{cookiecutter.src_dir_name}}.utils.logging
+::: {{cookiecutter.package_name}}.utils.logging
 
 ## MLFlow
 
-::: {{cookiecutter.src_dir_name}}.utils.mlflow
+::: {{cookiecutter.package_name}}.utils.mlflow
 
 ## Serialization
 
-::: {{cookiecutter.src_dir_name}}.utils.serialization
+::: {{cookiecutter.package_name}}.utils.serialization

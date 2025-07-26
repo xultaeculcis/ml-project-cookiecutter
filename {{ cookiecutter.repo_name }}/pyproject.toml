@@ -1,43 +1,101 @@
-[build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = '{{cookiecutter.repo_name}}'
-description = '{{cookiecutter.project_description}}'
-version = '0.0.1'
-requires-python = '>=3.11.0'
+name = "{{cookiecutter.package_name}}"
+description = "{{cookiecutter.project_description}}"
+version = "0.1.0"
+requires-python = ">={{cookiecutter.python_version}}.0"
 authors = [
-    { name = '{{cookiecutter.author_name}}' }
+    { name = "{{cookiecutter.author_name}}" }
 ]
 classifiers = [
-    'Development Status :: 3 - Alpha',
-    'Environment :: Console',
-    'Programming Language :: Python',
-    'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3 :: Only',
-    'Programming Language :: Python :: {{cookiecutter.python_version}}',
-    'Intended Audience :: Developers',
-    'Intended Audience :: Information Technology',
-    'Intended Audience :: System Administrators',
-    'License :: OSI Approved :: {{cookiecutter.license}}',
-    'Operating System :: POSIX :: Linux',
-    'Topic :: Software Development :: Libraries :: Python Modules',
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Environment :: Console",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: {{cookiecutter.python_version}}",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Unix",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+license = { text = "MIT" }
 dependencies = [
-    'typing_extensions; python_version < "3.14.0"'
+    "click>=8.1.8",
+    "matplotlib>=3.10.1",
+    "mlflow>=2.22.0",
+    "numpy>=2.2.5",
+    "pandas>=2.2.3",
+    "psutil>=7.0.0",
+    "pyarrow>=19.0.1",
+    "pydantic>=2.11.4",
+    "pydantic-settings>=2.9.1",
+    "python-dotenv>=1.1.0",
+    "pyyaml>=6.0.2",
+    "scikit-learn>=1.6.1",
+    "seaborn>=0.13.2",
+    "streamlit>=1.47.1",
+    "tqdm>=4.67.1",
 ]
-license = { text = "{{cookiecutter.license}}" }
+
+[dependency-groups]
+dev = [
+    "coverage>=7.8.0",
+    "interrogate>=1.7.0",
+    "jupyter>=1.1.1",
+    "jupyterlab>=4.4.1",
+    "mypy>=1.15.0",
+    "notebook>=7.4.1",
+    "pandas-stubs>=2.3.0.250703",
+    "pre-commit>=4.2.0",
+    "pretty>=0.1",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.26.0",
+    "pytest-cov>=6.1.1",
+    "pytest-mock>=3.14.0",
+    "ruff>=0.11.7",
+    "types-click-spinner>=0.1.13.20240311",
+    "types-dataclasses>=0.6.6",
+    "types-dateparser>=1.2.0.20250408",
+    "types-decorator>=5.2.0.20250324",
+    "types-docutils>=0.21.0.20241128",
+    "types-frozendict>=2.0.9",
+    "types-futures>=3.3.8",
+    "types-mock>=5.2.0.20250306",
+    "types-mypy-extensions>=1.1.0.20250425",
+    "types-psutil>=7.0.0.20250401",
+    "types-pytz>=2025.2.0.20250326",
+    "types-pyyaml>=6.0.12.20250402",
+    "types-retry>=0.9.9.20250322",
+    "types-setuptools>=80.0.0.20250429",
+    "types-tqdm>=4.67.0.20250417",
+]
+docs = [
+    "griffe-pydantic>=1.1.4",
+    "mkdocs>=1.6.1",
+    "mkdocs-gen-files>=0.5.0",
+    "mkdocs-glightbox>=0.4.0",
+    "mkdocs-jupyter>=0.25.1",
+    "mkdocs-material>=9.6.12",
+    "mkdocstrings[python]>=0.29.1",
+]
 
 [project.urls]
-Homepage = '{{cookiecutter.repo_url}}'
+Homepage = "{{cookiecutter.repo_url}}"
 
-[tool.setuptools.dynamic]
-readme = {file = ["README.md"]}
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.ruff]
 show-fixes = true
-target-version = "py311"
+target-version = "{{cookiecutter.python_version_sanitized}}"
 line-length = 120
 extend-exclude = [
     "docs/*",
@@ -58,7 +116,7 @@ select = [
     "YTT", # see: https://pypi.org/project/flake8-2020
     "ANN", # see: https://pypi.org/project/flake8-annotations
     "ASYNC", # see: https://pypi.org/project/flake8-async
-    "TRIO", # see: https://pypi.org/project/flake8-trio
+    "ASYNC1", # see: https://pypi.org/project/flake8-trio
     "S", # see: https://pypi.org/project/flake8-bandit
     "BLE", # see: https://pypi.org/project/flake8-blind-except
     "FBT", # see: https://pypi.org/project/flake8-boolean-trap
@@ -102,8 +160,6 @@ select = [
     "RUF", # Ruff-specific rules
 ]
 ignore = [
-    "ANN101",  # see: https://pypi.org/project/flake8-annotations - Missing type annotation for self in method
-    "ANN102",  # see: https://pypi.org/project/flake8-annotations - Missing type annotation for cls in method
     "ANN401",  # see: https://pypi.org/project/flake8-annotations - Dynamically typed expressions (typing.Any) are disallowed
     "COM", # see: https://pypi.org/project/flake8-commas - conflicts with formatter
     "ISC", # see: https://pypi.org/project/flake8-implicit-str-concat - conflicts with formatter
@@ -129,31 +185,47 @@ combine-as-imports = true
     "S101",  # Allow "use of assert detected" in tests
     "D1",  # Ignore undocumented public members in tests
 ]
-"{{cookiecutter.src_dir_name}}/consts/logging.py" = ["A005"]
-"{{cookiecutter.src_dir_name}}/utils/gpu.py" = ["S605"]
-"{{cookiecutter.src_dir_name}}/utils/logging.py" = ["A005"]
+"src/{{cookiecutter.package_name}}/consts/logging.py" = ["A005"]
+"src/{{cookiecutter.package_name}}/utils/gpu.py" = ["S605"]
+"src/{{cookiecutter.package_name}}/utils/logging.py" = ["A005"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [tool.ruff.lint.pylint]
 max-statements = 75
+max-args = 10
+
+[tool.nbqa.addopts]
+ruff = ["--extend-ignore=E402,T201,B015,B018,NPY002,UP,FA,I002"]
+# E402 -> imports on top
+# T201 -> print found
+# B015 & B018 -> useless expression (used to show values in ipynb)
+# NPY002 -> use RNG instead of old numpy.random
+# UP -> suggestions for new-style classes (future import might confuse readers)
+# FA -> necessary future annotations import
+# I002 -> auto-inserts future annotations
 
 [tool.ruff.lint.flake8-import-conventions.aliases]
+datetime = "dt"
 geopandas = "gpd"
-rasterio = "rio"
-xarray = "xr"
 "kornia.augmentations" = "K"
+matplotlib = "mpl"
+"matplotlib.pyplot" = "plt"
+numpy = "np"
+pandas = "pd"
+rasterio = "rio"
+streamlit = "st"
+xarray = "xr"
 "torch.nn.functional" = "F"
 "torchvision.transforms" = "T"
 
 [tool.pytest.ini_options]
 addopts = "--ignore data --ignore notebooks --ignore build_tools --ignore examples --ignore docs"
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 markers = [
     "unit: mark a test as a unit test.",
-    "integration: mark test as an integration test.",
-    "e2e: mark test as an end to end test.",
 ]
 filterwarnings = [
     "ignore::UserWarning",
@@ -162,7 +234,6 @@ filterwarnings = [
 [tool.check-manifest]
 ignore = [
     ".binder/**",
-    ".all-contributorsrc",
     ".coveragerc",
     "examples/**",
     "build_tools/**",
@@ -176,59 +247,23 @@ ignore = [
 ]
 
 [tool.mypy]
-exclude = [
-    'venv',
-    '\.venv',
-    '\.git',
-    '__pycache__',
-    'configs',
-    'data',
-    'logs',
-    'outputs',
-    'models',
-]
 check_untyped_defs = true
+follow_imports = "normal"
+ignore_missing_imports = true
 disallow_any_generics = true
 disallow_incomplete_defs = true
+disallow_untyped_decorators = true
 disallow_untyped_defs = true
 no_implicit_optional = true
+pretty = true
+show_column_numbers = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
 warn_return_any = true
+warn_unreachable = true
 warn_unused_configs = true
-plugins = "numpy.typing.mypy_plugin"
-
-[[tool.mypy.overrides]]
-module = [
-    "dask.*",
-    "distributed.*",
-    "geoalchemy2.*",
-    "geopandas.*",
-    "joblib.*",
-    "kornia.*",
-    "lightning.*",
-    "matplotlib.*",
-    "mkdocs_gen_files.*",
-    "mlflow.*",
-    "pandas.*",
-    "pydantic.*",
-    "pydantic_core.*",
-    "pydantic_settings.*",
-    "pytorch_lightning.*",
-    "rasterio.*",
-    "rioxarray.*",
-    "scipy.*",
-    "seaborn.*",
-    "shapely.*",
-    "sklearn.*",
-    "sklearnex.*",
-    "sqlalchemy.*",
-    "timm.*",
-    "torch.*",
-    "torchmetrics.*",
-    "torchvision.*",
-    "xarray.*",
-]
-ignore_missing_imports = true
-ignore_errors = true
+warn_unused_ignores = true
 
 [tool.interrogate]
 ignore-init-module = true
@@ -237,7 +272,7 @@ exclude = ["tests", "docs", "site"]
 omit-covered-files = true
 
 [tool.coverage.run]
-source = ['{{cookiecutter.src_dir_name}}']
+source = ["src/{{cookiecutter.package_name}}"]
 branch = true
 omit = ["tests/*"]
 
@@ -245,15 +280,15 @@ omit = ["tests/*"]
 show_missing = true
 precision = 2
 exclude_lines = [
-    'pragma: no cover',
-    'raise NotImplementedError',
-    'if typing.TYPE_CHECKING:',
-    'if TYPE_CHECKING:',
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if typing.TYPE_CHECKING:",
+    "if TYPE_CHECKING:",
     "if t.TYPE_CHECKING:",
     "return NotImplemented",
     "except KeyboardInterrupt as exc",
     "except ImportError:",
-    '@overload',
+    "@overload",
 ]
 
 [tool.docformatter]

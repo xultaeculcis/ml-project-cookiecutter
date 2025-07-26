@@ -15,12 +15,6 @@ parameters:
       - staging
       - prod
 
-variables:
-  - name: lock_file_location
-    value: conda-lock-dev.yml
-  - name: conda_env_name
-    value: ci-env
-
 stages:
   - stage: pre_commit
     displayName: Run pre-commit hooks
@@ -33,5 +27,3 @@ stages:
       - template: ./jobs/test-suite.yaml
         parameters:
           env: $<< parameters.env >>
-          lock_file_location: $<< variables.lock_file_location >>
-          conda_env_name: $<< variables.conda_env_name >>

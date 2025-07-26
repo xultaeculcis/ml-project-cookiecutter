@@ -1,7 +1,6 @@
 steps:
   - script: |
-      source activate $<< parameters.conda_env_name >>
-      pytest -vv --junitxml=junit/unit-test.xml --cov=src --cov-report=xml
+      uvx pytest -vv --junitxml=junit/unit-test.xml --cov=src --cov-report=xml
     displayName: Run PyTest
     env:
       ENVIRONMENT: $<< parameters.env >>

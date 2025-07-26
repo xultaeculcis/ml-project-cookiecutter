@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from {{cookiecutter.src_dir_name}}.utils.serialization import JsonEncoder
+from {{cookiecutter.package_name}}.utils.serialization import JsonEncoder
 
 
 def test_date_serialization() -> None:

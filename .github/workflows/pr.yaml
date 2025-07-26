@@ -21,16 +21,16 @@ jobs:
           git config --global user.name github-actions[bot]
           git config --global user.email github-actions[bot]@users.noreply.github.com
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version-file: "pyproject.toml"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pre-commit pytest cookiecutter
-          pre-commit install
+        run: uv sync --locked --all-extras --all-groups
 
       - name: Run pre-commit hooks
-        run: pre-commit run --all-files
+        run: uvx pre-commit run --all-files

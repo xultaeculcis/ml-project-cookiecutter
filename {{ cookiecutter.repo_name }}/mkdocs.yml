@@ -55,7 +55,7 @@ plugins:
               - griffe_pydantic:
                 schema: true
 watch:
-  - {{cookiecutter.src_dir_name}}/
+  - src/
 nav:
   - Home: index.md
   - Guides:
@@ -66,6 +66,6 @@ nav:
   - DEV-LOG:
       - Intro: "dev-logs/log.md"
   - API reference:
-      - {{cookiecutter.src_dir_name}}.consts: "api_ref/consts.md"
-      - {{cookiecutter.src_dir_name}}.core: "api_ref/core.md"
-      - {{cookiecutter.src_dir_name}}.utils: "api_ref/utils.md"
+      - {{cookiecutter.package_name}}.consts: "api_ref/consts.md"
+      - {{cookiecutter.package_name}}.core: "api_ref/core.md"
+      - {{cookiecutter.package_name}}.utils: "api_ref/utils.md"
