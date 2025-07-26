@@ -43,7 +43,7 @@ jobs:
       - name: Create uv environment and lock file
         run: |
           cd project-name
-          uv sync
+          make init-project
 
       - name: Run pre-commit hooks
         run: |
