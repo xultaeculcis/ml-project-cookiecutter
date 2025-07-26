@@ -2,7 +2,6 @@
 
 In order to set up local development environment make sure you have installed:
 
-- [conda](https://docs.conda.io/en/latest/miniconda.html)
 - [conda-lock](https://github.com/conda/conda-lock)
 
 You can install `conda-lock` on your `base` environment by running:

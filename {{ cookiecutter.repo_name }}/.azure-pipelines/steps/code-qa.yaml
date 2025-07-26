@@ -4,5 +4,5 @@ steps:
     displayName: "Install pre-commit hooks"
 
   - script: |
-      SKIP=pytest-check uvx pre-commit run --all-files
+      SKIP=pytest-check uv run pre-commit run --all-files
     displayName: "Run simplified pre-commit hooks"
