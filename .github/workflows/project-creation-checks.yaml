@@ -28,9 +28,17 @@ jobs:
           git config --global user.name github-actions[bot]
           git config --global user.email github-actions[bot]@users.noreply.github.com
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
       - name: Generate project from Cookiecutter
         run: |
-          uv run cookiecutter . --no-input
+          uvx cookiecutter . --no-input
 
       - name: Create Conda environment and release lock file
         run: |
@@ -49,7 +57,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          uv run pytest -vv --cov=src --cov-report=xml --junitxml=test-results.xml
+          uvx pytest -vv --cov=src --cov-report=xml --junitxml=test-results.xml
         working-directory: project-name
 
       - name: Upload coverage reports to Codecov
