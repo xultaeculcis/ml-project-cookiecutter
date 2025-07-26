@@ -3,7 +3,7 @@
 ## Requirements
 
 - Read: [Cookiecutter Data Science Docs](http://drivendata.github.io/cookiecutter-data-science/) for a general overview
-- Python 3.11+
+- Python 3.12+
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 2.1.1
 
