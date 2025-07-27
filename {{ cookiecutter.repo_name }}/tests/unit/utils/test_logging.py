@@ -108,7 +108,7 @@ def test_timed_block_logging_on_exception(mock_info: MagicMock) -> None:
         raise DummyError(msg)
 
     with pytest.raises(DummyError), timing_context("test_func"):
-            test_func()
+        test_func()
 
     assert mock_info.call_count == 2  # noqa: PLR2004
     start_call, end_call = mock_info.call_args_list
