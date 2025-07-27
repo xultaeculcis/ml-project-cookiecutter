@@ -5,12 +5,12 @@ from __future__ import annotations
 import contextlib
 import logging
 import time
-from functools import wraps
-from typing import TYPE_CHECKING, TypeVar, Generator
-
-from typing_extensions import ParamSpec
+from typing import TYPE_CHECKING
 
 from {{cookiecutter.package_name}} import consts
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 
 
 def get_logger(name: str, log_level: int | str = logging.INFO) -> logging.Logger:
