@@ -18,6 +18,7 @@ _NAME_TO_LEVEL = {
 }
 _LOGGER_NAME = "test_logger"
 
+
 class DummyError(Exception): ...
 
 
@@ -103,10 +104,10 @@ def test_timed_with_block_logging(mock_info: MagicMock) -> None:
 @patch("logging.Logger.info")
 def test_timed_block_logging_on_exception(mock_info: MagicMock) -> None:
     def test_func() -> int:
-        raise DummyError("test")
+        msg = "test"
+        raise DummyError(msg)
 
-    with pytest.raises(DummyError):
-        with timing_context("test_func"):
+    with pytest.raises(DummyError), timing_context("test_func"):
             test_func()
 
     assert mock_info.call_count == 2  # noqa: PLR2004
@@ -120,7 +121,8 @@ def test_timed_block_logging_on_exception(mock_info: MagicMock) -> None:
 def test_timed_decorator_logging_on_exception(mock_info: MagicMock) -> None:
     @timing_context("test_func")
     def test_func() -> int:
-        raise DummyError("test")
+        msg = "test"
+        raise DummyError(msg)
 
     with pytest.raises(DummyError):
         test_func()
