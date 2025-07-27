@@ -1,4 +1,4 @@
-name: zizmor-gh-actions-security-analysis
+name: zizmor
 on:
   push:
     branches:
@@ -6,6 +6,7 @@ on:
   pull_request:
     branches:
       - "**"
+  workflow_dispatch:  # Allow manual triggering from any branch
 
 jobs:
   zizmor:
