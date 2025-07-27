@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from {{cookiecutter.package_name}} import consts
-from {{cookiecutter.package_name}}.utils.logging import get_logger, timed
+from {{cookiecutter.package_name}}.utils.logging import get_logger, timing_context
 
 _NAME_TO_LEVEL = {
     "CRITICAL": logging.CRITICAL,
@@ -59,7 +59,7 @@ def test_formatter_configuration() -> None:
 
 
 def test_timed_decorator_functionality() -> None:
-    @timed
+    @timing_context("test_func")
     def test_func(x: int, y: int) -> int:
         return x + y * y
 
@@ -70,11 +70,58 @@ def test_timed_decorator_functionality() -> None:
 @patch("{{cookiecutter.package_name}}.utils.logging.time.time", MagicMock(side_effect=[100.0, 101.0]))
 @patch("logging.Logger.info")
 def test_timed_decorator_logging(mock_info: MagicMock) -> None:
-    @timed
+    @timing_context("test_func")
     def test_func(x: int, y: int) -> int:
         return x + y * y
 
     test_func(1, 2)
+
+    assert mock_info.call_count == 2  # noqa: PLR2004
+    start_call, end_call = mock_info.call_args_list
+    assert "is running" in start_call[0][0]
+    assert "ran in" in end_call[0][0]
+
+
+@patch("{{cookiecutter.package_name}}.utils.logging.time.time", MagicMock(side_effect=[100.0, 101.0]))
+@patch("logging.Logger.info")
+def test_timed_with_block_logging(mock_info: MagicMock) -> None:
+    def test_func(x: int, y: int) -> int:
+        return x + y * y
+
+    with timing_context("test_func"):
+        test_func(1, 2)
+
+    assert mock_info.call_count == 2  # noqa: PLR2004
+    start_call, end_call = mock_info.call_args_list
+    assert "is running" in start_call[0][0]
+    assert "ran in" in end_call[0][0]
+
+
+@patch("{{cookiecutter.package_name}}.utils.logging.time.time", MagicMock(side_effect=[100.0, 101.0]))
+@patch("logging.Logger.info")
+def test_timed_block_logging_on_exception(mock_info: MagicMock) -> None:
+    def test_func(x: int, y: int) -> int:
+        raise Exception("test")
+
+    with pytest.raises(Exception):
+        with timing_context("test_func"):
+            test_func(1, 2)
+
+    assert mock_info.call_count == 2  # noqa: PLR2004
+    start_call, end_call = mock_info.call_args_list
+    assert "is running" in start_call[0][0]
+    assert "ran in" in end_call[0][0]
+
+
+@patch("{{cookiecutter.package_name}}.utils.logging.time.time", MagicMock(side_effect=[100.0, 101.0]))
+@patch("logging.Logger.info")
+def test_timed_decorator_logging_on_exception(mock_info: MagicMock) -> None:
+    @timing_context("test_func")
+    def test_func(x: int, y: int) -> int:
+        raise Exception("test")
+
+    with pytest.raises(Exception):
+        test_func(1, 2)
 
     assert mock_info.call_count == 2  # noqa: PLR2004
     start_call, end_call = mock_info.call_args_list
