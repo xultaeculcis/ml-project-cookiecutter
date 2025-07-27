@@ -1,10 +1,10 @@
 # ml-project-cookiecutter
 
-![GitHub License](https://img.shields.io/github/license/xultaeculcis/ml-project-cookiecutter)
+![license](https://img.shields.io/github/license/xultaeculcis/ml-project-cookiecutter)
 [![codecov](https://codecov.io/gh/xultaeculcis/ml-project-cookiecutter/branch/main/graph/badge.svg?token=2CBERR0ACO)](https://codecov.io/gh/xultaeculcis/ml-project-cookiecutter)
-[![project-creation-checks](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/project-creation-checks.yaml/badge.svg?branch=main)](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/project-creation-checks.yaml)
-[![zizmor-gh-actions-security-analysis](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/zizmor-sec-check.yaml/badge.svg?branch=main)](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/zizmor-sec-check.yaml)
-[![gh-pages](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/docs.yaml/badge.svg?branch=main)](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/docs.yaml)
+[![project-creation-checks](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/project-creation-checks.yaml/badge.svg)](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/project-creation-checks.yaml)
+[![zizmor](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/zizmor-sec-check.yaml/badge.svg)](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/zizmor-sec-check.yaml)
+[![docs](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/docs.yaml/badge.svg)](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/docs.yaml)
 
 A cookiecutter template for my private ML projects.
 
