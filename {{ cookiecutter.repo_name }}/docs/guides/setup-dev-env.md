@@ -1,18 +1,8 @@
 ## Requirements
 
-In order to set up local development environment make sure you have installed:
+To set up a local development environment, make sure you have installed:
 
-- [conda-lock](https://github.com/conda/conda-lock)
-
-You can install `conda-lock` on your `base` environment by running:
-
-```shell
-conda install -c conda-forge conda-lock -n base
-```
-
-You can use [miniforge](https://github.com/conda-forge/miniforge) which also includes
-[mamba](https://mamba.readthedocs.io/en/latest/index.html). Using `mamba` should
-speed up dependency resolution significantly.
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
 
 ## Using Makefile
 
@@ -23,36 +13,13 @@ make env
 ```
 
 It will also install `pre-commit` hooks and the project in an editable mode.
-Once done you can activate the environment by running:
-
-```shell
-conda activate {{cookiecutter.package_name}}
-```
 
 ## Manually
 
-1. Run `conda-lock` command:
+1. Run `uv sync` command:
 
     ```shell
-    conda-lock install --mamba -n {{cookiecutter.package_name}} conda-lock.yml
-    ```
-
-2. Activate the env:
-
-    ```shell
-    conda activate {{cookiecutter.package_name}}
-    ```
-
-3. Install `pre-commit` hooks:
-
-    ```shell
-    pre-commit install
-    ```
-
-4. Install the project in an editable mode:
-
-    ```shell
-    pip install -e .
+    uv sync --all-groups
     ```
 
 ## Pre-commit hooks
@@ -67,7 +34,7 @@ To ensure code quality - please make sure that you have it configured.
 
 3. The command above will automatically run formatters, code checks and other steps defined in the `.pre-commit-config.yaml`
 
-4. All of those checks will also be run whenever a new commit is being created i.e. when you run `git commit -m "blah"`
+4. All of those checks will also be run whenever a new commit is being created i.e., when you run `git commit -m "blah"`
 
 5. You can also run it manually with this command: `pre-commit run --all-files`
 
