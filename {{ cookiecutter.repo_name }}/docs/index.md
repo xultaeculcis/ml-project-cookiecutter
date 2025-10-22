@@ -15,7 +15,7 @@ installation.
 
 ## Docs
 
-To build project documentation run:
+To build project documentation, run:
 
 ```shell
 make docs
@@ -29,7 +29,7 @@ mkdocs serve
 
 ## Running tests
 
-To run the unit tests execute:
+To run the unit tests, execute:
 
 ```shell
 pytest tests -v
