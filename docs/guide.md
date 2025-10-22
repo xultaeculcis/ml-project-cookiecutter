@@ -7,7 +7,7 @@
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 2.1.1
 
-## Creating new project
+## Creating a new project
 
 Run:
 
@@ -42,7 +42,7 @@ Choose from [1/2/3/4/5/6/7] (1): 1
 ```
 
 The `repo_name`, `package_name`, `repo_url` and `sanitized_python_version` will be automatically standardized
-and provided for you. You can change them to your liking though.
+and provided for you. You can change them to your liking, though.
 
 ## Working with the project
 
@@ -127,18 +127,18 @@ Most of those folders were described in detail in the
 ### Environment setup
 
 The post-generation hook will initialize `git` repo for you. It will also set up `main` to track the remote branch.
-Initial commit will be created with all repo files added to it. You can modify them and amend the commit at your
+An initial commit will be created with all repo files added to it. You can modify them and amend the commit at your
 convenience.
 
 #### Via Makefile
 
-Right after creating new project from the cookiecutter template you'll need to freeze the dependencies. Initial
+Right after creating a new project from the cookiecutter template, you'll need to freeze the dependencies. Initial
 `pyproject.toml` has a minimal set of dependencies needed for the helper functions, test execution and docs creation.
-Note that most of the dependencies are not pinned in the `pyproject.toml`. This is done on purpose in order to ensure
+Note that most of the dependencies are not pinned in the `pyproject.toml`. This is done on purpose to ensure
 that new projects can be created with the most up-to-date packages. Once you create the lock file, you can pin specific
 versions.
 
-To lock the environment run:
+To lock the environment, run:
 
 ```shell
 make env
@@ -151,7 +151,7 @@ mode.
 
 If you are not on Linux the setup via `Makefile` might not work. In that case run the following commands manually.
 
-To set up your local env from scratch run:
+To set up your local env from scratch, run:
 
 1. Create `uv.lock` file:
 
@@ -208,13 +208,13 @@ commit that targets the `main` branch.
 
 We use [MkDocs](https://www.mkdocs.org/) with [Material](https://squidfunk.github.io/mkdocs-material/) theme.
 
-To build the docs run:
+To build the docs, run:
 
 ```shell
 make docs
 ```
 
-If you want to verify the docs locally use:
+If you want to verify the docs locally, use:
 
 ```shell
 uv run mkdocs serve

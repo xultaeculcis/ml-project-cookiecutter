@@ -6,17 +6,17 @@ A cookiecutter template for my private ML projects.
 
 During my career I worked in a lot of different ML projects - computer vision, NLP, classical ML, time series
 forecasting and others. The projects ranged from pure R&D, through PoCs and production ready stuff. Whenever I would
-start a new project I found myself copying things from a bunch of different sources and my old projects again and
+start a new project, I found myself copying things from a bunch of different sources and my old projects again and
 again - recreating and duplicating the work I did a dozen times before. Cookiecutter project templates to the resque!
 
 The usage of technologies and certain patterns in the template is highly opinionated and is dictated by years
-of experience of working with Data Scientists and R&D Engineers. As ML Engineer I would often find myself working
-with low quality code, written by others in notebooks or scripts, without any form of documentation, standardized
+of experience of working with Data Scientists and R&D Engineers. As an ML Engineer, I would often find myself working
+with low-quality code, written by others in notebooks or scripts, without any form of documentation, standardized
 coding style or even a way to reproduce the environment or analysis results. Moving that to production? Good luck!
 
-In my opinion the fastest way to move ML stuff to production is **to force the Data Scientists** to write quality code
+In my opinion, the fastest way to move ML stuff to production is **to force the Data Scientists** to write quality code
 from the start. Want to add your changes to the repo? Sure, once all `pre-commit` hooks are green you'll be able to
-commit your changes. Add to that a CI pipeline, automated tests and PR review process, and you'll have easier way to
+commit your changes. Add to that a CI pipeline, automated tests and PR review process, and you'll have an easier way to
 ensure that the code and models are production ready faster.
 
 Won't that slow down Data Scientists? Yes. At first at least. They'll have to learn working with a set of standard
@@ -65,7 +65,7 @@ Please refer to [this](contributing.md) guide.
 
 ## Running tests
 
-To run the unit tests execute:
+To run the unit tests, execute:
 
 ```shell
 make test
