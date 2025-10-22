@@ -8,7 +8,8 @@
   "python_version": [
     "3.11",
     "3.12",
-    "3.13"
+    "3.13",
+    "3.14"
   ],
   "python_version_sanitized": "{{cookiecutter.python_version.replace('.', '')}}",
   "license": [
