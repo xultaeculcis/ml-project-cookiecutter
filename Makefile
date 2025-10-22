@@ -32,7 +32,7 @@ docs:  ## Build the documentation
 
 .PHONY: pc
 pc:  ## Runs pre-commit hooks
-	uv run pre_commit run --all-files
+	uv run pre-commit run --all-files
 
 .PHONY: clean
 clean:  ## Cleans artifacts
