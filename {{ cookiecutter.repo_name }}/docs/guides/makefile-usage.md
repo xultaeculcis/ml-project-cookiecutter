@@ -1,4 +1,4 @@
-In order to use the Makefile commands you need to be on **Linux**.
+In order to use the Makefile commands, you need to be on **Linux**.
 
 ## Basic usage
 
@@ -16,26 +16,12 @@ make help
 
 ## Development work commands
 
-### Freezing project dependencies
-
-- **lock-file** - Creates conda-lock file
-
-    ```shell
-    make lock-file
-    ```
-
-- **release-lock-file** - Creates conda-lock file without dev dependencies - to be used for deployment
-
-    ```shell
-    make release-lock-file
-    ```
-
 ### Creating environments
 
-- **conda-lock-install** - Creates env from conda-lock file
+- **env** - Creates env from the `pyproject.toml` file
 
     ```shell
-    make conda-lock-install
+    make env
     ```
 
 - **setup-pre-commit** - Installs pre-commit hooks
@@ -44,33 +30,9 @@ make help
     make setup-pre-commit
     ```
 
-- **setup-editable** - Installs the project in an editable mode
-
-    ```shell
-    make setup-editable
-    ```
-
-- **env** - Creates local environment and installs pre-commit hooks
-
-    ```shell
-    make env
-    ```
-
-- **remove-env** - Removes current conda environment
-
-    ```shell
-    make remove-env
-    ```
-
-- **recreate-env** - Recreates conda environment by making new one from fresh lockfile
-
-    ```shell
-    make recreate-env
-    ```
-
 ### Project initialization
 
-- **init-project** - Runs lock-file creation and env setup - to be used after cookiecutter initialization
+- **init-project** - Runs project initialization - to be used after cookiecutter initialization
 
     ```shell
     make init-project
