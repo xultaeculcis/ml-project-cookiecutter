@@ -32,7 +32,7 @@ help:
 setup-pre-commit:
 	uv run pre-commit install
 
-.PHONY: env  ## Creates local environment and installs pre-commit hooks
+.PHONY: env  ## Creates local environment
 env:
 	uv sync --all-groups
 
