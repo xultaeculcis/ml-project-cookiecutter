@@ -1935,11 +1935,11 @@ wheels = [
 
 [[package]]
 name = "types-click-spinner"
-version = "0.1.13.20250510"
+version = "0.1.13.20250809"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/2f/c7/7a962db82a63cd3a4a285332518d87678e56c060a18c19c0ce16045abd4e/types_click_spinner-0.1.13.20250510.tar.gz", hash = "sha256:c364c1fe35350b5588bac17d1432ad9a09a1b0c0afd3df14bf2516e777d87591", size = 8042, upload-time = "2025-05-10T02:58:21.754Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/96/5b/9657d649f78e57a5f1f74add406e6ed00b2e762a25092e45e6916a9618ff/types_click_spinner-0.1.13.20250809.tar.gz", hash = "sha256:0ef42f147e41ed5a3ecfc7435b0e64ba28e7a7185c9b917e9e321f5116c095b7", size = 8011, upload-time = "2025-08-09T03:15:48.792Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e7/d7/21054b4d9a6e3386881e4fc5a4a9ae3f2924cbb96f58360dae050c8c0afa/types_click_spinner-0.1.13.20250510-py3-none-any.whl", hash = "sha256:ad3083224f6e5d18fb97fbc174b95367a63a5fa687192cdf144c3be62b6c536f", size = 8037, upload-time = "2025-05-10T02:58:20.602Z" },
+    { url = "https://files.pythonhosted.org/packages/85/75/e82b57de1a7a4b492d472f9ba40c107b4fd0ff2fae495b2d0edf8731bf54/types_click_spinner-0.1.13.20250809-py3-none-any.whl", hash = "sha256:16853f983f0a19916194ce5630190a893b7d71601ba27a2adbd2bb73a2fe1885", size = 8000, upload-time = "2025-08-09T03:15:48.098Z" },
 ]
 
 [[package]]
