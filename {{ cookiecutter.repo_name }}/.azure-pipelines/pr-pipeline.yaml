@@ -15,6 +15,11 @@ parameters:
       - staging
       - prod
 
+variables:
+  # Keep the uv and pre-commit caches inside the pipeline workspace so that Cache@2 can restore and save them.
+  UV_CACHE_DIR: $(Pipeline.Workspace)/.cache/uv
+  PRE_COMMIT_HOME: $(Pipeline.Workspace)/.cache/pre-commit
+
 stages:
   - stage: pre_commit
     displayName: Run pre-commit hooks
@@ -23,7 +28,8 @@ stages:
 
   - stage: tests
     displayName: Run tests
+    dependsOn: []
     jobs:
       - template: ./jobs/test-suite.yaml
         parameters:
-          env: $<< parameters.env >>
+          env: {% raw %}${{ parameters.env }}{% endraw %}

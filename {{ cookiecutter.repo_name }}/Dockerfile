@@ -1,49 +1,63 @@
-FROM python:{{cookiecutter.python_version}}-slim-bullseye
+# syntax=docker/dockerfile:1
+#
+# Multi-stage image for {{cookiecutter.project_name}}.
+#   builder: resolves the locked runtime environment (no dev dependencies) with uv.
+#   runtime: slim Python image with the virtual environment, the source code and configs/ only.
+#            Runs as the non-root user `app`.
+#
+# Build: make docker-build   (or: docker build -t {{cookiecutter.repo_name}} .)
+# Run:   make docker-run ARGS="--help"
 
-# Setup environment to match variables set by repo2docker as much as possible
-# Tell apt-get to not block installs by asking for interactive human input
-ENV DEBIAN_FRONTEND=noninteractive \
-    # Set username, uid and gid (same as uid) of non-root user the container will be run as
-    APP_USER=jovyan \
-    APP_UID=1000 \
-    # Use /bin/bash as shell, not the default /bin/sh (arrow keys, etc don't work then)
-    SHELL=/bin/bash \
-    # Setup locale to be UTF-8, avoiding gnarly hard to debug encoding errors
-    LANG=C.UTF-8  \
-    LC_ALL=C.UTF-8
+# Pinned uv version. Dependabot (docker ecosystem) proposes updates.
+FROM ghcr.io/astral-sh/uv:0.12.19 AS uv
 
-# Home directory of our non-root user
-ENV HOME=/home/${APP_USER}
+# ---- builder ----------------------------------------------------------------
+FROM python:{{cookiecutter.python_version}}-slim-trixie AS builder
 
-RUN echo "Creating ${APP_USER} user..." \
-    # Create a group for the user to be part of, with gid same as uid
-    && groupadd --gid ${APP_UID} ${APP_USER}  \
-    # Create non-root user, with given gid, uid and create $HOME
-    && useradd --create-home --gid ${APP_UID} --no-log-init --uid ${APP_UID} ${APP_USER} \
-    # Make sure that /srv is owned by non-root user, so we can install things there
-    && chown -R ${APP_USER}:${APP_USER} /srv
+COPY --from=uv /uv /uvx /bin/
 
-# Get uv
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+# UV_COMPILE_BYTECODE: compile .pyc files at build time for faster start-up.
+# UV_LINK_MODE: copy files from the cache mount (hard links do not work across file systems).
+# UV_PYTHON_DOWNLOADS: use the Python interpreter of the base image.
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=0 \
+    UV_PROJECT_ENVIRONMENT=/app/.venv
 
-# Install basic apt packages
-RUN echo "Installing apt-get packages..." \
-    && apt-get update --fix-missing > /dev/null \
-    && apt-get install -y apt-utils build-essential > /dev/null \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
 
-# Add TZ configuration - https://github.com/PrefectHQ/prefect/issues/3061
-ENV TZ=UTC
+# Layer 1: third-party dependencies only. Docker reuses this layer until pyproject.toml or uv.lock changes.
+COPY pyproject.toml uv.lock ./
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --no-dev --no-install-project
 
-# Switch User & Workdir
-USER ${APP_USER}
-WORKDIR ${HOME}
+# Layer 2: the project itself. README.md is copied because the package metadata can reference it.
+COPY README.md ./
+COPY src ./src
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --no-dev
 
-# Copy remaining project files
-COPY --chown=jovyan:jovyan . ${HOME}
+# Example configs, so that `train --config configs/...` works in the container.
+COPY configs ./configs
 
-# Setup python env
-RUN uv sync --frozen --no-cache
+# ---- runtime ----------------------------------------------------------------
+FROM python:{{cookiecutter.python_version}}-slim-trixie AS runtime
 
-CMD ["bash"]
+LABEL org.opencontainers.image.source="{{cookiecutter.repo_url}}" \
+      org.opencontainers.image.description="{{ cookiecutter.project_description.replace("$", "\\$") }}"
+
+RUN groupadd --system --gid 1000 app \
+    && useradd --system --uid 1000 --gid app --create-home --no-log-init app
+
+WORKDIR /app
+
+# The virtual environment has absolute paths under /app, so it must stay at the same path.
+COPY --from=builder --chown=app:app /app /app
+
+ENV PATH="/app/.venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+USER app
+
+CMD ["{{cookiecutter.repo_name}}", "--help"]

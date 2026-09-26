@@ -1,11 +1,39 @@
+parameters:
+  - name: env
+    type: string
+    default: dev
+
 steps:
-  - script: |
-      uv run pytest -vv --junitxml=junit/unit-test.xml --cov=src --cov-report=xml
-    displayName: Run PyTest
+  # Slow and GPU tests are excluded. Run them on a schedule or on a GPU machine.
+  - bash: |
+      uv run pytest \
+        -m "not slow and not gpu" \
+        -n auto \
+        --cov \
+        --cov-report=xml \
+        --junitxml=junit.xml
+    workingDirectory: $(Build.SourcesDirectory)
+    displayName: Run tests
     env:
-      ENVIRONMENT: $<< parameters.env >>
+      ENVIRONMENT: {% raw %}${{ parameters.env }}{% endraw %}
+      # Each xdist worker would otherwise start a BLAS thread pool with one thread per core.
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+
+  - task: PublishTestResults@2
+    displayName: Publish test results
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFormat: JUnit
+      testResultsFiles: "$(Build.SourcesDirectory)/junit.xml"
+      testRunTitle: Tests
+      failTaskOnMissingResultsFile: true
 
   - task: PublishCodeCoverageResults@2
+    displayName: Publish code coverage
+    condition: succeededOrFailed()
     inputs:
-      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
-      failIfCoverageEmpty: True
+      summaryFileLocation: "$(Build.SourcesDirectory)/coverage.xml"
+      failIfCoverageEmpty: true

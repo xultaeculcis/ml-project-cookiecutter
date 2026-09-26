@@ -1,34 +1,50 @@
-name: zizmor-gh-actions-security-analysis
+name: zizmor
+
+# Static security analysis of the GitHub Actions workflows with zizmor (https://docs.zizmor.sh).
+# The results are uploaded as SARIF to GitHub code scanning.
+#
+# NOTE: code scanning (SARIF upload) on a PRIVATE repository needs GitHub Advanced Security (GitHub Code Security).
+# Without it, the upload step fails. For private repositories without it, use the zizmor pre-commit hook instead.
+
 on:
   push:
     branches:
-      - "main"
+      - main
   pull_request:
     branches:
       - "**"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: {% raw %}${{ github.workflow }}-${{ github.ref }}{% endraw %}
+  cancel-in-progress: true
 
 jobs:
   zizmor:
-    name: zizmor latest via PyPI
+    name: zizmor
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
-      security-events: write
-      # required for workflows in private repositories
-      contents: read
-      actions: read
+      security-events: write # upload the SARIF results to code scanning
+      contents: read # check out the repository (needed in private repositories)
+      actions: read # read workflow run data for the SARIF upload (needed in private repositories)
     steps:
-      - name: Checkout repository
+      - name: Check out repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           persist-credentials: false
 
-      - name: Install the latest version of uv
+      - name: Install uv
         uses: astral-sh/setup-uv@2ddd2b9cb38ad8efd50337e8ab201519a34c9f24 # v7.1.1
+        with:
+          enable-cache: false
 
-      - name: Run zizmor 🌈
+      - name: Run zizmor
         run: uvx zizmor --format sarif . > results.sarif
         env:
-          GH_TOKEN: $<< secrets.GITHUB_TOKEN >>
+          GH_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@16140ae1a102900babc80a33c44059580f687047 # v4.30.9

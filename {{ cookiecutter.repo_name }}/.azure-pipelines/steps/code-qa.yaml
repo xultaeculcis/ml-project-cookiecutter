@@ -1,8 +1,16 @@
 steps:
-  - script: |
-      pre-commit install
-    displayName: "Install pre-commit hooks"
+  - task: Cache@2
+    displayName: Cache pre-commit environments
+    inputs:
+      key: 'pre-commit | "$(Agent.OS)" | .pre-commit-config.yaml'
+      restoreKeys: |
+        pre-commit | "$(Agent.OS)"
+      path: $(PRE_COMMIT_HOME)
 
-  - script: |
-      SKIP=pytest-check uv run pre-commit run --all-files
-    displayName: "Run simplified pre-commit hooks"
+  # The `pytest-check` hook runs the test suite. The test stage runs it with coverage, so skip it here.
+  - bash: |
+      uv run pre-commit run --all-files --show-diff-on-failure
+    workingDirectory: $(Build.SourcesDirectory)
+    displayName: Run pre-commit hooks
+    env:
+      SKIP: pytest-check

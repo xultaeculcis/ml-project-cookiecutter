@@ -1,10 +1,32 @@
+parameters:
+  # Pinned uv version. Update it together with the uv version used locally.
+  - name: uvVersion
+    type: string
+    default: "0.12.19"
+
 steps:
   - bash: |
-      cd $(Build.SourcesDirectory)
-      curl -LsSf https://astral.sh/uv/install.sh | sh
-    displayName: Setup uv
+      set -euo pipefail
+      install_dir="$(Agent.ToolsDirectory)/uv/{% raw %}${{ parameters.uvVersion }}{% endraw %}"
+      curl -LsSf "https://astral.sh/uv/{% raw %}${{ parameters.uvVersion }}{% endraw %}/install.sh" \
+        | env UV_INSTALL_DIR="$install_dir" UV_NO_MODIFY_PATH=1 sh
+      echo "##vso[task.prependpath]$install_dir"
+    displayName: Install uv {% raw %}${{ parameters.uvVersion }}{% endraw %}
 
+  - task: Cache@2
+    displayName: Cache uv packages
+    inputs:
+      key: 'uv | "$(Agent.OS)" | uv.lock'
+      restoreKeys: |
+        uv | "$(Agent.OS)"
+      path: $(UV_CACHE_DIR)
+
+  # `--locked` fails when uv.lock does not match pyproject.toml, instead of silently re-locking.
+  # uv installs the Python version from `.python-version` when the agent does not have it.
   - bash: |
-      cd $(Build.SourcesDirectory)
-      uv sync --frozen --no-cache --all-extras --all-groups
+      set -euo pipefail
+      uv --version
+      uv sync --locked --all-groups
+      uv cache prune --ci
+    workingDirectory: $(Build.SourcesDirectory)
     displayName: Install dependencies

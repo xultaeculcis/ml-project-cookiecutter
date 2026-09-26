@@ -1,7 +1,15 @@
+parameters:
+  - name: env
+    type: string
+    default: dev
+
 jobs:
   - job: tests
     displayName: Run tests
+    timeoutInMinutes: "30"
     steps:
       - template: ../steps/uv-env-create.yaml
 
       - template: ../steps/test-suite.yaml
+        parameters:
+          env: {% raw %}${{ parameters.env }}{% endraw %}
