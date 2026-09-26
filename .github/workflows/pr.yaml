@@ -7,30 +7,39 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  pre-commit-hooks:
+  code-qa:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      GIT_AUTHOR_NAME: github-actions[bot]
+      GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+      GIT_COMMITTER_NAME: github-actions[bot]
+      GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
     steps:
       - name: Check out repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           persist-credentials: false
 
-      - name: Configure Git Credentials
-        run: |
-          git config --global user.name github-actions[bot]
-          git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
-
-      - name: Set up Python
-        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
-        with:
-          python-version: 3.11
-
       - name: Install uv
         uses: astral-sh/setup-uv@2ddd2b9cb38ad8efd50337e8ab201519a34c9f24 # v7.1.1
+        with:
+          python-version: "3.12"  # lowest version allowed by requires-python in pyproject.toml
+          enable-cache: false
 
       - name: Install dependencies
-        run: uv sync --locked --all-extras --all-groups
+        run: uv sync --locked --all-groups
 
       - name: Run pre-commit hooks
         run: uv run pre-commit run --all-files
+        env:
+          SKIP: pytest-check  # tests run in the next step
+
+      - name: Run fast tests
+        run: uv run pytest -m "not slow"

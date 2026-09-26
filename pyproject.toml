@@ -2,72 +2,55 @@
 name = "ml-project-cookiecutter"
 description = "ML project cookiecutter template"
 version = "0.1.0"
-requires-python = ">=3.12.0"
-author = {"name" = "xultaeculcis"}
-url = "https://github.com/xultaeculcis/ml-project-cookiecutter"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "xultaeculcis" }]
+license = "MIT"
+license-files = ["LICENSE"]
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "License :: OSI Approved :: MIT License",
     "Environment :: Console",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Operating System :: MacOS",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
     "Operating System :: Unix",
     "Intended Audience :: Developers",
     "Intended Audience :: Information Technology",
-    "Intended Audience :: System Administrators",
-    "Operating System :: POSIX :: Linux",
+    "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-license = { text = "MIT" }
 dependencies = [
-    "cookiecutter>=2.1.1",
-    "gha-update>=0.2.0",
-    "psutil>=7.0.0",
-    "pydantic>=2.11.4",
-    "pydantic-settings>=2.9.1",
+    "cookiecutter>=2.6.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/xultaeculcis/ml-project-cookiecutter"
+Documentation = "https://xultaeculcis.github.io/ml-project-cookiecutter"
+Repository = "https://github.com/xultaeculcis/ml-project-cookiecutter"
+Issues = "https://github.com/xultaeculcis/ml-project-cookiecutter/issues"
 
 [dependency-groups]
 dev = [
-    "coverage>=7.8.0",
-    "interrogate>=1.7.0",
-    "mypy>=1.15.0",
-    "pandas-stubs>=2.3.0.250703",
+    "cruft>=2.16.0",
+    "mypy>=1.17.0",
     "pre-commit>=4.2.0",
-    "pretty>=0.1",
-    "pytest>=8.3.5",
-    "pytest-asyncio>=0.26.0",
-    "pytest-cov>=6.1.1",
-    "pytest-mock>=3.14.0",
-    "ruff>=0.11.7",
-    "types-click-spinner>=0.1.13.20240311",
-    "types-dataclasses>=0.6.6",
-    "types-dateparser>=1.2.0.20250408",
-    "types-decorator>=5.2.0.20250324",
-    "types-docutils>=0.21.0.20241128",
-    "types-frozendict>=2.0.9",
-    "types-futures>=3.3.8",
-    "types-mock>=5.2.0.20250306",
-    "types-mypy-extensions>=1.1.0.20250425",
-    "types-psutil>=7.0.0.20250401",
-    "types-pytz>=2025.2.0.20250326",
+    "pytest>=8.4.0",
+    "pytest-cov>=6.2.0",
+    "pytest-xdist>=3.8.0",
+    "ruff==0.16.9",  # keep in sync with the ruff-pre-commit rev
     "types-pyyaml>=6.0.12.20250402",
-    "types-retry>=0.9.9.20250322",
-    "types-setuptools>=80.0.0.20250429",
-    "types-tqdm>=4.67.0.20250417",
 ]
 docs = [
-    "griffe-pydantic>=1.1.4",
     "mkdocs>=1.6.1",
     "mkdocs-gen-files>=0.5.0",
     "mkdocs-glightbox>=0.4.0",
-    "mkdocs-jupyter>=0.25.1",
     "mkdocs-material>=9.6.12",
     "mkdocstrings[python]>=0.29.1",
 ]
@@ -78,6 +61,7 @@ target-version = "py312"
 line-length = 120
 extend-exclude = [
     "docs/*",
+    "docs-site/*",
     "[{][{] cookiecutter.repo_name [}][}]/*",
 ]
 
@@ -161,6 +145,9 @@ required-imports = ["from __future__ import annotations"]
 combine-as-imports = true
 
 [tool.ruff.lint.per-file-ignores]
+".github/scripts/*" = [
+    "INP001",  # standalone scripts, not a package
+]
 "**/{tests}/*" = [
     "S101",  # Allow "use of assert detected" in tests
     "D1",  # Ignore undocumented public members in tests
@@ -174,26 +161,13 @@ max-statements = 75
 max-args = 10
 
 [tool.pytest.ini_options]
-addopts = "--ignore build_tools --ignore examples --ignore docs"
-asyncio_mode = "auto"
-filterwarnings = [
-    "ignore::UserWarning",
+testpaths = ["tests"]
+addopts = "--strict-markers --strict-config -ra"
+markers = [
+    "slow: tests that run uv/pre-commit/docker/cruft inside a generated project (deselect with '-m \"not slow\"')",
 ]
-asyncio_default_fixture_loop_scope = "function"
-
-[tool.check-manifest]
-ignore = [
-    ".binder/**",
-    ".coveragerc",
-    "examples/**",
-    "build_tools/**",
-    "__check_build/**",
-    "docs/**",
-    "Makefile",
-    "CODEOWNERS",
-    "CONTRIBUTING.md",
-    "*.yaml",
-    "*.yml"
+filterwarnings = [
+    "error",
 ]
 
 [tool.mypy]
@@ -215,12 +189,6 @@ warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
-[tool.interrogate]
-ignore-init-module = true
-ignore_init_method = true
-exclude = ["tests", "docs", "docs-site", "site"]
-omit-covered-files = true
-
 [tool.coverage.report]
 show_missing = true
 precision = 2
@@ -235,9 +203,3 @@ exclude_lines = [
     "except ImportError:",
     "@overload",
 ]
-
-[tool.docformatter]
-recursive = true
-wrap-summaries = 120
-wrap-descriptions = 120
-blank = true

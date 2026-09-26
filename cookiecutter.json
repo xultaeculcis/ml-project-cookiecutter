@@ -1,17 +1,17 @@
 {
   "project_name": "project-name",
-  "repo_name": "{{ cookiecutter.project_name.lower().strip().replace(' ', '-').replace('_', '-') }}",
-  "package_name": "{{ cookiecutter.project_name.lower().strip().replace(' ', '_').replace('-', '_') }}",
+  "repo_name": "{{ cookiecutter.project_name | slugify }}",
+  "package_name": "{{ cookiecutter.project_name | slugify(separator='_') }}",
   "author_name": "xultaeculcis",
-  "repo_url": "https://github.com/{{cookiecutter.author_name.lower().strip().replace(' ', '-').replace('_', '-')}}/{{cookiecutter.package_name}}",
+  "github_username": "{{ cookiecutter.author_name | slugify(max_length=39) }}",
+  "repo_url": "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}",
   "project_description": "A short description of the project",
   "python_version": [
-    "3.11",
-    "3.12",
     "3.13",
-    "3.14"
+    "3.12",
+    "3.14",
+    "3.11"
   ],
-  "python_version_sanitized": "{{cookiecutter.python_version.replace('.', '')}}",
   "license": [
     "MIT",
     "Apache 2.0",
@@ -20,5 +20,77 @@
     "GLWTS",
     "Proprietary",
     "Empty license file"
-  ]
+  ],
+  "ml_stack": [
+    "sklearn",
+    "torch",
+    "lightning",
+    "none"
+  ],
+  "ci_provider": [
+    "github",
+    "azure",
+    "none"
+  ],
+  "dependabot": [
+    "yes",
+    "no"
+  ],
+  "lock_update_workflow": [
+    "yes",
+    "no"
+  ],
+  "zizmor": [
+    "pre-commit",
+    "workflow-sarif",
+    "no"
+  ],
+  "docker": [
+    "yes",
+    "no"
+  ],
+  "azure_ml": [
+    "no",
+    "yes"
+  ],
+  "agent_docs": [
+    "yes",
+    "no"
+  ],
+  "__python_version_sanitized": "{{ cookiecutter.python_version.replace('.', '') }}",
+  "__prompts__": {
+    "project_name": "Project name",
+    "repo_name": "Repository (directory) name",
+    "package_name": "Python package name",
+    "author_name": "Author name (person, team or company)",
+    "github_username": "GitHub user or org (used for the repository URL)",
+    "repo_url": "Repository URL",
+    "project_description": "Short project description",
+    "python_version": "Python version",
+    "license": "License",
+    "ml_stack": {
+      "__prompt__": "ML stack",
+      "sklearn": "scikit-learn",
+      "torch": "PyTorch (CUDA wheels via uv index)",
+      "lightning": "PyTorch Lightning (LightningCLI + MLflow)",
+      "none": "None (only numpy/pandas/mlflow)"
+    },
+    "ci_provider": {
+      "__prompt__": "CI provider for PR checks",
+      "github": "GitHub Actions",
+      "azure": "Azure Pipelines",
+      "none": "No CI"
+    },
+    "dependabot": "Add Dependabot config? (GitHub-hosted repos only)",
+    "lock_update_workflow": "Add monthly uv.lock + pre-commit update workflow? (GitHub-hosted repos only, GitHub Actions)",
+    "zizmor": {
+      "__prompt__": "GitHub Actions security scan (zizmor)",
+      "pre-commit": "pre-commit hook (works on private repos)",
+      "workflow-sarif": "GitHub workflow with SARIF upload (needs GitHub Advanced Security on private repos)",
+      "no": "No zizmor"
+    },
+    "docker": "Add Dockerfile?",
+    "azure_ml": "Add Azure ML scaffolding (aml/ + make targets)?",
+    "agent_docs": "Add agent docs (CLAUDE.md, CONTEXT.md, glossary, ADRs)?"
+  }
 }
