@@ -1,101 +1,133 @@
+{%- set spdx = {
+    "MIT": "MIT",
+    "Apache 2.0": "Apache-2.0",
+    "BSD-3-Clause": "BSD-3-Clause",
+    "Beerware": "Beerware",
+    "GLWTS": "LicenseRef-GLWTS",
+    "Proprietary": "LicenseRef-Proprietary",
+} -%}
+{%- set torch_stack = cookiecutter.ml_stack in ["torch", "lightning"] -%}
 [project]
-name = "{{cookiecutter.package_name}}"
-description = "{{cookiecutter.project_description}}"
+name = "{{ cookiecutter.package_name }}"
+description = "{{ cookiecutter.project_description }}"
 version = "0.1.0"
-requires-python = ">={{cookiecutter.python_version}}.0"
+readme = "README.md"
+requires-python = ">={{ cookiecutter.python_version }}"
 authors = [
-    { name = "{{cookiecutter.author_name}}" }
+    { name = "{{ cookiecutter.author_name }}" },
 ]
+{%- if cookiecutter.license in spdx %}
+license = "{{ spdx[cookiecutter.license] }}"
+license-files = ["LICENSE"]
+{%- endif %}
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "License :: OSI Approved :: MIT License",
     "Environment :: Console",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: {{cookiecutter.python_version}}",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
     "Operating System :: MacOS",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
-    "Operating System :: Unix",
-    "Intended Audience :: Developers",
-    "Intended Audience :: Information Technology",
-    "Intended Audience :: System Administrators",
-    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: {{ cookiecutter.python_version }}",
     "Topic :: Scientific/Engineering",
-    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Typing :: Typed",
+{%- if cookiecutter.license == "Proprietary" %}
+    # Makes PyPI reject an accidental upload.
+    "Private :: Do Not Upload",
+{%- endif %}
 ]
-license = { text = "MIT" }
 dependencies = [
-    "click>=8.1.8",
-    "matplotlib>=3.10.1",
-    "mlflow>=2.22.0",
-    "numpy>=2.2.5",
-    "pandas>=2.2.3",
-    "psutil>=7.0.0",
-    "pyarrow>=19.0.1",
-    "pydantic>=2.11.4",
-    "pydantic-settings>=2.9.1",
-    "python-dotenv>=1.1.0",
-    "pyyaml>=6.0.2",
-    "scikit-learn>=1.6.1",
-    "seaborn>=0.13.2",
-    "streamlit>=1.47.1",
-    "tqdm>=4.67.1",
-]
-
-[dependency-groups]
-dev = [
-    "coverage>=7.8.0",
-    "interrogate>=1.7.0",
-    "jupyter>=1.1.1",
-    "jupyterlab>=4.4.1",
-    "mypy>=1.15.0",
-    "notebook>=7.4.1",
-    "pandas-stubs>=2.3.0.250703",
-    "pre-commit>=4.2.0",
-    "pretty>=0.1",
-    "pytest>=8.3.5",
-    "pytest-asyncio>=0.26.0",
-    "pytest-cov>=6.1.1",
-    "pytest-mock>=3.14.0",
-    "ruff>=0.11.7",
-    "types-click-spinner>=0.1.13.20240311",
-    "types-dataclasses>=0.6.6",
-    "types-dateparser>=1.2.0.20250408",
-    "types-decorator>=5.2.0.20250324",
-    "types-docutils>=0.21.0.20241128",
-    "types-frozendict>=2.0.9",
-    "types-futures>=3.3.8",
-    "types-mock>=5.2.0.20250306",
-    "types-mypy-extensions>=1.1.0.20250425",
-    "types-psutil>=7.0.0.20250401",
-    "types-pytz>=2025.2.0.20250326",
-    "types-pyyaml>=6.0.12.20250402",
-    "types-retry>=0.9.9.20250322",
-    "types-setuptools>=80.0.0.20250429",
-    "types-tqdm>=4.67.0.20250417",
-]
-docs = [
-    "griffe-pydantic>=1.1.4",
-    "mkdocs>=1.6.1",
-    "mkdocs-gen-files>=0.5.0",
-    "mkdocs-glightbox>=0.4.0",
-    "mkdocs-jupyter>=0.25.1",
-    "mkdocs-material>=9.6.12",
-    "mkdocstrings[python]>=0.29.1",
+{%- if cookiecutter.azure_ml == "yes" %}
+    "azureml-mlflow>=1.60.0",
+{%- endif %}
+    "click>=8.5.0",
+{%- if cookiecutter.ml_stack == "lightning" %}
+    "jsonargparse[signatures]>=4.52.0",
+    "lightning>=2.6.6",
+{%- endif %}
+    "mlflow>=3.16.1",
+    "numpy>=2.4.6",
+    "pandas>=3.0.6",
+    "psutil>=7.2.2",
+    "pyarrow>=25.0.1",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "python-dotenv>=1.2.3",
+    "pyyaml>=6.0.3",
+{%- if cookiecutter.ml_stack == "sklearn" %}
+    "scikit-learn>=1.9.1",
+{%- endif %}
+{%- if torch_stack %}
+    "torch>=2.14.0",
+{%- endif %}
+    "tqdm>=4.70.1",
 ]
 
 [project.urls]
-Homepage = "{{cookiecutter.repo_url}}"
+Homepage = "{{ cookiecutter.repo_url }}"
+Repository = "{{ cookiecutter.repo_url }}"
+
+[project.scripts]
+{{ cookiecutter.repo_name }} = "{{ cookiecutter.package_name }}.cli.entrypoint:main"
+
+# `make env` installs every group (`uv sync --all-groups`). Plain `uv sync` / `uv run` install only `dev`.
+[dependency-groups]
+analysis = [
+    "jupyterlab>=4.6.4",
+    "matplotlib>=3.11.2",
+    "seaborn>=0.13.2",
+    "streamlit>=1.64.0",
+]
+dev = [
+    "mypy>=2.3.1",
+    "pandas-stubs>=3.0.5.260914",
+    "pre-commit>=4.6.2",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "pytest-mock>=3.15.1",
+    "pytest-socket>=0.8.1",
+    "pytest-xdist>=3.8.0",
+    # Keep in sync with the ruff-pre-commit `rev` in .pre-commit-config.yaml.
+    "ruff==0.16.9",
+    "types-psutil>=7.2.2.20260906",
+    "types-pyyaml>=6.0.12.20260906",
+    "types-tqdm>=4.70.0.20260906",
+]
+docs = [
+    "griffe-pydantic>=1.3.1",
+    "mkdocs>=1.6.1",
+    "mkdocs-gen-files>=0.6.1",
+    "mkdocs-glightbox>=0.5.2",
+    "mkdocs-material>=9.7.7",
+    "mkdocstrings[python]>=1.0.6",
+]
+{%- if torch_stack %}
+
+# CUDA 13.0 wheels on Linux (NVIDIA driver >= 580); macOS and Windows get the default PyPI wheels.
+# The cu128 index stops at torch 2.11. To use another CUDA version, change the index URL and name.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu130", marker = "sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+{%- endif %}
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/{{ cookiecutter.package_name }}"]
+
 [tool.ruff]
 show-fixes = true
-target-version = "py{{cookiecutter.python_version_sanitized}}"
+target-version = "py{{ cookiecutter.__python_version_sanitized }}"
 line-length = 120
 extend-exclude = [
     "docs/*",
@@ -116,7 +148,6 @@ select = [
     "YTT", # see: https://pypi.org/project/flake8-2020
     "ANN", # see: https://pypi.org/project/flake8-annotations
     "ASYNC", # see: https://pypi.org/project/flake8-async
-    "ASYNC1", # see: https://pypi.org/project/flake8-trio
     "S", # see: https://pypi.org/project/flake8-bandit
     "BLE", # see: https://pypi.org/project/flake8-blind-except
     "FBT", # see: https://pypi.org/project/flake8-boolean-trap
@@ -142,7 +173,7 @@ select = [
     "SLOT", # see: https://pypi.org/project/flake8-slots
     "SIM", # see: https://pypi.org/project/flake8-simplify
     "TID", # see: https://pypi.org/project/flake8-tidy-imports
-    "TCH", # see: https://pypi.org/project/flake8-type-checking
+    "TC", # see: https://pypi.org/project/flake8-type-checking
     "INT", # see: https://pypi.org/project/flake8-gettext
     "ARG", # see: https://pypi.org/project/flake8-unused-arguments
     "PTH", # see: https://pypi.org/project/flake8-use-pathlib
@@ -152,15 +183,14 @@ select = [
     "PL", # see: https://pypi.org/project/Pylint
     "TRY", # see: https://pypi.org/project/tryceratops
     "FLY", # see: https://pypi.org/project/flynt
-    "NPY", # see: https://pypi.org/project/NumPy-specific rules
-    "AIR", # see: https://pypi.org/project/Airflow
+    "NPY", # NumPy-specific rules
     "PERF", # see: https://pypi.org/project/Perflint
     "FURB", # see: https://pypi.org/project/refurb
     "LOG", # see: https://pypi.org/project/flake8-logging
     "RUF", # Ruff-specific rules
 ]
 ignore = [
-    "ANN401",  # see: https://pypi.org/project/flake8-annotations - Dynamically typed expressions (typing.Any) are disallowed
+    "ANN401", # Dynamically typed expressions (typing.Any) are disallowed
     "COM", # see: https://pypi.org/project/flake8-commas - conflicts with formatter
     "ISC", # see: https://pypi.org/project/flake8-implicit-str-concat - conflicts with formatter
     "CPY", # see: https://pypi.org/project/flake8-copyright - not used
@@ -176,18 +206,39 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 docstring-code-format = true
 
+[tool.ruff.lint.flake8-type-checking]
+# pydantic reads field annotations at runtime, so imports used in them must stay real imports.
+runtime-evaluated-base-classes = ["pydantic.BaseModel", "pydantic_settings.BaseSettings"]
+
 [tool.ruff.lint.isort]
+{%- if cookiecutter.python_version != "3.14" %}
 required-imports = ["from __future__ import annotations"]
+{%- endif %}
 combine-as-imports = true
 
 [tool.ruff.lint.per-file-ignores]
-"**/{tests}/*" = [
-    "S101",  # Allow "use of assert detected" in tests
-    "D1",  # Ignore undocumented public members in tests
+"tests/**/*.py" = [
+    "S101", # Allow "use of assert detected" in tests
+    "D1", # Ignore undocumented public members in tests
+    "PLR2004", # Allow magic values in assertions
 ]
-"src/{{cookiecutter.package_name}}/consts/logging.py" = ["A005"]
-"src/{{cookiecutter.package_name}}/utils/gpu.py" = ["S605"]
-"src/{{cookiecutter.package_name}}/utils/logging.py" = ["A005"]
+{%- if cookiecutter.python_version == "3.14" %}
+# pluggy reads pytest hook signatures at runtime, and Python 3.14 evaluates annotations (PEP 649)
+# instead of storing them as strings. Types in conftest.py hooks must be real imports, not TYPE_CHECKING-only.
+"**/conftest.py" = ["TC001", "TC002", "TC003"]
+{%- endif %}
+"*.ipynb" = [
+    "D100", # Notebooks have no module docstring
+    "E402", # Imports in later cells
+    "T201", # print() is how notebooks show values
+    "B018", # A bare expression displays its value
+    "NPY002", # Legacy np.random calls are fine for exploration
+    "INP001", # notebooks/ is not a package
+    "I002", # No required future import in notebooks
+]
+"src/{{ cookiecutter.package_name }}/cli/*" = ["PLC0415"] # Lazy imports keep `--help` fast
+"src/{{ cookiecutter.package_name }}/consts/logging.py" = ["A005"]
+"src/{{ cookiecutter.package_name }}/utils/logging.py" = ["A005"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -196,57 +247,38 @@ convention = "google"
 max-statements = 75
 max-args = 10
 
-[tool.nbqa.addopts]
-ruff = ["--extend-ignore=E402,T201,B015,B018,NPY002,UP,FA,I002"]
-# E402 -> imports on top
-# T201 -> print found
-# B015 & B018 -> useless expression (used to show values in ipynb)
-# NPY002 -> use RNG instead of old numpy.random
-# UP -> suggestions for new-style classes (future import might confuse readers)
-# FA -> necessary future annotations import
-# I002 -> auto-inserts future annotations
-
 [tool.ruff.lint.flake8-import-conventions.aliases]
 datetime = "dt"
 geopandas = "gpd"
-"kornia.augmentations" = "K"
+"kornia.augmentation" = "K"
 matplotlib = "mpl"
 "matplotlib.pyplot" = "plt"
 numpy = "np"
 pandas = "pd"
 rasterio = "rio"
+seaborn = "sns"
 streamlit = "st"
 xarray = "xr"
 "torch.nn.functional" = "F"
 "torchvision.transforms" = "T"
 
 [tool.pytest.ini_options]
-addopts = "--ignore data --ignore notebooks --ignore build_tools --ignore examples --ignore docs"
-asyncio_mode = "auto"
-asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+addopts = "--strict-markers -ra --ignore data --ignore notebooks --ignore docs"
 markers = [
-    "unit: mark a test as a unit test.",
+    "unit: fast, isolated test; network access is blocked.",
+    "integration: test that touches real I/O, files or services.",
+    "e2e: end-to-end test of a full workflow.",
+    "slow: long-running test; excluded from `make test`.",
+    "gpu: test that needs a CUDA device; excluded from `make test`.",
 ]
 filterwarnings = [
-    "ignore::UserWarning",
-]
-
-[tool.check-manifest]
-ignore = [
-    ".binder/**",
-    ".coveragerc",
-    "examples/**",
-    "build_tools/**",
-    "__check_build/**",
-    "docs/**",
-    "Makefile",
-    "CODEOWNERS",
-    "CONTRIBUTING.md",
-    "*.yaml",
-    "*.yml"
+    # Deprecation noise from MLflow internals (e.g. SQLAlchemy loader options); not actionable in this project.
+    "ignore::DeprecationWarning:mlflow.*",
 ]
 
 [tool.mypy]
+plugins = ["pydantic.mypy"]
 check_untyped_defs = true
 follow_imports = "normal"
 ignore_missing_imports = true
@@ -265,34 +297,34 @@ warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
-[tool.interrogate]
-ignore-init-module = true
-ignore_init_method = true
-exclude = ["tests", "docs", "site"]
-omit-covered-files = true
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
 
 [tool.coverage.run]
-source = ["src/{{cookiecutter.package_name}}"]
+source = ["src/{{ cookiecutter.package_name }}"]
 branch = true
-omit = ["tests/*"]
 
 [tool.coverage.report]
+fail_under = 80
 show_missing = true
+skip_covered = true
 precision = 2
-exclude_lines = [
-    "pragma: no cover",
+exclude_also = [
     "raise NotImplementedError",
-    "if typing.TYPE_CHECKING:",
     "if TYPE_CHECKING:",
-    "if t.TYPE_CHECKING:",
-    "return NotImplemented",
-    "except KeyboardInterrupt as exc",
-    "except ImportError:",
+    "if typing.TYPE_CHECKING:",
     "@overload",
+    "if __name__ == .__main__.:",
 ]
 
-[tool.docformatter]
-recursive = true
-wrap-summaries = 120
-wrap-descriptions = 120
-blank = true
+[tool.codespell]
+skip = "uv.lock,*.ipynb,*.svg,data/*"
+# Words that codespell must not flag (domain terms, variable names), comma-separated. Uncomment to use.
+# ignore-words-list = "word1,word2"
+
+[tool.cruft]
+# `cruft update` generates the template again in a temporary directory. The template post-generation hook runs
+# `git init` there, and the diff must not include that `.git` directory.
+skip = [".git"]

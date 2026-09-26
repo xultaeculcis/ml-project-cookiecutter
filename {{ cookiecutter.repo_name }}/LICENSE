@@ -255,8 +255,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
  * this stuff is worth it, you can buy me a beer in return {{cookiecutter.author_name}}
  * ----------------------------------------------------------------------------
  */
-{% elif cookiecutter.license == 'GLWTS' %}
-               GLWTS(Good Luck With That Shit) Public License
+{% elif cookiecutter.license == 'GLWTS' %}               GLWTS(Good Luck With That Shit) Public License
             Copyright (c) Every-fucking-one, except the Author
 
 Everyone is permitted to copy, distribute, modify, merge, sell, publish,
