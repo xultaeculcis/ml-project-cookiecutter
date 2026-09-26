@@ -1,179 +1,67 @@
+# Hooks for the template repository itself. Files inside the template directory contain Jinja, so most hooks skip it.
+# The generated project has its own `.pre-commit-config.yaml`.
+exclude: '^(\{\{ cookiecutter\.repo_name \}\}/|docs-site/)'
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
         args: [ '--maxkb=1000' ]
       - id: check-case-conflict
-        exclude: '{{ cookiecutter.repo_name }}'
       - id: check-merge-conflict
-        exclude: '{{ cookiecutter.repo_name }}'
       - id: check-symlinks
-        exclude: '{{ cookiecutter.repo_name }}'
+      - id: check-toml
       - id: check-yaml
-        exclude: '{{ cookiecutter.repo_name }}'
       - id: debug-statements
-        exclude: '{{ cookiecutter.repo_name }}'
       - id: end-of-file-fixer
-        exclude: '{{ cookiecutter.repo_name }}'
-      - id: requirements-txt-fixer
-        exclude: '{{ cookiecutter.repo_name }}'
       - id: trailing-whitespace
-        exclude: '{{ cookiecutter.repo_name }}'
-
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.20.0
-    hooks:
-      - id: pyupgrade
-        args: ["--py311-plus"]
-        name: Upgrade code
-        exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
+    rev: v2.4.3
     hooks:
       - id: codespell
         additional_dependencies: [tomli]
         #args: ["--write-changes"] # uncomment if you want to get automatic fixing
-        exclude: '{{ cookiecutter.repo_name }}'
-
-  - repo: https://github.com/PyCQA/docformatter
-    rev: v1.7.7
-    hooks:
-      - id: docformatter
-        additional_dependencies: [tomli]
-        args: ["--in-place", "--recursive"]
-        exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.5
+    rev: v0.16.9
     hooks:
-      - id: ruff
+      - id: ruff-check
         types_or: [ python, pyi, jupyter ]
-        args: [ "--fix", "--unsafe-fixes", "--preview" ]
-        exclude: '{{ cookiecutter.repo_name }}'
+        args: [ "--fix" ]
       - id: ruff-format
         types_or: [ python, pyi, jupyter ]
-        args: [ "--preview" ]
-        exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.22
+    rev: 1.0.0
     hooks:
       - id: mdformat
         additional_dependencies:
-          - mdformat-admon
           - mdformat-footnote
-          - mdformat_frontmatter
+          - mdformat-frontmatter
           - mdformat-mkdocs
           - mdformat-toc
         # Ignore readme as well, for flexibility
-        exclude: '^({{ cookiecutter.repo_name }}/|README.md$)'
+        exclude: '^README.md$'
         args: [ "--number" ]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.17.0
+    rev: v2.3.1
     hooks:
       - id: mypy
-        # Use pyproject.toml if possible instead of adding command line parameters here
+        # Configuration is in pyproject.toml
         args: []
         additional_dependencies:
-          # Type stubs
+          - cookiecutter
+          - cruft
           - pytest
-          # Use individual packages since types-all has been deprecated
-          - types-DateTimeRange
-          - types-Deprecated
-          - types-Flask
-          - types-JACK-Client
-          - types-Jinja2
-          - types-Markdown
-          - types-MarkupSafe
-          - types-Pillow
-          - types-PyJWT
-          - types-PyMySQL
-          - types-PyYAML
-          - types-Routes
-          - types-Werkzeug
-          - types-aiofiles
-          - types-annoy
-          - types-atomicwrites
-          - types-backports
-          - types-backports-abc
-          - types-bleach
-          - types-boto
-          - types-cachetools
-          - types-certifi
-          - types-characteristic
-          - types-chardet
-          - types-click
-          - types-click-spinner
-          - types-colorama
-          - types-contextvars
-          - types-croniter
-          - types-cryptography
-          - types-dataclasses
-          - types-dateparser
-          - types-decorator
-          - types-docopt
-          - types-docutils
-          - types-emoji
-          - types-enum34
-          - types-fb303
-          - types-filelock
-          - types-first
-          - types-freezegun
-          - types-frozendict
-          - types-futures
-          - types-geoip2
-          - types-ipaddress
-          - types-itsdangerous
-          - types-kazoo
-          - types-maxminddb
-          - types-mock
-          - types-mypy-extensions
-          - types-nmap
-          - types-openssl-python
-          - types-orjson
-          - types-paramiko
-          - types-pathlib2
-          - types-polib
-          - types-protobuf
-          - types-pyRFC3339
-          - types-pyaudio
-          - types-pycurl
-          - types-pyfarmhash
-          - types-pymssql
-          - types-pysftp
-          - types-python-dateutil
-          - types-python-gflags
-          - types-python-slugify
-          - types-pytz
-          - types-pyvmomi
-          - types-redis
-          - types-requests
-          - types-retry
-          - types-scribe
-          - types-setuptools
-          - types-simplejson
-          - types-singledispatch
-          - types-six
-          - types-tabulate
-          - types-termcolor
-          - types-toml
-          - types-tornado
-          - types-typed-ast
-          - types-tzlocal
-          - types-ujson
-          - types-waitress
-          - types-xxhash
-          - types-tqdm
-        exclude: '{{ cookiecutter.repo_name }}'
 
   - repo: local
     hooks:
       - id: pytest-check
         name: pytest-check
-        entry: pytest -v tests
+        entry: uv run pytest -m "not slow"
         language: system
         pass_filenames: false
         always_run: true

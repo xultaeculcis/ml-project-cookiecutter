@@ -8,6 +8,8 @@ on:
       - "**"
   workflow_dispatch:  # Allow manual triggering from any branch
 
+permissions: {}
+
 jobs:
   zizmor:
     name: zizmor latest via PyPI

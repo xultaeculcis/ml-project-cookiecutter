@@ -1,6 +1,5 @@
 .DEFAULT_GOAL := help
 
-DATA_DIR=data
 SHELL=/bin/bash
 
 define PRINT_HELP_PYSCRIPT
@@ -17,18 +16,22 @@ export PRINT_HELP_PYSCRIPT
 help:  ## Prints help message
 	@python3 -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-.PHONY: env  # Setup uv env and packages
-env:
+.PHONY: env
+env:  ## Sets up the uv env with all dependency groups and installs pre-commit hooks
 	uv sync --all-groups
 	uv run pre-commit install
 
 .PHONY: test
-test:  ## Runs pytest
+test:  ## Runs fast tests (without the slow ones)
+	uv run pytest -v -m "not slow" tests/
+
+.PHONY: test-all
+test-all:  ## Runs all tests, including slow ones that run uv, pre-commit and cruft in a generated project
 	uv run pytest -v tests/
 
 .PHONY: docs
-docs:  ## Build the documentation
-	uv run mkdocs build
+docs:  ## Builds the documentation
+	uv run --group docs mkdocs build --strict
 
 .PHONY: pc
 pc:  ## Runs pre-commit hooks
@@ -41,7 +44,6 @@ clean:  ## Cleans artifacts
 	rm -f `find . -type f -name '*~' `
 	rm -f `find . -type f -name '.*~' `
 	rm -rf .cache
-	rm -rf flame
 	rm -rf htmlcov
 	rm -rf .pytest_cache
 	rm -rf *.egg-info
@@ -49,12 +51,10 @@ clean:  ## Cleans artifacts
 	rm -f .coverage.*
 	rm -f coverage.*
 	rm -rf build
-	rm -rf perf.data*
 	rm -rf .mypy_cache
-	rm -rf .benchmark
-	rm -rf .hypothesis
+	rm -rf .ruff_cache
 	rm -rf docs-site
 
 .PHONY: gha-update
-gha-update:
-	uv run gha-update
+gha-update:  ## Updates the pinned GitHub Actions in the root workflows to the latest SHAs
+	uvx gha-update

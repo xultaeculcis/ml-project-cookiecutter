@@ -1,0 +1,62 @@
+name: template-deps-update
+
+# Dependabot cannot update the files inside the template directory, because they contain Jinja.
+# This workflow updates the template pre-commit hook revs (+ the matching ruff pin) and the pinned GitHub Actions,
+# then opens a PR. See .github/scripts/update_template_deps.py.
+
+on:
+  schedule:
+    - cron: "0 6 1 * *"  # 06:00 UTC on the first day of each month
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  update-template-deps:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@2ddd2b9cb38ad8efd50337e8ab201519a34c9f24 # v7.1.1
+        with:
+          enable-cache: false
+
+      - name: Update template pre-commit hooks and GitHub Actions
+        run: uv run python .github/scripts/update_template_deps.py
+        env:
+          # gha-update reads this token to avoid the GitHub API rate limit
+          GITHUB_TOKEN: ${{ github.token }}
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+        with:
+          # PRs opened with the default GITHUB_TOKEN do not trigger other workflows (no CI run).
+          # Set the TEMPLATE_DEPS_UPDATE_TOKEN secret (fine-grained PAT: contents + pull-requests write) to get CI runs.
+          token: ${{ secrets.TEMPLATE_DEPS_UPDATE_TOKEN || github.token }}
+          branch: chore/template-deps-update
+          delete-branch: true
+          commit-message: "chore(template): Update pre-commit hooks and GitHub Actions"
+          title: "chore(template): Update pre-commit hooks and GitHub Actions"
+          body: |
+            Automated update of the tool versions inside the template directory:
+
+            - pre-commit hook revs (`pre-commit autoupdate` on a generated project) and the matching `ruff==` pin
+            - GitHub Actions SHAs in the template workflows (`gha-update`)
+
+            Check that the `project-creation-checks` workflow passes before merging.
+          labels: dependencies

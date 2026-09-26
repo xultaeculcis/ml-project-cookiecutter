@@ -1,11 +1,23 @@
 version: 2
+# Dependabot updates the root of this repository only. It cannot parse the files inside the template directory
+# (they contain Jinja). The template is updated by .github/workflows/template-deps-update.yaml.
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns: ["*"]
 
   - package-ecosystem: "uv"
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
+    groups:
+      uv:
+        patterns: ["*"]
