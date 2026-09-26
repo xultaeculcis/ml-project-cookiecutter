@@ -1,36 +1,59 @@
 # {{ cookiecutter.project_name }}
 
-{{cookiecutter.project_description}}
+{{ cookiecutter.project_description }}
 
-## Getting Started
+## Getting started
 
-Run `make --help` for available options.
+1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/).
 
-## Local env creation
+2. Create the environment and install the `pre-commit` hooks:
 
-See: [Set up python env](./guides/setup-dev-env.md) for details.
+    ```shell
+    make init-project
+    ```
 
-You should be able to create local dev env using your [conda](https://docs.conda.io/en/latest/miniconda.html)
-installation.
+3. Copy `.env-sample` to `.env` and set the values:
 
-## Docs
+    ```shell
+    cp .env-sample .env
+    ```
 
-To build project documentation, run:
+4. Show all `make` targets:
 
-```shell
-make docs
-```
+    ```shell
+    make help
+    ```
 
-and then:
+For more information, read [Setting up the dev environment](guides/setup-dev-env.md).
 
-```shell
-mkdocs serve
-```
+## Project layout
 
-## Running tests
+- `configs/`: run configs (YAML). Pydantic models validate them.
+- `data/`: local data. Git ignores the content. Only the `.gitkeep` files are committed.
+- `docs/`: this documentation (MkDocs).
+- `notebooks/`: Jupyter notebooks for exploration.
+- `src/{{ cookiecutter.package_name }}/`: the Python package.
+- `tests/`: the tests, in `unit/`, `integration/` and `e2e/`.
 
-To run the unit tests, execute:
+## Common tasks
 
-```shell
-pytest tests -v
-```
+- Run the CLI: `uv run {{ cookiecutter.repo_name }} --help`
+- Run the fast tests: `make test`
+- Run all `pre-commit` hooks: `make pc`
+- Start the MLflow UI: `make mlflow-ui`
+- Build the documentation: `make docs`
+- Serve the documentation: `make docs-serve`
+
+## Guides
+
+- [Setting up the dev environment](guides/setup-dev-env.md)
+- [Using Makefile commands](guides/makefile-usage.md)
+- [Running tests](guides/tests.md)
+- [Command-line interface](guides/cli.md)
+- [Run configs](guides/configs.md)
+- [Experiment tracking](guides/experiment-tracking.md)
+- [CI and automation](guides/ci.md)
+{%- if cookiecutter.azure_ml == "yes" %}
+- [Azure ML](guides/azure-ml.md)
+{%- endif %}
+- [Contributing](guides/contributing.md)
