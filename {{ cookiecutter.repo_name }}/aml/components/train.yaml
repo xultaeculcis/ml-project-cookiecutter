@@ -1,0 +1,31 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+type: command
+
+name: {{cookiecutter.package_name}}_train
+version: 0.0.1
+display_name: Train
+description: Runs `{{cookiecutter.repo_name}} train --config <config>` on the uploaded project code.
+
+inputs:
+  config:
+    type: string
+    default: configs/train.yaml
+    description: Config path, relative to the repository root (the uploaded code snapshot).
+
+environment: azureml:{{cookiecutter.repo_name}}-env@latest
+
+# The code snapshot is the repository root. `.amlignore` selects what is uploaded.
+code: ../..
+# `uv run --frozen --no-dev` installs the locked runtime dependencies from uv.lock when the job starts.
+command: >-
+  uv run --frozen --no-dev {{cookiecutter.repo_name}} train
+  --config {% raw %}${{inputs.config}}{% endraw %}
+{%- if cookiecutter.docker == "yes" %}
+# With the Dockerfile environment (see aml/environments/env.yaml), the dependencies are in the image. Use this command
+# instead. `env PYTHONPATH=src` runs the uploaded source code instead of the copy in the image. Azure ML does not
+# accept a bare `VAR=value` as the first token.
+# command: >-
+#   env PYTHONPATH=src {{cookiecutter.repo_name}} train
+#   --config {% raw %}${{inputs.config}}{% endraw %}
+{%- endif %}
+is_deterministic: false

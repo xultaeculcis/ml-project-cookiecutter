@@ -1,0 +1,6 @@
+# Read by `{{cookiecutter.repo_name}} evaluate --config configs/evaluate.yaml` and validated by
+# `{{cookiecutter.package_name}}.core.configs.EvaluateConfig`. Unknown keys are an error.
+experiment_name: {{cookiecutter.package_name}}
+seed: 42
+model_uri: runs:/<run_id>/model
+data_dir: data/processed

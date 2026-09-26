@@ -1,7 +1,9 @@
 """Training related consts."""
 
+{% if cookiecutter.python_version != "3.14" -%}
 from __future__ import annotations
 
+{% endif -%}
 from enum import StrEnum
 
 

@@ -1,0 +1,21 @@
+# Read by `{{cookiecutter.repo_name}} lightning fit --config configs/lightning/fit.yaml` (LightningCLI).
+# Show all options with: `{{cookiecutter.repo_name}} lightning fit --print_config`.
+# This example trains a linear regression on random data for one epoch on the CPU, in a few seconds.
+seed_everything: 42
+trainer:
+  accelerator: cpu
+  devices: 1
+  max_epochs: 1
+  log_every_n_steps: 1
+  enable_progress_bar: false
+model:
+  class_path: {{cookiecutter.package_name}}.lightning.module.LinearRegressionModule
+  init_args:
+    in_features: 8
+    learning_rate: 0.01
+data:
+  class_path: {{cookiecutter.package_name}}.lightning.datamodule.RandomRegressionDataModule
+  init_args:
+    num_samples: 256
+    in_features: 8
+    batch_size: 32
