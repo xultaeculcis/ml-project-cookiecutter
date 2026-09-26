@@ -1,9 +1,9 @@
 site_name: ML Project - Cookiecutter
-site_description: A project template and directory structure for Python data science projects.
+site_description: "A project template and directory structure for Python data science projects."
 site_dir: docs-site
 repo_url: https://github.com/xultaeculcis/ml-project-cookiecutter
-edit_uri: edit/main/docs/docs
-copyright: Copyright 2023 xultaeculcis
+edit_uri: edit/main/docs/
+copyright: "Copyright 2023-2026 xultaeculcis"
 theme:
   name: material
 markdown_extensions:
@@ -17,6 +17,9 @@ markdown_extensions:
       use_pygments: true
   - pymdownx.superfences
   - pymdownx.tabbed
+  - tables
+  - toc:
+      permalink: true
 nav:
   - Home: index.md
   - Getting started: guide.md

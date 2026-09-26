@@ -7,7 +7,7 @@ A cookiecutter template for my private ML projects.
 During my career I worked in a lot of different ML projects - computer vision, NLP, classical ML, time series
 forecasting and others. The projects ranged from pure R&D, through PoCs and production ready stuff. Whenever I would
 start a new project, I found myself copying things from a bunch of different sources and my old projects again and
-again - recreating and duplicating the work I did a dozen times before. Cookiecutter project templates to the resque!
+again - recreating and duplicating the work I did a dozen times before. Cookiecutter project templates to the rescue!
 
 The usage of technologies and certain patterns in the template is highly opinionated and is dictated by years
 of experience of working with Data Scientists and R&D Engineers. As an ML Engineer, I would often find myself working
@@ -37,27 +37,45 @@ This project was greatly inspired by
 
 ## Features
 
-- Integrated `pre-commit` hooks:
-    - `pyupgrade`
-    - `codespell`
-    - `docformatter`
-    - `ruff`
-    - `mypy`
-    - `pytest`
-    - And a few more...
-- Project documentation creation using [MkDocs](https://www.mkdocs.org/) with
-    [Material](https://squidfunk.github.io/mkdocs-material/) theme.
-- CI pipelines (Azure DevOps)
-- Some useful utility classes and functions I found myself re-implementing again and again
-- Folder structure inspired by [Cookiecutter Data Science](https://github.com/drivendata/cookiecutter-data-science/)
-- `uv.lock` file for reproducibility
-- Makefile with a bunch of pre-defined commands
-- Secrets support using `.env` files and [pydantic-settings](https://docs.pydantic.dev/latest/usage/pydantic_settings/)
-- `pyproject.toml` with project tool configs
+- Options for the ML stack (scikit-learn, PyTorch, PyTorch Lightning or none), the CI provider (GitHub Actions, Azure
+    Pipelines or none), Dependabot, a monthly lock file update workflow, `zizmor` checks, Docker, Azure ML and agent
+    docs. The files of options that you do not select are not in the project.
+- Python 3.11 to 3.14. [uv](https://docs.astral.sh/uv/) manages the environment, with a committed `uv.lock` and
+    `.python-version`.
+- `pre-commit` hooks: `pre-commit-hooks`, `codespell`, `ruff` (lint and format), `mdformat`, `uv-lock`, `zizmor`,
+    `mypy` and `pytest`. The `mypy` and `pytest` hooks run in the project environment with `uv run`.
+- A [click](https://click.palletsprojects.com/) CLI with `train`, `evaluate` and `predict` commands, and a
+    LightningCLI command for the Lightning stack.
+- YAML run configs in `configs/`, validated by pydantic models. A test loads every committed config.
+- Lazy settings from environment variables and `.env` files with
+    [pydantic-settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/).
+- [MLflow](https://mlflow.org/) experiment tracking with a local SQLite store, helper functions and `make mlflow-ui`.
+- `pytest` with `unit`, `integration` and `e2e` markers from the test directory, `slow` and `gpu` markers,
+    `pytest-socket` for unit tests, `pytest-xdist` and a coverage threshold.
+- Documentation with [MkDocs](https://www.mkdocs.org/) and the
+    [Material](https://squidfunk.github.io/mkdocs-material/) theme: guides, an API reference (mkdocstrings) and
+    dev-logs for experiment results.
+- A `Makefile` with targets for the environment, code quality, tests, docs, MLflow, Docker and Azure ML.
+- A multi-stage `Dockerfile` that runs as a non-root user.
+- Agent docs: `CLAUDE.md`, `CONTEXT.md`, a glossary and architecture decision records.
+- Folder structure inspired by [Cookiecutter Data Science](https://github.com/drivendata/cookiecutter-data-science/).
+- Template updates for existing projects with [cruft](https://cruft.github.io/cruft/).
 
 ## Getting started
 
-To get started, please check out [this](guide.md) guide.
+Create a project:
+
+```shell
+uvx cookiecutter gh:xultaeculcis/ml-project-cookiecutter
+```
+
+Then go to the project directory and create the environment:
+
+```shell
+make init-project
+```
+
+For the options, the generated files and the next steps, read the [Getting started](guide.md) guide.
 
 ## Contributing
 
@@ -65,8 +83,14 @@ Please refer to [this](contributing.md) guide.
 
 ## Running tests
 
-To run the unit tests, execute:
+To run the fast tests of the template, execute:
 
 ```shell
 make test
+```
+
+To run all tests, including the slow tests that run the tooling of generated projects, execute:
+
+```shell
+make test-all
 ```
