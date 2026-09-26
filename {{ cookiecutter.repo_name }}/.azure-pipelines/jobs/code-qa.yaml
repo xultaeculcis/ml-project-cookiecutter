@@ -1,5 +1,8 @@
 jobs:
   - job: code_qa
     displayName: Code QA
+    timeoutInMinutes: "20"
     steps:
+      - template: ../steps/uv-env-create.yaml
+
       - template: ../steps/code-qa.yaml

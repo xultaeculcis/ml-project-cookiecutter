@@ -1,0 +1,59 @@
+# The image copies only pyproject.toml, uv.lock, README.md, src/ and configs/.
+# Everything else is excluded to keep the build context small and to keep secrets and data out of the image.
+
+# VCS and CI
+.git
+.gitignore
+.github
+.azure-pipelines
+
+# Environments and caches
+.venv
+**/__pycache__
+**/*.py[cod]
+.pytest_cache
+.ruff_cache
+.mypy_cache
+.cache
+.coverage
+.coverage.*
+coverage.xml
+htmlcov
+junit.xml
+.ipynb_checkpoints
+*.egg-info
+build
+dist
+
+# Secrets and local settings
+.env
+.env.*
+
+# Data, experiments and model artifacts
+data
+mlruns
+mlartifacts
+mlflow.db
+lightning_logs
+outputs
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.safetensors
+*.pkl
+*.joblib
+
+# Not needed at runtime
+notebooks
+docs
+docs-site
+site
+tests
+aml
+.amlignore
+mk
+Makefile
+Dockerfile
+.dockerignore
+.pre-commit-config.yaml

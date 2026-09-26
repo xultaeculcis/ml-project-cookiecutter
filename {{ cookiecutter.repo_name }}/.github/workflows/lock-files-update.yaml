@@ -1,45 +1,83 @@
 name: lock-files-update
 
+# Monthly update of uv.lock (`uv lock --upgrade`) and of the pre-commit hook revisions (`pre-commit autoupdate`).
+# The changes are proposed as a pull request.
+#
+# Token note: a pull request opened with the default GITHUB_TOKEN does NOT trigger other workflows (for example
+# `pr.yaml`). This prevents recursive workflow runs. To get CI checks on the update PR, do one of these:
+#   - Create a fine-grained personal access token (contents: read & write, pull requests: read & write) or a GitHub App
+#     token, and store it as the repository secret `LOCK_UPDATE_TOKEN`. The workflow uses it when it is set.
+#   - Or close and reopen the update PR manually. This triggers the `pull_request` workflows.
+
 on:
   schedule:
-    # Run every 1st day of the month at 00:00
+    # Every 1st day of the month at 00:00 UTC
     - cron: "0 0 1 * *"
-  # Allow running manually from GitHub UI as well
   workflow_dispatch:
 
 permissions: {}
 
-jobs:
-  update-lock-file:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash -el {0}
+concurrency:
+  group: {% raw %}${{ github.workflow }}{% endraw %}
+  cancel-in-progress: false
 
+jobs:
+  update-lock-files:
+    name: Update lock files
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write # push the update branch
+      pull-requests: write # open the update pull request
     steps:
       - name: Check out repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
+          # create-pull-request authenticates with its own `token` input.
           persist-credentials: false
 
-      - name: Check if the lockfile is up-to-date
-        run: |
-          uv lock --check
+      - name: Install uv
+        uses: astral-sh/setup-uv@2ddd2b9cb38ad8efd50337e8ab201519a34c9f24 # v7.1.1
+        with:
+          # No cache: this job upgrades every dependency, so a cache gives no benefit.
+          enable-cache: false
 
-      - name: Update dependencies
+      - name: Update pre-commit hooks
+        run: uvx pre-commit autoupdate
+
+      # The `ruff` dev dependency is pinned to the same version as the ruff pre-commit hook. Keep them equal.
+      - name: Sync ruff pin with the ruff pre-commit hook
         run: |
-          uv lock --upgrade
+          rev="$(uv run --no-project --with pyyaml python -c '
+          import yaml
+          cfg = yaml.safe_load(open(".pre-commit-config.yaml"))
+          print(next((r["rev"] for r in cfg["repos"] if r["repo"].endswith("/ruff-pre-commit")), ""))
+          ')"
+          if [ -n "$rev" ]; then
+            uv add --dev --no-sync "ruff==${rev#v}"
+          fi
+
+      - name: Update uv.lock
+        run: uv lock --upgrade
 
       - name: Create a pull request
-        uses: peter-evans/create-pull-request@2e50522bdf313efe32e5628afead9048374012ed # v7.0.8
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
-          token: $<< secrets.GITHUB_TOKEN >>
-          branch: feat/uv-lock-update
-          title: "chore: Update lock-files"
-          body: "Monthly automatic update of lock-files"
+          token: {% raw %}${{ secrets.LOCK_UPDATE_TOKEN || secrets.GITHUB_TOKEN }}{% endraw %}
+          branch: chore/lock-files-update
+          delete-branch: true
           base: main
-          commit-message: "chore: update lock-files"
-          author: github-actions <actions@github.com>
-          reviewers: {{cookiecutter.author_name}}
-          assignees: {{cookiecutter.author_name}}
-          labels: enhancement
+          title: "chore: Update lock files"
+          body: |
+            Monthly automatic update of `uv.lock` and of the pre-commit hook revisions.
+
+            If this PR was opened with the default `GITHUB_TOKEN`, CI checks do not run automatically.
+            Close and reopen the PR to start them, or set the `LOCK_UPDATE_TOKEN` secret (see the workflow file).
+          commit-message: "chore: Update lock files"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          labels: dependencies
+          # To request a review, add `reviewers` (GitHub users) or `team-reviewers` (org teams). GitHub rejects the
+          # request (HTTP 422) when the reviewer is the owner of the token that opens the PR, or is an organization,
+          # and then this step fails. Use a user who is not the owner of LOCK_UPDATE_TOKEN.
+          # reviewers: <github-user>
+          # assignees: <github-user>
