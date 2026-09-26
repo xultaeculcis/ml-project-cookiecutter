@@ -1,0 +1,9 @@
+# Read by `{{cookiecutter.repo_name}} train --config configs/train.yaml` and validated by
+# `{{cookiecutter.package_name}}.core.configs.TrainConfig`. Unknown keys are an error.
+experiment_name: {{cookiecutter.package_name}}
+run_name: null
+seed: 42
+data_dir: data/processed
+max_epochs: 10
+batch_size: 32
+learning_rate: 0.001

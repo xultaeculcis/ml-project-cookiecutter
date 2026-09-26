@@ -1,0 +1,5 @@
+# Read by `{{cookiecutter.repo_name}} predict --config configs/predict.yaml` and validated by
+# `{{cookiecutter.package_name}}.core.configs.PredictConfig`. Unknown keys are an error.
+model_uri: models:/{{cookiecutter.package_name}}/1
+input_path: data/inference
+output_path: data/inference/predictions.parquet

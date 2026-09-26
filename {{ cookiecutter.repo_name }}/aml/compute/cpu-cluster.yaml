@@ -1,0 +1,9 @@
+$schema: https://azuremlschemas.azureedge.net/latest/amlCompute.schema.json
+name: cpu-cluster
+type: amlcompute
+size: Standard_DS3_v2
+min_instances: 0
+max_instances: 2
+# Seconds without jobs before a node is released. With min_instances 0, an idle cluster costs nothing.
+idle_time_before_scale_down: 900
+tier: dedicated

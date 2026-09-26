@@ -5,6 +5,8 @@ Attributes:
 
 """
 
+{% if cookiecutter.python_version != "3.14" -%}
 from __future__ import annotations
 
+{% endif -%}
 SEED = 42

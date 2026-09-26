@@ -1,0 +1,61 @@
+# Files that Azure ML does NOT upload in the code snapshot of a job (`code: ../..` in aml/components/*.yaml).
+# When this file exists, Azure ML uses it INSTEAD of .gitignore, so it must also list what .gitignore excludes.
+#
+# The job needs pyproject.toml, uv.lock, README.md, src/ and configs/. Everything else only makes the upload slower.
+{%- if cookiecutter.docker == "yes" %}
+# The optional Dockerfile environment build (see aml/environments/env.yaml) also needs Dockerfile. Do not exclude it.
+{%- endif %}
+#
+# Patterns use .gitignore syntax. A bare name (`data`) matches that name at ANY depth, also a sub-package such as
+# src/<package>/data. Anchor repository-root paths with a leading `/`.
+
+# Not needed to run a job
+/.git
+/.github
+/.azure-pipelines
+/docs
+/notebooks
+/tests
+/aml
+/mk
+
+# Data, experiments and model artifacts
+/data
+/mlruns
+/mlartifacts
+/mlflow.db
+/lightning_logs
+/outputs
+/logs
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.safetensors
+*.zip
+
+# Environments, caches and build output (unanchored: any depth)
+/.venv
+/build
+/dist
+/site
+/docs-site
+__pycache__
+*.py[cod]
+*.egg-info
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.cache
+.ipynb_checkpoints
+htmlcov
+.coverage
+.coverage.*
+coverage.xml
+
+# Secrets, local settings and editors
+/.env
+/.env.*
+/.idea
+/.vscode
+/.claude

@@ -1,0 +1,18 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+type: pipeline
+
+display_name: {{cookiecutter.repo_name}}-train
+description: Trains a model with the `train` component.
+# Azure ML sets MLFLOW_EXPERIMENT_NAME and MLFLOW_TRACKING_URI in the job from this value and the workspace.
+experiment_name: {{cookiecutter.package_name}}
+
+settings:
+  # Create it with `make aml-compute-create`, or change the name to an existing cluster.
+  default_compute: azureml:cpu-cluster
+
+jobs:
+  train:
+    type: command
+    component: file:../components/train.yaml
+    inputs:
+      config: configs/train.yaml
