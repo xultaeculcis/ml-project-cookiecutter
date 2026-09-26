@@ -1,0 +1,1288 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A project template and directory structure for Python data science projects.">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../contributing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Getting started - ML Project - Cookiecutter</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#getting-started" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ML Project - Cookiecutter" class="md-header__button md-logo" aria-label="ML Project - Cookiecutter" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ML Project - Cookiecutter
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Getting started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/xultaeculcis/ml-project-cookiecutter" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ML Project - Cookiecutter" class="md-nav__button md-logo" aria-label="ML Project - Cookiecutter" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    ML Project - Cookiecutter
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/xultaeculcis/ml-project-cookiecutter" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ml-stacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ML stacks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ML stacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-and-pytorch-wheels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU and PyTorch wheels
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-template-does-after-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the template does after generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ci-setup-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI setup notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CI setup notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zizmor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        zizmor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Azure Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keep-a-project-up-to-date-with-the-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keep a project up to date with the template
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keep a project up to date with the template">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-project-with-cruft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a project with cruft
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-an-existing-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Link an existing project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update a project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ml-stacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ML stacks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ML stacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-and-pytorch-wheels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU and PyTorch wheels
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-template-does-after-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the template does after generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ci-setup-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI setup notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CI setup notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zizmor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        zizmor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Azure Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keep-a-project-up-to-date-with-the-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keep a project up to date with the template
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keep a project up to date with the template">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-project-with-cruft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a project with cruft
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-an-existing-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Link an existing project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update a project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h1>
+<p>This guide tells you how to create a project from the template, what the project contains and how to keep it up to
+date with the template.</p>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="https://docs.astral.sh/uv/getting-started/installation/">uv</a>. uv runs <code>cookiecutter</code> and <code>cruft</code> with <code>uvx</code>, so
+    you do not install them. uv also installs the Python version of the project.</li>
+<li><code>git</code>. Configure your identity (<code>git config --global user.name ...</code> and <code>git config --global user.email ...</code>).
+    Without an identity, the template cannot make the initial commit. It then only stages the files.</li>
+<li><code>make</code> and <code>bash</code>, for the <code>make</code> targets of the generated project. On Windows, use WSL.</li>
+<li><a href="https://cookiecutter.readthedocs.io/">Cookiecutter</a> 2.6 or newer. <code>uvx cookiecutter</code> gets the latest version.</li>
+</ul>
+<h2 id="create-a-project">Create a project<a class="headerlink" href="#create-a-project" title="Permanent link">¶</a></h2>
+<p>Run:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>cookiecutter<span class="w"> </span>gh:xultaeculcis/ml-project-cookiecutter
+</code></pre></div>
+<p>Cookiecutter asks for each option. Push Enter to accept the default value. To create a project without questions,
+give the values on the command line:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>cookiecutter<span class="w"> </span>gh:xultaeculcis/ml-project-cookiecutter<span class="w"> </span>--no-input<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">project_name</span><span class="o">=</span><span class="s2">"My ML project"</span><span class="w"> </span><span class="nv">ml_stack</span><span class="o">=</span>lightning<span class="w"> </span><span class="nv">ci_provider</span><span class="o">=</span>github
+</code></pre></div>
+<p>Before it generates the project, the template checks the names:</p>
+<ul>
+<li><code>package_name</code> must be a valid Python identifier. It must not be a Python keyword, a standard library module
+    (for example <code>logging</code>) or a dependency of the project (for example <code>mlflow</code>, <code>torch</code> or <code>yaml</code>).</li>
+<li><code>repo_name</code> must contain only lowercase letters, digits and hyphens, and must start with a letter or a digit.</li>
+<li><code>github_username</code> must be a valid GitHub user or organization name: 1 to 39 letters, digits or hyphens.</li>
+<li><code>project_name</code>, <code>author_name</code> and <code>project_description</code> must not contain <code>"</code>, <code>\</code> or new lines. These values go
+    into <code>pyproject.toml</code>, <code>mkdocs.yml</code> and the <code>Dockerfile</code>. Other characters, for example <code>:</code> or <code>'</code>, are fine.</li>
+</ul>
+<p>If a name is not valid, cookiecutter stops and shows the error.</p>
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">¶</a></h2>
+<p>The first option in each list is the default.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Choices</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>project_name</code></td>
+<td><code>project-name</code></td>
+<td>Any text without <code>"</code>, <code>\</code>, or new lines</td>
+<td>The project title in <code>README.md</code>, the docs and the package metadata.</td>
+</tr>
+<tr>
+<td><code>repo_name</code></td>
+<td><code>project_name</code>, slugified with <code>-</code></td>
+<td>Lowercase letters, digits, <code>-</code></td>
+<td>The directory name, the console script name and the Docker image name.</td>
+</tr>
+<tr>
+<td><code>package_name</code></td>
+<td><code>project_name</code>, slugified with <code>_</code></td>
+<td>A Python identifier</td>
+<td>The package in <code>src/</code>.</td>
+</tr>
+<tr>
+<td><code>author_name</code></td>
+<td><code>xultaeculcis</code></td>
+<td>Any text without <code>"</code>, <code>\</code>, or new lines</td>
+<td>The author in <code>pyproject.toml</code>, <code>LICENSE</code> and the docs copyright.</td>
+</tr>
+<tr>
+<td><code>github_username</code></td>
+<td><code>author_name</code>, slugified, at most 39 characters</td>
+<td>A GitHub user or organization: letters, digits, <code>-</code></td>
+<td>The owner in the default <code>repo_url</code>.</td>
+</tr>
+<tr>
+<td><code>repo_url</code></td>
+<td><code>https://github.com/&lt;github_username&gt;/&lt;repo_name&gt;</code></td>
+<td>A URL without spaces, <code>"</code> or <code>\</code></td>
+<td>The <code>origin</code> git remote, the package URLs and the docs repository link.</td>
+</tr>
+<tr>
+<td><code>project_description</code></td>
+<td><code>A short description of the project</code></td>
+<td>Any text without <code>"</code>, <code>\</code>, or new lines</td>
+<td>The description in <code>README.md</code>, <code>pyproject.toml</code> and the docs.</td>
+</tr>
+<tr>
+<td><code>python_version</code></td>
+<td><code>3.13</code></td>
+<td><code>3.13</code>, <code>3.12</code>, <code>3.14</code>, <code>3.11</code></td>
+<td><code>.python-version</code>, <code>requires-python</code>, the <code>ruff</code> target version and the Docker base image. With <code>3.14</code>, the modules do not use <code>from __future__ import annotations</code>.</td>
+</tr>
+<tr>
+<td><code>license</code></td>
+<td><code>MIT</code></td>
+<td><code>MIT</code>, <code>Apache 2.0</code>, <code>BSD-3-Clause</code>, <code>Beerware</code>, <code>GLWTS</code>, <code>Proprietary</code>, <code>Empty license file</code></td>
+<td>The <code>LICENSE</code> file and the SPDX <code>license</code> field. <code>Proprietary</code> adds the <code>Private :: Do Not Upload</code> classifier. <code>Empty license file</code> makes an empty <code>LICENSE</code> and no <code>license</code> field.</td>
+</tr>
+<tr>
+<td><code>ml_stack</code></td>
+<td><code>sklearn</code></td>
+<td><code>sklearn</code>, <code>torch</code>, <code>lightning</code>, <code>none</code></td>
+<td>The ML dependencies. See <a href="#ml-stacks">ML stacks</a>.</td>
+</tr>
+<tr>
+<td><code>ci_provider</code></td>
+<td><code>github</code></td>
+<td><code>github</code>, <code>azure</code>, <code>none</code></td>
+<td><code>github</code>: <code>.github/workflows/pr.yaml</code> and <code>nightly.yaml</code>. <code>azure</code>: <code>.azure-pipelines/</code>. <code>none</code>: no CI pipeline.</td>
+</tr>
+<tr>
+<td><code>dependabot</code></td>
+<td><code>yes</code></td>
+<td><code>yes</code>, <code>no</code></td>
+<td><code>.github/dependabot.yaml</code> for GitHub Actions, <code>uv.lock</code> and (with <code>docker=yes</code>) the Docker base images. For repositories on GitHub only; kept with every <code>ci_provider</code>.</td>
+</tr>
+<tr>
+<td><code>lock_update_workflow</code></td>
+<td><code>yes</code></td>
+<td><code>yes</code>, <code>no</code></td>
+<td><code>.github/workflows/lock-files-update.yaml</code>: a monthly <code>uv lock --upgrade</code> and <code>pre-commit autoupdate</code> pull request. For repositories on GitHub only; kept with every <code>ci_provider</code>.</td>
+</tr>
+<tr>
+<td><code>zizmor</code></td>
+<td><code>pre-commit</code></td>
+<td><code>pre-commit</code>, <code>workflow-sarif</code>, <code>no</code></td>
+<td><code>pre-commit</code>: a <code>zizmor</code> hook. <code>workflow-sarif</code>: <code>.github/workflows/zizmor-security-check.yaml</code>. <code>no</code>: no <code>zizmor</code> check.</td>
+</tr>
+<tr>
+<td><code>docker</code></td>
+<td><code>yes</code></td>
+<td><code>yes</code>, <code>no</code></td>
+<td><code>Dockerfile</code>, <code>.dockerignore</code> and <code>mk/docker.mk</code>.</td>
+</tr>
+<tr>
+<td><code>azure_ml</code></td>
+<td><code>no</code></td>
+<td><code>no</code>, <code>yes</code></td>
+<td><code>aml/</code>, <code>.amlignore</code>, <code>mk/aml.mk</code>, <code>docs/guides/azure-ml.md</code> and the <code>azureml-mlflow</code> dependency.</td>
+</tr>
+<tr>
+<td><code>agent_docs</code></td>
+<td><code>yes</code></td>
+<td><code>yes</code>, <code>no</code></td>
+<td><code>CLAUDE.md</code>, <code>CONTEXT.md</code>, <code>docs/glossary.md</code> and <code>docs/adr/</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ml-stacks">ML stacks<a class="headerlink" href="#ml-stacks" title="Permanent link">¶</a></h3>
+<ul>
+<li><code>sklearn</code>: adds <code>scikit-learn</code>.</li>
+<li><code>torch</code>: adds <code>torch</code> and <code>src/&lt;package_name&gt;/utils/torch.py</code> (<code>get_device</code>, <code>set_gpu_power_limit_if_needed</code>).</li>
+<li><code>lightning</code>: adds <code>torch</code>, <code>lightning</code> and <code>jsonargparse[signatures]</code>. It also adds <code>src/&lt;package_name&gt;/lightning/</code>
+    (a LightningCLI runner, an MLflow config callback, an example model and data module), <code>configs/lightning/fit.yaml</code>,
+    the <code>lightning</code> CLI command and <code>docs/api_ref/lightning.md</code>.</li>
+<li><code>none</code>: only the base dependencies (<code>numpy</code>, <code>pandas</code>, <code>mlflow</code>, <code>pydantic</code> and some others).</li>
+</ul>
+<p>All stacks include MLflow, click, pydantic and pydantic-settings.</p>
+<h4 id="gpu-and-pytorch-wheels">GPU and PyTorch wheels<a class="headerlink" href="#gpu-and-pytorch-wheels" title="Permanent link">¶</a></h4>
+<p>With <code>torch</code> or <code>lightning</code>, uv installs <code>torch</code> on Linux from the PyTorch CUDA 13.0 index (<code>pytorch-cu130</code>). These
+wheels need an NVIDIA driver version 580 or newer. On macOS and Windows, uv installs the default wheels from PyPI.
+To use a different CUDA version, change the index in <code>pyproject.toml</code> of the generated project and run <code>make lock</code>.</p>
+<p>The CUDA wheels of <code>torch</code> and its NVIDIA dependencies are several GB. Each CI job downloads them (or restores them
+from the uv cache), which adds minutes to each run. The GitHub workflows of a <code>torch</code> or <code>lightning</code> project remove
+preinstalled SDKs from the runner before <code>uv sync</code>, so the wheels fit on the disk. If no machine needs CUDA, change
+the index URL to <code>https://download.pytorch.org/whl/cpu</code> and run <code>make lock</code>.</p>
+<h2 id="generated-project">Generated project<a class="headerlink" href="#generated-project" title="Permanent link">¶</a></h2>
+<p>This is the project for the default options, with <code>project_name="My ML project"</code>. The comments show the files that
+depend on an option.</p>
+<div class="highlight"><pre><span></span><code>my-ml-project/
+├── .github/                      &lt;- ci_provider, dependabot, lock_update_workflow, zizmor
+│   ├── dependabot.yaml           &lt;- dependabot=yes
+│   └── workflows/
+│       ├── lock-files-update.yaml  &lt;- lock_update_workflow=yes
+│       ├── nightly.yaml          &lt;- ci_provider=github
+│       └── pr.yaml               &lt;- ci_provider=github
+├── configs/                      &lt;- Run configs (YAML), validated by pydantic models.
+│   ├── README.md
+│   ├── evaluate.yaml
+│   ├── predict.yaml
+│   └── train.yaml
+├── data/                         &lt;- Local data. Git ignores the content, except the .gitkeep files.
+│   ├── analysis/
+│   ├── auxiliary/
+│   ├── inference/
+│   ├── interim/
+│   ├── processed/
+│   └── raw/
+├── docs/                         &lt;- MkDocs documentation.
+│   ├── adr/                      &lt;- agent_docs=yes
+│   ├── api_ref/                  &lt;- API reference (mkdocstrings).
+│   ├── dev-logs/
+│   │   └── log.md
+│   ├── glossary.md               &lt;- agent_docs=yes
+│   ├── guides/                   &lt;- Setup, Makefile, tests, CLI, configs, experiment tracking, CI, contributing.
+│   └── index.md
+├── mk/
+│   └── docker.mk                 &lt;- docker=yes
+├── notebooks/
+├── src/
+│   └── my_ml_project/
+│       ├── __init__.py
+│       ├── __main__.py           &lt;- `python -m my_ml_project`
+│       ├── py.typed
+│       ├── cli/
+│       │   └── entrypoint.py     &lt;- The click CLI: train, evaluate, predict.
+│       ├── consts/               &lt;- Directories, seed, MLflow defaults and other constants.
+│       ├── core/
+│       │   ├── configs.py        &lt;- Pydantic models for the run configs.
+│       │   └── settings.py       &lt;- Lazy settings from the environment and .env.
+│       └── utils/                &lt;- Logging, MLflow, seed and JSON serialization helpers.
+├── tests/
+│   ├── conftest.py               &lt;- Markers from the directory, network block for unit tests.
+│   ├── e2e/
+│   ├── integration/
+│   └── unit/
+├── .dockerignore                 &lt;- docker=yes
+├── .env-sample                   &lt;- Copy it to .env.
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .python-version
+├── CLAUDE.md                     &lt;- agent_docs=yes
+├── CONTEXT.md                    &lt;- agent_docs=yes
+├── Dockerfile                    &lt;- docker=yes
+├── LICENSE
+├── Makefile
+├── README.md
+├── mkdocs.yml
+└── pyproject.toml
+</code></pre></div>
+<p>Other options add these files:</p>
+<ul>
+<li><code>ci_provider=azure</code>: <code>.azure-pipelines/</code> (<code>pr-pipeline.yaml</code>, <code>jobs/</code>, <code>steps/</code>).</li>
+<li><code>zizmor=workflow-sarif</code>: <code>.github/workflows/zizmor-security-check.yaml</code>.</li>
+<li><code>azure_ml=yes</code>: <code>aml/</code>, <code>.amlignore</code>, <code>mk/aml.mk</code> and <code>docs/guides/azure-ml.md</code>.</li>
+<li><code>ml_stack=torch</code> or <code>ml_stack=lightning</code>: <code>src/&lt;package_name&gt;/utils/torch.py</code> and its test.</li>
+<li><code>ml_stack=lightning</code>: <code>src/&lt;package_name&gt;/lightning/</code>, <code>tests/unit/lightning/</code>, <code>configs/lightning/</code> and
+    <code>docs/api_ref/lightning.md</code>.</li>
+</ul>
+<p>If no file is left in <code>.github/</code> or <code>mk/</code>, the template removes the directory.</p>
+<h2 id="what-the-template-does-after-generation">What the template does after generation<a class="headerlink" href="#what-the-template-does-after-generation" title="Permanent link">¶</a></h2>
+<ol>
+<li>It removes the files of the options that you did not select.</li>
+<li>It runs <code>git init</code> with the <code>main</code> branch.</li>
+<li>It adds the <code>origin</code> remote with the <code>repo_url</code> value.</li>
+<li>It stages all files and makes the <code>Initial commit</code> commit. If your git identity is not configured, it shows a
+    warning and leaves the files staged. The project is not deleted.</li>
+<li>It shows the next steps.</li>
+</ol>
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
+<ol>
+<li>
+<p>Go to the project directory:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>my-ml-project
+</code></pre></div>
+</li>
+<li>
+<p>Create the environment, create <code>uv.lock</code> and install the <code>pre-commit</code> hooks:</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>init-project
+</code></pre></div>
+</li>
+<li>
+<p>Commit the lock file:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>uv.lock
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Add uv.lock"</span>
+</code></pre></div>
+</li>
+<li>
+<p>Copy <code>.env-sample</code> to <code>.env</code> and set the values:</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>.env-sample<span class="w"> </span>.env
+</code></pre></div>
+</li>
+<li>
+<p>Run the checks:</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>pc
+make<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
+</li>
+<li>
+<p>Create the remote repository (the <code>repo_url</code> value) and push:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+</li>
+<li>
+<p>Read the guides of the project: run <code>make docs-serve</code> and open <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a>.</p>
+</li>
+</ol>
+<p>To see all <code>make</code> targets, run <code>make help</code>.</p>
+<h2 id="ci-setup-notes">CI setup notes<a class="headerlink" href="#ci-setup-notes" title="Permanent link">¶</a></h2>
+<h3 id="github-actions">GitHub Actions<a class="headerlink" href="#github-actions" title="Permanent link">¶</a></h3>
+<ul>
+<li><code>pr.yaml</code> runs the <code>pre-commit</code> hooks and the tests on each pull request to <code>main</code>. <code>nightly.yaml</code> runs all hooks
+    and all tests except <code>gpu</code> tests every day at 03:00 UTC.</li>
+<li>The monthly lock file update workflow opens a pull request. In the repository settings, go to "Actions",
+    "General", "Workflow permissions" and select "Allow GitHub Actions to create and approve pull requests".</li>
+<li>A pull request that the default <code>GITHUB_TOKEN</code> opens does not start other workflows. To run the CI checks on the
+    lock file update pull request, create the <code>LOCK_UPDATE_TOKEN</code> repository secret: a fine-grained personal access
+    token (contents and pull requests: read and write) or a GitHub App token.</li>
+<li>The lock file update workflow does not request a reviewer. GitHub rejects a review request (HTTP 422) when the
+    reviewer owns the token that opens the pull request, or is an organization. The workflow file has a commented
+    <code>reviewers</code> example.</li>
+<li><code>dependabot.yaml</code> and the lock file update workflow work only on GitHub. They are also generated with
+    <code>ci_provider=azure</code> or <code>none</code>, because a repository on GitHub can use Azure Pipelines. Delete them if the
+    repository is not on GitHub.</li>
+</ul>
+<h3 id="zizmor">zizmor<a class="headerlink" href="#zizmor" title="Permanent link">¶</a></h3>
+<ul>
+<li><code>zizmor=pre-commit</code>: the <code>zizmor</code> <code>pre-commit</code> hook checks the workflows when a file in <code>.github/</code> changes. It works
+    on private repositories.</li>
+<li><code>zizmor=workflow-sarif</code>: a workflow uploads the results to GitHub code scanning as SARIF. On a private repository,
+    code scanning needs GitHub Advanced Security (GitHub Code Security). Without it, the upload step fails.</li>
+<li><code>zizmor=no</code>: no <code>zizmor</code> check.</li>
+</ul>
+<h3 id="azure-pipelines">Azure Pipelines<a class="headerlink" href="#azure-pipelines" title="Permanent link">¶</a></h3>
+<ul>
+<li>Create a pipeline in Azure DevOps from <code>.azure-pipelines/pr-pipeline.yaml</code>. For Azure Repos, add a build validation
+    branch policy on <code>main</code>, because Azure Repos ignores the <code>pr:</code> trigger in YAML.</li>
+<li>The <code>uvVersion</code> parameter in <code>.azure-pipelines/steps/uv-env-create.yaml</code> pins the uv version. Change it when the
+    team changes the uv version.</li>
+<li>The <code>env</code> pipeline parameter (<code>dev</code>, <code>staging</code> or <code>prod</code>) becomes the <code>ENVIRONMENT</code> variable of the tests.</li>
+</ul>
+<h3 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">¶</a></h3>
+<ul>
+<li>The image uses <code>python:&lt;python_version&gt;-slim-trixie</code> and a pinned <code>ghcr.io/astral-sh/uv</code> image. The runtime stage
+    has only the runtime dependencies, <code>src/</code> and <code>configs/</code>, and runs as the non-root user <code>app</code>.</li>
+<li>The build needs <code>uv.lock</code>. Run <code>make init-project</code> (or <code>uv lock</code>) before <code>make docker-build</code>.</li>
+<li>With <code>dependabot=yes</code>, Dependabot proposes patch updates of the base image. Change the Python minor version by hand.</li>
+</ul>
+<h2 id="keep-a-project-up-to-date-with-the-template">Keep a project up to date with the template<a class="headerlink" href="#keep-a-project-up-to-date-with-the-template" title="Permanent link">¶</a></h2>
+<p><a href="https://cruft.github.io/cruft/">cruft</a> records the template commit that a project uses. It can then apply the later
+changes of the template to the project.</p>
+<h3 id="create-a-project-with-cruft">Create a project with cruft<a class="headerlink" href="#create-a-project-with-cruft" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p>Create the project:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>cruft<span class="w"> </span>create<span class="w"> </span>https://github.com/xultaeculcis/ml-project-cookiecutter
+</code></pre></div>
+</li>
+<li>
+<p>Commit <code>.cruft.json</code>. The template makes the initial commit before cruft writes <code>.cruft.json</code>, so you must commit
+    it yourself:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>my-ml-project
+git<span class="w"> </span>add<span class="w"> </span>.cruft.json
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Add cruft state"</span>
+</code></pre></div>
+</li>
+</ol>
+<h3 id="link-an-existing-project">Link an existing project<a class="headerlink" href="#link-an-existing-project" title="Permanent link">¶</a></h3>
+<p>If you created the project with <code>cookiecutter</code>, link it to the template:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>cruft<span class="w"> </span>link<span class="w"> </span>https://github.com/xultaeculcis/ml-project-cookiecutter
+</code></pre></div>
+<p>Enter the same values that you used when you created the project. Then commit <code>.cruft.json</code>.</p>
+<h3 id="update-a-project">Update a project<a class="headerlink" href="#update-a-project" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p>Check if the project uses the latest template:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>cruft<span class="w"> </span>check
+</code></pre></div>
+</li>
+<li>
+<p>Make sure that the working tree has no uncommitted changes.</p>
+</li>
+<li>
+<p>Apply the template changes:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>cruft<span class="w"> </span>update
+</code></pre></div>
+</li>
+<li>
+<p>Examine the changes. If a change does not apply, cruft writes a <code>.rej</code> file. Merge these changes by hand and
+    remove the <code>.rej</code> files.</p>
+</li>
+<li>
+<p>Run <code>make env</code>, <code>make pc</code> and <code>make test</code>. Then commit the changes and <code>.cruft.json</code>.</p>
+</li>
+</ol>
+<p><code>cruft</code> uses only the files that are committed in the template repository.</p>
+<p>Keep <code>[tool.cruft] skip = [".git"]</code> in <code>pyproject.toml</code>. The post-generation hook runs <code>git init</code> also in the
+temporary copies that <code>cruft update</code> generates, and without this setting the update fails with
+<code>ChangesetUnicodeError</code>. Add other paths to <code>skip</code> that <code>cruft update</code> must not change.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright 2023-2026 xultaeculcis
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
