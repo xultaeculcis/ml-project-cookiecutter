@@ -3,6 +3,7 @@
 ![license](https://img.shields.io/github/license/xultaeculcis/ml-project-cookiecutter)
 [![codecov](https://codecov.io/gh/xultaeculcis/ml-project-cookiecutter/branch/main/graph/badge.svg?token=2CBERR0ACO)](https://codecov.io/gh/xultaeculcis/ml-project-cookiecutter)
 [![project-creation-checks](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/project-creation-checks.yaml/badge.svg)](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/project-creation-checks.yaml)
+[![pr](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/pr.yaml/badge.svg)](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/pr.yaml)
 [![zizmor](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/zizmor-sec-check.yaml/badge.svg)](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/zizmor-sec-check.yaml)
 [![docs](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/docs.yaml/badge.svg)](https://github.com/xultaeculcis/ml-project-cookiecutter/actions/workflows/docs.yaml)
 
@@ -42,41 +43,54 @@ This project was greatly inspired by
 
 ## Features
 
-- Integrated `pre-commit` hooks:
-    - `pyupgrade`
-    - `codespell`
-    - `docformatter`
-    - `ruff`
-    - `mypy`
-    - `pytest`
-    - And a few more...
-- Project documentation creation using [MkDocs](https://www.mkdocs.org/) with
-    [Material](https://squidfunk.github.io/mkdocs-material/) theme.
-- CI pipelines (Azure DevOps)
-- Some useful utility classes and functions I found myself re-implementing again and again
-- Folder structure inspired by [Cookiecutter Data Science](https://github.com/drivendata/cookiecutter-data-science/)
-- `uv.lock` file for reproducibility
-- Makefile with a bunch of pre-defined commands
-- Secrets support using `.env` files and [pydantic-settings](https://docs.pydantic.dev/latest/usage/pydantic_settings/)
-- `pyproject.toml` with project tool configs
+- Options for the ML stack (scikit-learn, PyTorch, PyTorch Lightning or none), the CI provider (GitHub Actions, Azure
+    Pipelines or none), Dependabot, a monthly lock file update workflow, `zizmor` checks, Docker, Azure ML and agent
+    docs. The files of options that you do not select are not in the project.
+- Python 3.11 to 3.14. [uv](https://docs.astral.sh/uv/) manages the environment, with a committed `uv.lock` and
+    `.python-version`.
+- `pre-commit` hooks: `pre-commit-hooks`, `codespell`, `ruff` (lint and format), `mdformat`, `uv-lock`, `zizmor`,
+    `mypy` and `pytest`. The `mypy` and `pytest` hooks run in the project environment with `uv run`.
+- A [click](https://click.palletsprojects.com/) CLI with `train`, `evaluate` and `predict` commands, and a
+    LightningCLI command for the Lightning stack.
+- YAML run configs in `configs/`, validated by pydantic models. A test loads every committed config.
+- Lazy settings from environment variables and `.env` files with
+    [pydantic-settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/).
+- [MLflow](https://mlflow.org/) experiment tracking with a local SQLite store, helper functions and `make mlflow-ui`.
+- `pytest` with `unit`, `integration` and `e2e` markers from the test directory, `slow` and `gpu` markers,
+    `pytest-socket` for unit tests, `pytest-xdist` and a coverage threshold.
+- Documentation with [MkDocs](https://www.mkdocs.org/) and the
+    [Material](https://squidfunk.github.io/mkdocs-material/) theme: guides, an API reference (mkdocstrings) and
+    dev-logs for experiment results.
+- A `Makefile` with targets for the environment, code quality, tests, docs, MLflow, Docker and Azure ML.
+- A multi-stage `Dockerfile` that runs as a non-root user.
+- Agent docs: `CLAUDE.md`, `CONTEXT.md`, a glossary and architecture decision records.
+- Folder structure inspired by [Cookiecutter Data Science](https://github.com/drivendata/cookiecutter-data-science/).
+- Template updates for existing projects with [cruft](https://cruft.github.io/cruft/).
 
 ## Getting started
 
-Run:
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/). Then create a project:
 
 ```shell
-cookiecutter https://github.com/xultaeculcis/ml-project-cookiecutter
+uvx cookiecutter gh:xultaeculcis/ml-project-cookiecutter
 ```
 
-`cd` into your new project directory and then run:
+Go to the new project directory and run:
 
 ```shell
 make init-project
 ```
 
-to get started.
+This creates the environment and `uv.lock`, and installs the `pre-commit` hooks.
 
-For the full guide, please check out [this](https://xultaeculcis.github.io/ml-project-cookiecutter/guide/) page.
+To get template updates later, create the project with [cruft](https://cruft.github.io/cruft/) instead:
+
+```shell
+uvx cruft create https://github.com/xultaeculcis/ml-project-cookiecutter
+```
+
+For the full guide (all options, the generated files, CI setup and template updates), see
+[this](https://xultaeculcis.github.io/ml-project-cookiecutter/guide/) page.
 
 ## Contributing
 
@@ -84,8 +98,14 @@ Please refer to [this](https://xultaeculcis.github.io/ml-project-cookiecutter/co
 
 ## Running tests
 
-To run the unit tests, execute:
+To run the fast tests, execute:
 
 ```shell
 make test
+```
+
+To run all tests, including the slow tests that run the tooling of generated projects, execute:
+
+```shell
+make test-all
 ```
