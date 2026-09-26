@@ -1,9 +1,9 @@
 site_name: {{ cookiecutter.repo_name }}
-site_description: {{ cookiecutter.project_description }}
+site_description: "{{ cookiecutter.project_description }}"
 site_dir: docs-site
 repo_url: {{ cookiecutter.repo_url }}
-edit_uri: edit/main/docs
-copyright: Copyright {% now 'utc', '%Y' %} {{ cookiecutter.author_name }}
+edit_uri: edit/main/docs/
+copyright: "Copyright {% now 'utc', '%Y' %} {{ cookiecutter.author_name }}"
 theme:
   name: material
   features:
@@ -19,6 +19,7 @@ markdown_extensions:
       use_pygments: true
   - pymdownx.superfences
   - pymdownx.tabbed
+  - tables
 plugins:
   - glightbox:
       touchNavigation: true
@@ -40,6 +41,8 @@ plugins:
       default_handler: python
       handlers:
         python:
+          paths:
+            - src
           options:
             docstring_style: google
             show_root_toc_entry: false
@@ -53,19 +56,39 @@ plugins:
               - "!^_[^_]"  # exclude all members starting with _
             extensions:
               - griffe_pydantic:
-                schema: true
+                  schema: true
 watch:
   - src/
 nav:
   - Home: index.md
   - Guides:
-      - Setting up dev environment: "guides/setup-dev-env.md"
-      - Contributing: "guides/contributing.md"
-      - Running tests: "guides/tests.md"
+      - Setting up the dev environment: "guides/setup-dev-env.md"
       - Using Makefile commands: "guides/makefile-usage.md"
+      - Running tests: "guides/tests.md"
+      - Command-line interface: "guides/cli.md"
+      - Run configs: "guides/configs.md"
+      - Experiment tracking: "guides/experiment-tracking.md"
+      - CI and automation: "guides/ci.md"
+{%- if cookiecutter.azure_ml == "yes" %}
+      - Azure ML: "guides/azure-ml.md"
+{%- endif %}
+      - Contributing: "guides/contributing.md"
+{%- if cookiecutter.agent_docs == "yes" %}
+  - Project knowledge:
+      - Glossary: "glossary.md"
+      - Architecture decisions:
+          - About ADRs: "adr/README.md"
+          - 0001 Record architecture decisions: "adr/0001-record-architecture-decisions.md"
+{%- endif %}
+  # Add one line per dev-log entry, for example:
+  #   - Log 2025-01-25 - My experiment: "dev-logs/2025-01-25-my-experiment/log.md"
   - DEV-LOG:
       - Intro: "dev-logs/log.md"
   - API reference:
-      - {{cookiecutter.package_name}}.consts: "api_ref/consts.md"
-      - {{cookiecutter.package_name}}.core: "api_ref/core.md"
-      - {{cookiecutter.package_name}}.utils: "api_ref/utils.md"
+      - {{ cookiecutter.package_name }}.cli: "api_ref/cli.md"
+      - {{ cookiecutter.package_name }}.consts: "api_ref/consts.md"
+      - {{ cookiecutter.package_name }}.core: "api_ref/core.md"
+      - {{ cookiecutter.package_name }}.utils: "api_ref/utils.md"
+{%- if cookiecutter.ml_stack == "lightning" %}
+      - {{ cookiecutter.package_name }}.lightning: "api_ref/lightning.md"
+{%- endif %}

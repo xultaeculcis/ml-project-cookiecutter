@@ -1,57 +1,52 @@
-## Intro
+# Development logs
 
-Welcome to the Development Logs for this ML project! Here, we keep concise, day-to-day records of our progress—from
-experiment design and data processing to model tuning and final results. These logs help track changes,
-document learnings, and ensure reproducibility.
+The development logs (dev-logs) record the work on this project: experiments, data changes, model results and
+decisions. Each entry is a snapshot. Use the entries to repeat a result or to find why something changed.
 
-Below is the recommended structure for each development log directory:
+## Structure
 
+Each entry is a directory in `docs/dev-logs/`:
+
+```text
+docs/dev-logs/
+└── YYYY-MM-DD-<slug>/
+    ├── log.md             # The entry
+    └── assets/            # Images, plots, configs and metric reports
+        └── make_plots.py  # Optional: the script that makes the plots in assets/
 ```
-yyyy-mm-dd-<concise-name>/
-  ├─ log.md        # Main log documentation
-  └─ assets/       # Directory for images, plots, artifacts, etc.
-```
 
-Each log entry in the dev-logs directory captures a snapshot of our iterative process, making it easy to revisit
-decisions or troubleshoot issues. Refer to the individual log pages for detailed insights into our ongoing development.
+- The directory name starts with the date of the entry, then a short slug with hyphens, for example
+    `2025-01-25-baseline-model`.
+- Put all files that `log.md` uses in `assets/`. Link them with relative paths, for example
+    `![Loss](assets/loss.png)`.
+- If the entry has plots, put the script that makes them in `assets/make_plots.py`. The script reads the files in
+    `assets/` (for example copied MLflow metrics) and writes the plots. Run it with `uv run python assets/make_plots.py`.
+    Then anybody can make the plots again.
 
-## Adding New Log Entries
+## Add an entry
 
-1. **Create a new directory**:
+1. Create the directory `docs/dev-logs/YYYY-MM-DD-<slug>/` with the `log.md` file and the `assets/` directory.
 
-    - Follow the naming convention: `yyyy-mm-dd-<concise-name>`.
-    - Include the files:
+2. Write the entry in `log.md`. Include:
 
-    ```text
-    yyyy-mm-dd-<concise-name>/
-      ├─ log.md
-      └─ assets/
-    ```
+    - The goal of the work.
+    - The MLflow run IDs and the configs that you used.
+    - The results, with the metrics.
+    - The conclusions and the next steps.
 
-2. **Document your work**
-
-    - Write a concise, meaningful entry in `log.md` to capture key tasks, experiments, findings, and any relevant notes.
-
-3. **Update the `mkdocs.yml`**
-
-    - Open the `mkdocs.yml` file.
-    - Locate the navigation (nav) section for DEV Logs.
-    - Add a reference to your new directory and `log.md` so it appears in the navigation panel. For example:
+3. Add the entry to the `nav` section of `mkdocs.yml`, under `DEV-LOG`. Use this format:
 
     ```yaml
     nav:
-      - Home: index.md
       - DEV-LOG:
-        - Intro: "dev-logs/log.md"
-        - Log 2025-01-25 - My Experiment: "dev-logs/2025-01-25-my-experiment/log.md"
-        # Add more logs here...
+          - Intro: "dev-logs/log.md"
+          - Log 2025-01-25 - Baseline model: "dev-logs/2025-01-25-baseline-model/log.md"
     ```
 
-    - Save the file.
+4. Build the documentation and check the entry:
 
-4. **Preview and confirm**
+    ```shell
+    make docs-serve
+    ```
 
-    - Run `mkdocs serve` to preview your documentation.
-    - Ensure your new log entry is visible and correctly linked in the navigation panel.
-
-With these steps, each new development log will be properly documented and easily accessible through your MkDocs setup.
+5. Make sure that each link to `assets/` works.

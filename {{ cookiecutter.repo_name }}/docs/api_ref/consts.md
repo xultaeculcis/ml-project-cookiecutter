@@ -14,6 +14,10 @@
 
 ::: {{cookiecutter.package_name}}.consts.reproducibility
 
+## Tracking
+
+::: {{cookiecutter.package_name}}.consts.tracking
+
 ## Training
 
 ::: {{cookiecutter.package_name}}.consts.training
