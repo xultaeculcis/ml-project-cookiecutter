@@ -9,7 +9,7 @@
 # Run:   make docker-run ARGS="--help"
 
 # Pinned uv version. Dependabot (docker ecosystem) proposes updates.
-FROM ghcr.io/astral-sh/uv:0.12.19 AS uv
+FROM ghcr.io/astral-sh/uv:0.12.21 AS uv
 
 # ---- builder ----------------------------------------------------------------
 FROM python:{{cookiecutter.python_version}}-slim-trixie AS builder

@@ -2,7 +2,7 @@ parameters:
   # Pinned uv version. Update it together with the uv version used locally.
   - name: uvVersion
     type: string
-    default: "0.12.19"
+    default: "0.12.21"
 
 steps:
   - bash: |
