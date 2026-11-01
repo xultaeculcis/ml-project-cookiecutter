@@ -44,7 +44,7 @@ dev = [
     "pytest>=8.4.0",
     "pytest-cov>=6.2.0",
     "pytest-xdist>=3.8.0",
-    "ruff==0.16.9",  # keep in sync with the ruff-pre-commit rev
+    "ruff==0.17.2",  # keep in sync with the ruff-pre-commit rev
     "types-pyyaml>=6.0.12.20250402",
 ]
 docs = [
